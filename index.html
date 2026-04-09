@@ -79,7 +79,7 @@
         .nav-kyc svg { flex-shrink: 0; }
         .nav-cta {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: #0a0a0a; padding: 8px 22px; border-radius: 8px; font-weight: 600;
+            color: #000 !important; padding: 8px 22px; border-radius: 8px; font-weight: 900;
             font-size: 14px; text-decoration: none; transition: all 0.3s;
         }
         .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--gold-glow); }
@@ -130,7 +130,7 @@
         .btn-kyc:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.4); }
         .btn-primary {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: #0a0a0a; padding: 14px 36px; border-radius: 12px;
+            color: #000 !important; padding: 14px 36px; border-radius: 12px;
             font-size: 16px; font-weight: 700; text-decoration: none;
             display: inline-flex; align-items: center; gap: 8px;
             transition: all 0.3s; border: none; cursor: pointer;
@@ -664,47 +664,10 @@ initScrollAnimations();
 var SHEET_ID = '1ujUTvJcHLN7MTMLJrbuLX_m789syksY0cSPmKw175yY';
 var PRICE_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0';
 var HISTORY_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=2';
-var DISPLAY_DAYS = 7; // 只顯示最近 7 天
-
-// ===== Fallback 折線資料 (售價比) =====
-var fallbackHistory = (function() {
-    // 基礎售價比（每伺服器最近的參考值）
-    var bases = {
-        "太陽神阿波羅":300,"愛神丘比特":310,"勝利女神雅典娜":250,"美神維納斯":305,
-        "天神宙斯":250,"天后海拉":245,"戰神馬爾斯":325,"月亮女神阿緹蜜斯":250,
-        "海神波塞頓":285,"水蛇許德拉":385,"冥王黑帝斯":310,"火神赫發斯特斯":245,
-        "收獲女神蒂蜜特":305,"蛇髮女墨杜沙":280,"半人馬涅索斯":285,
-        "牛人彌諾陶洛斯":280,"泰坦女神瑞亞":390
-    };
-    var result = {};
-    var now = Date.now();
-    var keys = Object.keys(bases);
-    for (var k = 0; k < keys.length; k++) {
-        var server = keys[k], base = bases[server], points = [];
-        // 產生最近 3 天每 15 分鐘的模擬數據
-        for (var d = 2; d >= 0; d--) {
-            for (var h = 0; h < 24; h++) {
-                for (var m = 0; m < 60; m += 15) {
-                    var ts = now - d * 86400000 - (23-h) * 3600000 - (45-m) * 60000;
-                    var jitter = Math.round((Math.random() - 0.5) * 20);
-                    points.push({ time: Math.floor(ts / 1000), value: base + jitter });
-                }
-            }
-        }
-        result[server] = points;
-    }
-    return result;
-})();
+var DISPLAY_DAYS = 3; // 只顯示最近 3 天
 
 // ===== State =====
 var historyDataMap = {};
-// Deep copy fallback
-(function() {
-    var keys = Object.keys(fallbackHistory);
-    for (var i = 0; i < keys.length; i++) {
-        historyDataMap[keys[i]] = fallbackHistory[keys[i]].slice();
-    }
-})();
 var miniCharts = {};
 var modalChart = null;
 
@@ -806,9 +769,12 @@ function createModalChart(serverName) {
         rightPriceScale: { borderColor: 'rgba(255,255,255,0.1)' },
         timeScale: { borderColor: 'rgba(255,255,255,0.1)', timeVisible: true, secondsVisible: false },
         crosshair: {
+            mode: LightweightCharts.CrosshairMode.Normal,
             vertLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
             horzLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
         },
+        handleScroll: false,
+        handleScale: false,
         localization: {
             priceFormatter: function(price) { return '1:' + Math.round(price); },
         },
@@ -893,6 +859,23 @@ function fetchPrices() {
             }
             return null;
         }).filter(function(item) { return item && item.name; });
+
+        // 將即時價格注入 historyDataMap 作為最新一筆資料點
+        var nowTs = Math.floor(Date.now() / 1000);
+        priceDataList.forEach(function(item) {
+            var cleanName = stripPrefix(item.name);
+            var price = parseFloat(item.value);
+            if (isNaN(price)) return;
+            if (!historyDataMap[cleanName]) historyDataMap[cleanName] = [];
+            var arr = historyDataMap[cleanName];
+            // 避免重複：如果最後一筆時間差 < 60秒就替換，否則新增
+            if (arr.length > 0 && Math.abs(arr[arr.length - 1].time - nowTs) < 60) {
+                arr[arr.length - 1] = { time: nowTs, value: price };
+            } else {
+                arr.push({ time: nowTs, value: price });
+            }
+        });
+
         renderPriceCards(priceDataList);
         var now = new Date();
         var pad = function(n) { return String(n).padStart(2, '0'); };
