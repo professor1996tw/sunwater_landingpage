@@ -57,6 +57,20 @@
         .nav-links { display: flex; gap: 28px; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.3s; }
         .nav-links a:hover { color: var(--gold-light); }
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .nav-kyc {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 600;
+            font-size: 14px; text-decoration: none; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .nav-kyc:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(34,197,94,0.4); }
+        .nav-kyc svg { flex-shrink: 0; }
         .nav-cta {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: #0a0a0a; padding: 8px 22px; border-radius: 8px; font-weight: 600;
@@ -230,6 +244,10 @@
         <a href="./index.html#services">服務項目</a>
         <a href="./index.html#why">關於我們</a>
         <a href="./index.html#social">社群</a>
+        <a href="./kyc.html" class="nav-kyc">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+            實名認證
+        </a>
         <a href="#" class="nav-cta" onclick="showComingSoon(event)">進入交易網 →</a>
     </div>
     <button class="nav-mobile-toggle" id="mobileToggle" aria-label="選單">☰</button>
@@ -242,6 +260,10 @@
     <a href="./index.html#services" onclick="closeMobile()">服務項目</a>
     <a href="./index.html#why" onclick="closeMobile()">關於我們</a>
     <a href="./index.html#social" onclick="closeMobile()">社群</a>
+    <a href="./kyc.html" class="nav-kyc" style="margin-top:16px;" onclick="closeMobile()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+        實名認證
+    </a>
     <a href="#" class="nav-cta" style="margin-top:16px;" onclick="closeMobile();showComingSoon(event)">進入交易網 →</a>
 </div>
 
@@ -390,12 +412,12 @@
 </footer>
 
 <!-- Coming Soon Modal -->
-<div class="modal-overlay" id="comingSoonModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+<div class="modal-overlay" id="comingSoonModal">
     <div style="background:var(--navy);border:1px solid var(--glass-border);border-radius:20px;padding:40px;text-align:center;max-width:400px;">
         <div style="font-size:48px;margin-bottom:16px;">🚧</div>
         <h3>準備上線中</h3>
         <p style="color:var(--text-secondary);margin-bottom:24px;">交易網正在緊鑼密鼓地建設中，敬請期待！</p>
-        <button onclick="document.getElementById('comingSoonModal').style.display='none'" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0a0a0a;padding:10px 32px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;">我知道了</button>
+        <button onclick="document.getElementById('comingSoonModal').classList.remove('show')" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0a0a0a;padding:10px 32px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;">我知道了</button>
     </div>
 </div>
 
@@ -408,10 +430,10 @@ document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 function showComingSoon(e) {
     e.preventDefault();
-    document.getElementById('comingSoonModal').style.display = 'flex';
+    document.getElementById('comingSoonModal').classList.add('show');
 }
 document.getElementById('comingSoonModal').addEventListener('click', function(e) {
-    if (e.target === this) this.style.display = 'none';
+    if (e.target === this) this.classList.remove('show');
 });
 
 // ===== Page Switching =====
