@@ -771,7 +771,18 @@ function createModalChart(serverName) {
         layout: { background: { type: 'solid', color: 'rgba(0,0,0,0.2)' }, textColor: 'rgba(255,255,255,0.5)', fontSize: 12 },
         grid: { vertLines: { color: 'rgba(255,255,255,0.05)' }, horzLines: { color: 'rgba(255,255,255,0.05)' } },
         rightPriceScale: { borderColor: 'rgba(255,255,255,0.1)' },
-        timeScale: { borderColor: 'rgba(255,255,255,0.1)', timeVisible: true, secondsVisible: false },
+        timeScale: {
+            borderColor: 'rgba(255,255,255,0.1)', timeVisible: true, secondsVisible: false,
+            tickMarkFormatter: function(ts) {
+                var d = new Date(ts * 1000);
+                var h = d.getUTCHours() + 8;
+                var day = d.getUTCDate();
+                var m = d.getUTCMonth() + 1;
+                if (h >= 24) { h -= 24; day += 1; }
+                var min = d.getUTCMinutes();
+                return (h < 10 ? '0' + h : h) + ':' + (min < 10 ? '0' + min : min);
+            },
+        },
         crosshair: {
             mode: LightweightCharts.CrosshairMode.Normal,
             vertLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
@@ -781,6 +792,15 @@ function createModalChart(serverName) {
         handleScale: false,
         localization: {
             priceFormatter: function(price) { return '1:' + Math.round(price); },
+            timeFormatter: function(ts) {
+                var d = new Date(ts * 1000);
+                var m = d.getUTCMonth() + 1;
+                var day = d.getUTCDate();
+                var h = d.getUTCHours() + 8;
+                if (h >= 24) { h -= 24; day += 1; }
+                var min = d.getUTCMinutes();
+                return (m < 10 ? '0' + m : m) + '/' + (day < 10 ? '0' + day : day) + ' ' + (h < 10 ? '0' + h : h) + ':' + (min < 10 ? '0' + min : min);
+            },
         },
     });
     var series = modalChart.addAreaSeries({
