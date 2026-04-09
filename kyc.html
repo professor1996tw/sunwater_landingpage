@@ -1,340 +1,95 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-X6099N611V');
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日央水原 SUNWATER — 專業遊戲虛寶交易平台</title>
-    <meta name="description" content="日央水原 — 台灣最專業的遊戲虛寶交易平台。提供遊戲帳號、遊戲幣、遊戲道具、輔助程式買賣，安全交易、即時到帳。">
-    <meta name="keywords" content="遊戲交易,遊戲帳號,遊戲幣,遊戲道具,輔助程式,天幣買賣,天幣報價,日央水原,SUNWATER,虛寶交易">
-    <meta property="og:title" content="日央水原 SUNWATER — 專業遊戲虛寶交易平台">
-    <meta property="og:description" content="台灣最專業的遊戲虛寶交易平台，安全交易・即時到帳。LINE @321enghh">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sunwater.me/">
-    <meta property="og:image" content="https://sunwater.me/images/og-image.jpg">
-    <meta property="og:locale" content="zh_TW">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://sunwater.me/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #050510;
-            --navy: #0a1628;
-            --navy-light: #0f1f3d;
-            --gold: #C8963E;
-            --gold-light: #e8be6a;
-            --gold-bright: #f5d78e;
-            --gold-glow: rgba(200, 150, 62, 0.5);
-            --cyan: #38bdf8;
-            --cyan-glow: rgba(56, 189, 248, 0.3);
-            --green: #22c55e;
-            --red: #ef4444;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.55);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Noto Sans TC', 'Inter', -apple-system, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X6099N611V');
+</script>
 
-        /* ===== Navigation ===== */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNWATER KYC 系統</title>
+    <!-- 引入核心套件 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #0d1117;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        #root {
+            min-height: calc(100vh - 64px);
+            width: 100%;
+            padding-top: 64px;
+            background-color: #0d1117;
+        }
+        /* 自定義捲軸 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+        /* 動畫效果 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+
+        /* ===== Navigation (from index.html) ===== */
         .nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             padding: 14px 40px;
             display: flex; align-items: center; justify-content: space-between;
             background: rgba(5, 5, 16, 0.85);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.3s ease;
         }
         .nav.scrolled { padding: 10px 40px; background: rgba(5, 5, 16, 0.95); }
         .nav-brand { display: flex; align-items: center; text-decoration: none; }
         .nav-brand img { height: 36px; }
         .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold-light); }
+        .nav-links a { color: rgba(255, 255, 255, 0.55); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.3s; }
+        .nav-links a:hover { color: #e8be6a; }
         .nav-kyc {
             background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 600;
+            color: #fff !important; padding: 8px 20px; border-radius: 8px; font-weight: 600;
             font-size: 14px; text-decoration: none; transition: all 0.3s;
             display: inline-flex; align-items: center; gap: 6px;
         }
         .nav-kyc:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(34,197,94,0.4); }
         .nav-kyc svg { flex-shrink: 0; }
         .nav-cta {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            background: linear-gradient(135deg, #C8963E, #e8be6a);
             color: #000 !important; padding: 8px 22px; border-radius: 8px; font-weight: 900;
             font-size: 14px; text-decoration: none; transition: all 0.3s;
         }
-        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--gold-glow); }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(200, 150, 62, 0.5); }
         .nav-mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
-
-        /* ===== Hero ===== */
-        .hero {
-            min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-            padding: 120px 20px 80px; position: relative;
-        }
-        .hero-bg {
-            position: absolute; inset: 0; overflow: hidden; z-index: 0;
-            background: url('./images/hero-banner.jpg') center center / cover no-repeat;
-        }
-        .hero-bg::before {
-            content: ''; position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse at 30% 20%, rgba(200,150,62,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 60%, rgba(56,189,248,0.05) 0%, transparent 50%),
-                linear-gradient(180deg, rgba(5,5,16,0.6) 0%, rgba(5,5,16,0.85) 100%);
-            z-index: 1;
-        }
-        #particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-        .hero-content { position: relative; z-index: 3; max-width: 700px; }
-        .hero-logo {
-            max-width: 360px; width: 80%; margin: 0 auto 32px;
-            animation: logoGlow 4s ease-in-out infinite alternate;
-            filter: drop-shadow(0 0 30px rgba(200,150,62,0.2));
-        }
-        @keyframes logoGlow {
-            0% { filter: drop-shadow(0 0 20px rgba(200,150,62,0.15)); }
-            100% { filter: drop-shadow(0 0 40px rgba(200,150,62,0.3)); }
-        }
-        .hero-tagline {
-            font-size: 14px; letter-spacing: 6px; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 16px; font-weight: 400;
-        }
-        .hero-desc { font-size: 17px; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.8; }
-        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn-kyc {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #fff; padding: 14px 36px; border-radius: 12px;
-            font-size: 16px; font-weight: 700; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.3s; border: none; cursor: pointer;
-        }
-        .btn-kyc:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.4); }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: #000 !important; padding: 14px 36px; border-radius: 12px;
-            font-size: 16px; font-weight: 700; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.3s; border: none; cursor: pointer;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--gold-glow); }
-        .btn-secondary {
-            background: var(--glass-bg); color: var(--text-primary);
-            padding: 14px 36px; border-radius: 12px;
-            font-size: 16px; font-weight: 500; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px;
-            border: 1px solid var(--glass-border); transition: all 0.3s;
-        }
-        .btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
-
-        /* ===== Stats Bar ===== */
-        .stats-bar {
-            display: flex; justify-content: center; gap: 60px;
-            padding: 40px 20px; position: relative; z-index: 1; margin-top: -40px;
-        }
-        .stat-item { text-align: center; }
-        .stat-number {
-            font-size: clamp(28px, 4vw, 40px); font-weight: 800;
-            background: linear-gradient(135deg, var(--gold-light), var(--cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; letter-spacing: 1px; }
-
-        /* ===== Section Common ===== */
-        .section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-        .section-label {
-            text-align: center; font-size: 12px; letter-spacing: 4px;
-            text-transform: uppercase; color: var(--gold); margin-bottom: 12px; font-weight: 500;
-        }
-        .section-title {
-            text-align: center; font-size: clamp(24px, 3.5vw, 36px);
-            font-weight: 800; margin-bottom: 16px;
-        }
-        .section-desc {
-            text-align: center; color: var(--text-secondary); font-size: 15px;
-            max-width: 600px; margin: 0 auto 50px;
-        }
-        .divider {
-            width: 40px; height: 3px; border-radius: 2px; margin: 20px auto 0;
-            background: linear-gradient(90deg, var(--gold), var(--cyan));
-        }
-
-        /* ===== Scroll Animations ===== */
-        .fade-up {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-        /* ===== Price Cards Grid ===== */
-        .price-header-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 24px; padding: 0 4px;
-        }
-        .price-header-bar h3 { font-size: 18px; font-weight: 700; }
-        .price-sync { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
-        .price-sync .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .price-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-        }
-        .price-card {
-            background: var(--navy); border: 1px solid var(--glass-border);
-            border-radius: 16px; padding: 24px 20px 16px; cursor: pointer;
-            transition: all 0.3s; position: relative; overflow: hidden;
-        }
-        .price-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--cyan));
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .price-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
-        .price-card:hover::before { opacity: 1; }
-        .price-card-header {
-            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;
-        }
-        .price-card-name { font-size: 15px; font-weight: 700; line-height: 1.3; }
-        .price-card-rate { font-size: 24px; font-weight: 800; color: var(--cyan); white-space: nowrap; }
-        .price-card-unit { font-size: 11px; color: var(--text-secondary); margin-top: 2px; text-align: right; }
-        .price-card-chart {
-            width: 100%; height: 120px; border-radius: 8px; overflow: hidden;
-            background: rgba(0,0,0,0.2);
-        }
-
-        /* ===== Price Modal ===== */
-        .price-modal-overlay {
-            display: none; position: fixed; inset: 0; z-index: 9999;
-            background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
-            align-items: center; justify-content: center; padding: 20px;
-        }
-        .price-modal-overlay.show { display: flex; }
-        .price-modal {
-            background: var(--navy); border: 1px solid rgba(200,150,62,0.2);
-            border-radius: 20px; padding: 32px; max-width: 700px; width: 100%; position: relative;
-        }
-        .price-modal-close {
-            position: absolute; top: 16px; right: 20px; background: none; border: none;
-            color: var(--text-secondary); font-size: 24px; cursor: pointer; transition: color 0.3s;
-        }
-        .price-modal-close:hover { color: white; }
-        .price-modal-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-        .price-modal-rate { font-size: 36px; font-weight: 800; color: var(--cyan); margin-bottom: 20px; }
-        .price-modal-rate span { font-size: 14px; color: var(--text-secondary); font-weight: 400; margin-left: 8px; }
-        .price-modal-chart {
-            width: 100%; height: 320px; border-radius: 12px; overflow: hidden;
-            background: rgba(0,0,0,0.3);
-        }
-
-        /* ===== Services ===== */
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .service-card {
-            background: var(--navy); border: 1px solid var(--glass-border);
-            border-radius: 16px; padding: 36px 24px; text-align: center;
-            transition: all 0.4s; position: relative; overflow: hidden;
-        }
-        .service-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--cyan));
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .service-card:hover { transform: translateY(-6px); border-color: rgba(200,150,62,0.2); }
-        .service-card:hover::before { opacity: 1; }
-        .service-icon {
-            width: 56px; height: 56px; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px; font-size: 26px;
-            background: linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));
-        }
-        .service-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-        .service-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
-
-        /* ===== Why Us ===== */
-        .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .why-card { text-align: center; padding: 30px 16px; }
-        .why-icon {
-            width: 50px; height: 50px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 16px; font-size: 22px;
-            background: rgba(200,150,62,0.1); border: 1px solid rgba(200,150,62,0.15);
-        }
-        .why-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-        .why-card p { font-size: 13px; color: var(--text-secondary); }
-
-        /* ===== Flow ===== */
-        .flow-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        .flow-step {
-            flex: 1; min-width: 180px; max-width: 230px;
-            text-align: center; padding: 30px 18px; position: relative;
-        }
-        .flow-num {
-            width: 44px; height: 44px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: #0a0a0a; font-size: 18px; font-weight: 800;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-        }
-        .flow-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-        .flow-step p { font-size: 13px; color: var(--text-secondary); }
-        .flow-arrow { position: absolute; right: -12px; top: 42px; color: var(--gold); font-size: 18px; opacity: 0.5; }
-
-        /* ===== Social ===== */
-        .social-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-        .social-card {
-            background: var(--navy); border: 1px solid var(--glass-border);
-            border-radius: 14px; padding: 22px 28px; text-align: center;
-            text-decoration: none; color: var(--text-primary); transition: all 0.3s; min-width: 140px;
-        }
-        .social-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
-        .social-card .social-icon { width: 32px; height: 32px; margin: 0 auto 10px; display: block; }
-        .social-card .social-name { font-size: 14px; font-weight: 600; }
-        .social-card .social-handle { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
-
-        /* ===== Footer ===== */
-        .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); margin-top: 60px; }
-        .footer p { font-size: 13px; color: var(--text-secondary); }
-        .footer a { color: var(--gold-light); text-decoration: none; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
-        .footer-links a { font-size: 12px; color: var(--text-secondary); transition: color 0.3s; }
-        .footer-links a:hover { color: var(--gold-light); }
-
-        /* ===== Mobile Menu ===== */
+        /* Mobile Menu */
         .mobile-menu {
             display: none; position: fixed; inset: 0;
             background: rgba(5,5,16,0.97); z-index: 999;
             flex-direction: column; align-items: center; justify-content: center; gap: 32px;
         }
         .mobile-menu.open { display: flex; }
-        .mobile-menu a { font-size: 20px; color: var(--text-primary); text-decoration: none; font-weight: 500; }
+        .mobile-menu a { font-size: 20px; color: #fff; text-decoration: none; font-weight: 500; }
         .mobile-menu .close-btn { position: absolute; top: 20px; right: 24px; font-size: 28px; color: white; background: none; border: none; cursor: pointer; }
-
-        /* ===== Particles ===== */
-        .particle {
-            position: absolute; border-radius: 50%;
-            animation: float var(--dur, 5s) ease-in-out var(--delay, 0s) infinite alternate;
-        }
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-            100% { transform: translate(20px, -30px) scale(0.5); opacity: 0.1; }
-        }
-
-        /* ===== Coming Soon Modal ===== */
+        /* Coming Soon Modal */
         .modal-overlay {
             display: none; position: fixed; inset: 0; z-index: 9999;
             background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
@@ -342,44 +97,29 @@
         }
         .modal-overlay.show { display: flex; }
         .modal-box {
-            background: var(--navy); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 40px; text-align: center; max-width: 400px;
+            background: #0a1628; border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px; padding: 40px; text-align: center; max-width: 400px; color: white;
         }
         .modal-box h3 { margin-bottom: 12px; }
-        .modal-box p { color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-box p { color: rgba(255,255,255,0.55); margin-bottom: 24px; }
         .modal-btn {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            background: linear-gradient(135deg, #C8963E, #e8be6a);
             color: #0a0a0a; padding: 10px 32px; border: none; border-radius: 10px;
             font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s;
         }
-        .modal-btn:hover { box-shadow: 0 4px 20px var(--gold-glow); }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 1024px) {
-            .price-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .modal-btn:hover { box-shadow: 0 4px 20px rgba(200,150,62,0.5); }
+        /* Footer (from index.html) */
+        .site-footer { text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0; background: #0d1117; }
+        .site-footer p { font-size: 13px; color: rgba(255,255,255,0.55); }
+        .site-footer a { color: #e8be6a; text-decoration: none; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
+        .footer-links a { font-size: 12px; color: rgba(255,255,255,0.55); transition: color 0.3s; text-decoration: none; }
+        .footer-links a:hover { color: #e8be6a; }
+        /* Responsive */
         @media (max-width: 768px) {
             .nav { padding: 12px 20px; }
             .nav-links { display: none; }
             .nav-mobile-toggle { display: block; }
-            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .why-grid { grid-template-columns: repeat(2, 1fr); }
-            .stats-bar { gap: 24px; flex-wrap: wrap; }
-            .flow-arrow { display: none; }
-            .flow-step { min-width: 140px; }
-            .section { padding: 60px 16px; }
-            .hero-logo { max-width: 260px; }
-            .price-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-            .price-card { padding: 18px 14px 12px; }
-            .price-card-rate { font-size: 20px; }
-            .price-modal { padding: 24px 18px; }
-            .price-modal-chart { height: 240px; }
-        }
-        @media (max-width: 480px) {
-            .services-grid { grid-template-columns: 1fr; }
-            .stats-bar { gap: 16px; }
-            .stat-number { font-size: 24px; }
-            .price-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -419,178 +159,6 @@
     <a href="#" class="nav-cta" onclick="closeMobile();showComingSoon(event)">進入交易網 →</a>
 </div>
 
-<!-- Hero -->
-<section class="hero" id="hero">
-    <div class="hero-bg"></div>
-    <div id="particles"></div>
-    <div class="hero-content">
-        <img class="hero-logo" src="./images/logo.png" alt="日央水原 SUNWATER"
-             onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.maxWidth='100px';this.style.borderRadius='50%';">
-        <p class="hero-tagline">Professional Game Trading Platform</p>
-        <p class="hero-desc">台灣專業遊戲虛寶交易平台<br>安全交易・即時到帳・透明報價</p>
-        <div class="hero-buttons">
-            <a href="./kyc.html" class="btn-kyc">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
-                實名認證
-            </a>
-            <a href="#" class="btn-primary" onclick="showComingSoon(event)">進入交易網 →</a>
-            <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="btn-secondary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#06c755"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
-                LINE 諮詢
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Stats Bar -->
-<div class="stats-bar fade-up">
-    <div class="stat-item"><div class="stat-number">34,000+</div><div class="stat-label">累積交易筆數</div></div>
-    <div class="stat-item"><div class="stat-number">99%</div><div class="stat-label">客戶好評率</div></div>
-    <div class="stat-item"><div class="stat-number">5 min</div><div class="stat-label">平均到帳時間</div></div>
-</div>
-
-<!-- Price Section -->
-<section class="section fade-up" id="prices">
-    <div class="section-label">Real-Time Pricing</div>
-    <div class="section-title">天堂經典版 即時幣價</div>
-    <div class="divider" style="margin-bottom: 40px;"></div>
-    <div class="price-header-bar">
-        <h3>伺服器匯率 (TWD)</h3>
-        <div class="price-sync"><span class="dot"></span> <span id="syncTime">同步中...</span></div>
-    </div>
-    <div class="price-grid" id="priceGrid"></div>
-</section>
-
-<!-- Price Detail Modal -->
-<div class="price-modal-overlay" id="priceModal">
-    <div class="price-modal">
-        <button class="price-modal-close" onclick="closePriceModal()">&times;</button>
-        <div class="price-modal-title" id="modalServerName">—</div>
-        <div class="price-modal-rate" id="modalServerRate">—<span>TWD</span></div>
-        <div class="price-modal-chart" id="modalChartContainer"></div>
-    </div>
-</div>
-
-<!-- Services -->
-<section class="section fade-up" id="services">
-    <div class="section-label">Services</div>
-    <div class="section-title">交易服務項目</div>
-    <div class="section-desc">提供全方位的遊戲虛寶交易服務，滿足您的所有需求</div>
-    <div class="services-grid">
-        <div class="service-card">
-            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <h4>遊戲帳號</h4><p>各類遊戲帳號安全買賣，資料完整移交，保障雙方權益</p>
-        </div>
-        <div class="service-card">
-            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-            <h4>遊戲幣</h4><p>即時匯率報價，快速交易到帳，支援多種遊戲幣種</p>
-        </div>
-        <div class="service-card">
-            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <h4>遊戲道具</h4><p>稀有裝備、道具安心交易，品項齊全，價格透明</p>
-        </div>
-        <div class="service-card">
-            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-            <h4>輔助程式</h4><p>實用遊戲輔助工具，提升遊戲體驗，安全穩定</p>
-        </div>
-    </div>
-</section>
-
-<!-- Why Us -->
-<section class="section fade-up" id="why">
-    <div class="section-label">Why Sunwater</div>
-    <div class="section-title">為什麼選擇日央水原</div>
-    <div class="section-desc">我們致力於打造最安全、最專業的交易環境</div>
-    <div class="why-grid">
-        <div class="why-card"><div class="why-icon">🔒</div><h4>安全交易</h4><p>嚴格的交易流程與風控機制，確保每筆交易安全無虞</p></div>
-        <div class="why-card"><div class="why-icon">⚡</div><h4>即時到帳</h4><p>高效的交易處理系統，確認後快速完成撥付</p></div>
-        <div class="why-card"><div class="why-icon">✅</div><h4>實名認證</h4><p>完善的 KYC 身份驗證機制，杜絕詐騙風險</p></div>
-        <div class="why-card"><div class="why-icon">🏆</div><h4>資深團隊</h4><p>專業經營團隊，豐富的遊戲交易市場經驗</p></div>
-    </div>
-</section>
-
-<!-- Flow -->
-<section class="section fade-up" id="flow">
-    <div class="section-label">How It Works</div>
-    <div class="section-title">交易流程</div>
-    <div class="section-desc">簡單四步驟，輕鬆完成交易</div>
-    <div class="flow-grid">
-        <div class="flow-step">
-            <div class="flow-num">1</div>
-            <h4>註冊帳號</h4>
-            <p>填寫基本資料<br>建立您的帳號</p>
-            <span class="flow-arrow">→</span>
-        </div>
-        <div class="flow-step">
-            <div class="flow-num">2</div>
-            <h4>完成 KYC</h4>
-            <p>上傳身分證件<br>完成身分驗證</p>
-            <span class="flow-arrow">→</span>
-        </div>
-        <div class="flow-step">
-            <div class="flow-num">3</div>
-            <h4>選購付款</h4>
-            <p>選擇商品<br>依付款方式匯款</p>
-            <span class="flow-arrow">→</span>
-        </div>
-        <div class="flow-step">
-            <div class="flow-num">4</div>
-            <h4>確認交付</h4>
-            <p>我方確認收款後<br>立即處理訂單</p>
-        </div>
-    </div>
-</section>
-
-<!-- Social -->
-<section class="section fade-up" id="social">
-    <div class="section-label">Social Media</div>
-    <div class="section-title">追蹤我們的社群</div>
-    <div class="section-desc">關注最新動態、優惠資訊與即時匯率通知</div>
-    <div class="social-grid">
-        <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="social-card">
-            <svg class="social-icon" viewBox="0 0 24 24" fill="#06c755"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
-            <div class="social-name">LINE</div><div class="social-handle">@321enghh</div>
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=100064047333025" target="_blank" rel="noopener" class="social-card">
-            <svg class="social-icon" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            <div class="social-name">Facebook</div><div class="social-handle">粉絲專頁</div>
-        </a>
-        <a href="https://www.instagram.com/sunwater168168/" target="_blank" rel="noopener" class="social-card">
-            <svg class="social-icon" viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs><rect width="20" height="20" x="2" y="2" rx="5" fill="url(#ig)"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
-            <div class="social-name">Instagram</div><div class="social-handle">@sunwater168168</div>
-        </a>
-        <a href="https://www.youtube.com/@sunwater_game.service" target="_blank" rel="noopener" class="social-card">
-            <svg class="social-icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            <div class="social-name">YouTube</div><div class="social-handle">影片頻道</div>
-        </a>
-        <a href="https://www.tiktok.com/@sunwater168168" target="_blank" rel="noopener" class="social-card">
-            <svg class="social-icon" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="#fff"/><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="url(#tiktok)"/><defs><linearGradient id="tiktok" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#25F4EE"/><stop offset="50%" stop-color="#fff"/><stop offset="100%" stop-color="#FE2C55"/></linearGradient></defs></svg>
-            <div class="social-name">TikTok</div><div class="social-handle">@sunwater168168</div>
-        </a>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-links">
-        <a href="./legal.html?page=terms">服務條款</a>
-        <a href="./legal.html?page=risk">風險揭露</a>
-        <a href="./legal.html?page=privacy">隱私權政策</a>
-        <a href="./legal.html?page=aml">反洗錢聲明</a>
-    </div>
-    <p>© 2026 日央水原 SUNWATER — 專業遊戲虛寶交易平台 · 請認明官方 LINE <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener">@321enghh</a></p>
-</footer>
-
-<!-- LINE Floating Button -->
-<a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" id="lineFloat" style="
-    position:fixed; bottom:24px; right:24px; z-index:900;
-    width:56px; height:56px; border-radius:50%;
-    background:#06c755; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 20px rgba(6,199,85,0.4); transition:all 0.3s; text-decoration:none;
-" aria-label="LINE 客服">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
-</a>
-
 <!-- Coming Soon Modal -->
 <div class="modal-overlay" id="comingSoonModal">
     <div class="modal-box">
@@ -601,11 +169,22 @@
     </div>
 </div>
 
-<!-- Lightweight Charts (TradingView) -->
-<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<!-- KYC React App -->
+<div id="root"></div>
 
+<!-- Footer (from index.html) -->
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="./legal.html?page=terms">服務條款</a>
+        <a href="./legal.html?page=risk">風險揭露</a>
+        <a href="./legal.html?page=privacy">隱私權政策</a>
+        <a href="./legal.html?page=aml">反洗錢聲明</a>
+    </div>
+    <p>© 2026 日央水原 SUNWATER — 專業遊戲虛寶交易平台 · 請認明官方 LINE <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener">@321enghh</a></p>
+</footer>
+
+<!-- Nav JS -->
 <script>
-// ===== Navigation =====
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 50); });
 document.getElementById('mobileToggle').addEventListener('click', function() { document.getElementById('mobileMenu').classList.add('open'); });
@@ -613,328 +192,285 @@ document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 function showComingSoon(e) { e.preventDefault(); document.getElementById('comingSoonModal').classList.add('show'); }
 document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
+</script>
 
-// ===== Scroll Animations (fixed: rootMargin + re-observe on load) =====
-function initScrollAnimations() {
-    var elements = document.querySelectorAll('.fade-up');
-    if (!elements.length) return;
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
-    elements.forEach(function(el) { observer.observe(el); });
-    // Fallback: force check after a short delay (handles edge cases)
-    setTimeout(function() {
-        elements.forEach(function(el) {
-            var rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight + 80) {
-                el.classList.add('visible');
-            }
-        });
-    }, 500);
-}
-initScrollAnimations();
+<!-- KYC React Code -->
+    <script type="text/babel">
+        const { useState, useEffect, memo } = React;
+        // --- 設定區：您的 Google Apps Script 網址 ---
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxMOwBCqpEhFcivpnz4e4QLqN9hEnWJLIMbfU4V4zdvH6dJPLKC11N5ysAnEFKrAgqwow/exec";
+        // --- SVG 圖示組件庫 ---
+        const Icons = {
+            Check: ({ className }) => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            ),
+            Alert: ({ className }) => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            ),
+            Camera: ({ className }) => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            ),
+            Shield: ({ className }) => (
+                <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            ),
+            Loader: () => (
+                <svg className="animate-spin h-5 w-5 mr-3 text-current" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            )
+        };
+        // --- 子組件：動態通知彈窗 ---
+        const Toast = ({ message, type, onClose }) => {
+            useEffect(() => {
+                const timer = setTimeout(onClose, 3000);
+                return () => clearTimeout(timer);
+            }, [onClose]);
+            const isError = type === 'error';
+            return (
+                <div className={`fixed top-10 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 px-6 py-4 rounded-2xl shadow-2xl ${isError ? 'bg-red-500' : 'bg-orange-500'} text-white font-bold animate-slide-up`}>
+                    {isError ? <Icons.Alert className="w-5 h-5" /> : <Icons.Check className="w-5 h-5" />}
+                    <span className="text-sm tracking-wide">{message}</span>
+                </div>
+            );
+        };
+        // --- 子組件：輸入框 ---
+        const InputField = memo(({ label, type = "text", placeholder, value, onChange, maxLength, error }) => (
+            <div className="flex-1 min-w-[240px] mb-4 text-left">
+                <label className="block text-[11px] font-bold text-slate-500 mb-2 ml-1 uppercase tracking-wider">{label}</label>
+                <input
+                    type={type}
+                    maxLength={maxLength}
+                    className={`w-full bg-[#1c2128] border ${error ? 'border-red-500/50' : 'border-slate-800'} rounded-xl px-4 py-4 focus:border-orange-500/50 focus:ring-4 focus:ring-orange-500/10 outline-none transition-all placeholder:text-slate-700 text-white text-base shadow-inner`}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                />
+            </div>
+        ));
+        function App() {
+            const [currentStep, setCurrentStep] = useState(1);
+            const [loading, setLoading] = useState(false);
+            const [submitted, setSubmitted] = useState(false);
+            const [toast, setToast] = useState(null);
 
-// ===== Particles =====
-(function() {
-    var particlesEl = document.getElementById('particles');
-    var isMob = window.innerWidth <= 768;
-    for (var i = 0; i < (isMob ? 12 : 28); i++) {
-        var p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random()*100+'%';
-        p.style.top = Math.random()*100+'%';
-        p.style.setProperty('--dur', (3+Math.random()*5)+'s');
-        p.style.setProperty('--delay', (Math.random()*8)+'s');
-        var sz = 1.5+Math.random()*2.5;
-        p.style.width = sz+'px'; p.style.height = sz+'px';
-        var r = Math.random();
-        if (r>0.7) { p.style.background='rgba(200,150,62,0.6)'; p.style.boxShadow='0 0 6px rgba(200,150,62,0.3)'; }
-        else if (r>0.5) { p.style.background='rgba(56,189,248,0.4)'; }
-        else { p.style.background='rgba(255,255,255,0.4)'; }
-        particlesEl.appendChild(p);
-    }
-})();
-
-// ===== Config =====
-var SHEET_ID = '1ujUTvJcHLN7MTMLJrbuLX_m789syksY0cSPmKw175yY';
-var PRICE_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0';
-var HISTORY_SHEET_ID = '1AjGfuoODgDwAmySJXnadfNbqby_olJx1gz-hx_TCPUo';
-var HISTORY_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + HISTORY_SHEET_ID + '/export?format=csv&gid=0';
-var DISPLAY_DAYS = 3; // 只顯示最近 3 天
-
-// ===== State =====
-var historyDataMap = {};
-var miniCharts = {};
-var modalChart = null;
-
-// ===== Helper: strip leading number prefix like "1." or "1.太陽" -> "太陽" =====
-function stripPrefix(name) {
-    return name.replace(/^\d+[\.\.\s]+/, '').trim();
-}
-
-// ===== Fetch History from Sheets (gid=2) =====
-// CSV 格式: 伺服器名稱, 時間戳(Unix秒或ISO), 售價比
-function fetchHistory() {
-    return fetch(HISTORY_CSV_URL).then(function(resp) {
-        return resp.text();
-    }).then(function(text) {
-        var rows = text.split('\n').slice(1);
-        var map = {};
-        var cutoff = Math.floor(Date.now() / 1000) - DISPLAY_DAYS * 86400;
-        rows.forEach(function(row) {
-            // 處理可能含逗號的 CSV（引號欄位）
-            var cols = row.split(',');
-            if (cols.length >= 3) {
-                var server = cols[0].trim().replace(/^"|"$/g, '');
-                var tsRaw = cols[1].trim().replace(/^"|"$/g, '');
-                var val = parseFloat(cols[2]);
-                if (!server || isNaN(val)) return;
-                var cleanName = stripPrefix(server);
-                // 解析時間：支援 Unix 秒數 或 ISO/日期格式
-                var ts;
-                if (/^\d{10,}$/.test(tsRaw)) {
-                    ts = parseInt(tsRaw);
-                } else {
-                    var d = new Date(tsRaw);
-                    if (isNaN(d.getTime())) return;
-                    ts = Math.floor(d.getTime() / 1000);
-                }
-                // 只保留 DISPLAY_DAYS 天內的資料
-                if (ts < cutoff) return;
-                if (!map[cleanName]) map[cleanName] = [];
-                map[cleanName].push({ time: ts, value: val });
-            }
-        });
-        // 排序（時間由小到大）
-        Object.keys(map).forEach(function(k) {
-            map[k].sort(function(a, b) { return a.time - b.time; });
-        });
-        if (Object.keys(map).length > 0) {
-            historyDataMap = map;
-        }
-    }).catch(function(e) {
-        console.warn('History fetch fallback:', e);
-    });
-}
-
-// ===== Create Mini Chart (折線圖) =====
-function createMiniChart(container, serverName) {
-    var cleanName = stripPrefix(serverName);
-    var data = historyDataMap[cleanName];
-    if (!data || data.length === 0) {
-        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.2);font-size:12px;">暫無數據</div>';
-        return null;
-    }
-    container.innerHTML = '';
-    var chart = LightweightCharts.createChart(container, {
-        width: container.clientWidth,
-        height: container.clientHeight,
-        layout: { background: { type: 'solid', color: 'transparent' }, textColor: 'rgba(255,255,255,0.3)', fontSize: 10 },
-        grid: { vertLines: { color: 'rgba(255,255,255,0.04)' }, horzLines: { color: 'rgba(255,255,255,0.04)' } },
-        rightPriceScale: { borderVisible: false, scaleMargins: { top: 0.15, bottom: 0.15 } },
-        timeScale: { borderVisible: false, visible: false },
-        crosshair: { mode: 0 },
-        handleScroll: false, handleScale: false,
-    });
-    var series = chart.addAreaSeries({
-        lineColor: '#C8963E',
-        topColor: 'rgba(200,150,62,0.3)',
-        bottomColor: 'rgba(200,150,62,0.02)',
-        lineWidth: 2,
-    });
-    series.setData(data);
-    chart.timeScale().fitContent();
-    return chart;
-}
-
-// ===== Create Modal Chart (折線圖 - 大圖) =====
-function createModalChart(serverName) {
-    var container = document.getElementById('modalChartContainer');
-    var cleanName = stripPrefix(serverName);
-    var data = historyDataMap[cleanName];
-    if (modalChart) { modalChart.remove(); modalChart = null; }
-    if (!data || data.length === 0) {
-        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.3);">暫無數據</div>';
-        return;
-    }
-    container.innerHTML = '';
-    modalChart = LightweightCharts.createChart(container, {
-        width: container.clientWidth, height: container.clientHeight,
-        layout: { background: { type: 'solid', color: 'rgba(0,0,0,0.2)' }, textColor: 'rgba(255,255,255,0.5)', fontSize: 12 },
-        grid: { vertLines: { color: 'rgba(255,255,255,0.05)' }, horzLines: { color: 'rgba(255,255,255,0.05)' } },
-        rightPriceScale: { borderColor: 'rgba(255,255,255,0.1)' },
-        timeScale: { borderColor: 'rgba(255,255,255,0.1)', timeVisible: true, secondsVisible: false },
-        crosshair: {
-            mode: LightweightCharts.CrosshairMode.Normal,
-            vertLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
-            horzLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
-        },
-        handleScroll: false,
-        handleScale: false,
-        localization: {
-            priceFormatter: function(price) { return '1:' + Math.round(price); },
-        },
-    });
-    var series = modalChart.addAreaSeries({
-        lineColor: '#C8963E',
-        topColor: 'rgba(200,150,62,0.25)',
-        bottomColor: 'rgba(200,150,62,0.01)',
-        lineWidth: 2,
-        crosshairMarkerRadius: 5,
-        crosshairMarkerBorderColor: '#C8963E',
-        crosshairMarkerBackgroundColor: '#1a1a2e',
-    });
-    series.setData(data);
-    modalChart.timeScale().fitContent();
-}
-
-// ===== Modal =====
-function openPriceModal(serverName, rate) {
-    document.getElementById('modalServerName').textContent = serverName;
-    document.getElementById('modalServerRate').innerHTML = rate + '<span> TWD</span>';
-    document.getElementById('priceModal').classList.add('show');
-    setTimeout(function() { createModalChart(serverName); }, 50);
-}
-function closePriceModal() {
-    document.getElementById('priceModal').classList.remove('show');
-    if (modalChart) { modalChart.remove(); modalChart = null; }
-}
-document.getElementById('priceModal').addEventListener('click', function(e) {
-    if (e.target === this) closePriceModal();
-});
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closePriceModal();
-});
-
-// ===== Render Price Cards =====
-function renderPriceCards(data) {
-    var grid = document.getElementById('priceGrid');
-    grid.innerHTML = '';
-    data.forEach(function(item, i) {
-        var card = document.createElement('div');
-        card.className = 'price-card';
-        card.setAttribute('data-server', item.name);
-        card.setAttribute('data-rate', item.value);
-        card.onclick = function() { openPriceModal(item.name, item.value); };
-        card.innerHTML =
-            '<div class="price-card-header">' +
-                '<div class="price-card-name">' + item.name + '</div>' +
-                '<div><div class="price-card-rate">' + item.value + '</div>' +
-                '<div class="price-card-unit">TWD</div></div>' +
-            '</div>' +
-            '<div class="price-card-chart" id="minichart-' + i + '"></div>';
-        grid.appendChild(card);
-    });
-    // Render mini charts after DOM paint
-    requestAnimationFrame(function() {
-        setTimeout(function() {
-            data.forEach(function(item, i) {
-                var container = document.getElementById('minichart-' + i);
-                if (container) {
-                    var key = stripPrefix(item.name);
-                    if (miniCharts[key]) {
-                        try { miniCharts[key].remove(); } catch(e) {}
-                    }
-                    miniCharts[key] = createMiniChart(container, item.name);
-                }
+            const [formData, setFormData] = useState({
+                name: '', gender: '男', birthDate: '', birthPlace: '', idNumber: '', idExpiry: '', email: '', phone: '',
+                bankName: '', bankAccount: '', idFront: '', idBack: '', bankPassbook: ''
             });
-        }, 100);
-    });
-}
+            const [checks, setChecks] = useState({ nameMatch: false, qualityOk: false });
+            const showToast = (msg, type = 'error') => {
+                setToast({ msg, type });
+            };
+            const handleInputChange = (field, value) => {
+                if (field === 'birthDate' || field === 'idExpiry' || field === 'phone' || field === 'bankAccount') {
+                    const filteredValue = value.replace(/[^\d]/g, '');
+                    setFormData(prev => ({ ...prev, [field]: filteredValue }));
+                } else {
+                    setFormData(prev => ({ ...prev, [field]: value }));
+                }
+            };
+            const processImage = (file, fieldName) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const scale = Math.min(800 / img.width, 1);
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-// ===== Fetch Prices =====
-function fetchPrices() {
-    return fetch(PRICE_CSV_URL).then(function(resp) {
-        return resp.text();
-    }).then(function(csvText) {
-        var rows = csvText.split('\n').slice(1);
-        var priceDataList = rows.map(function(row) {
-            var cols = row.split(',');
-            if (cols.length >= 2) {
-                return { name: cols[0].trim().replace(/^"|"$/g, ''), value: cols[1].trim().replace(/^"|"$/g, '') };
-            }
-            return null;
-        }).filter(function(item) { return item && item.name; });
+                        const watermark = "供日央水原交易審核用";
+                        ctx.font = `bold ${canvas.width / 15}px "Noto Sans TC"`;
+                        ctx.fillStyle = "rgba(251, 146, 60, 0.3)";
+                        ctx.textAlign = "center";
 
-        // 將即時價格注入 historyDataMap 作為最新一筆資料點
-        var nowTs = Math.floor(Date.now() / 1000);
-        priceDataList.forEach(function(item) {
-            var cleanName = stripPrefix(item.name);
-            var price = parseFloat(item.value);
-            if (isNaN(price)) return;
-            if (!historyDataMap[cleanName]) historyDataMap[cleanName] = [];
-            var arr = historyDataMap[cleanName];
-            // 避免重複：如果最後一筆時間差 < 60秒就替換，否則新增
-            if (arr.length > 0 && Math.abs(arr[arr.length - 1].time - nowTs) < 60) {
-                arr[arr.length - 1] = { time: nowTs, value: price };
-            } else {
-                arr.push({ time: nowTs, value: price });
-            }
-        });
-
-        renderPriceCards(priceDataList);
-        var now = new Date();
-        var pad = function(n) { return String(n).padStart(2, '0'); };
-        document.getElementById('syncTime').textContent =
-            now.getFullYear() + '/' + pad(now.getMonth()+1) + '/' + pad(now.getDate()) + ' ' +
-            pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()) + ' 同步';
-    }).catch(function(err) {
-        console.error('Price fetch error:', err);
-        document.getElementById('priceGrid').innerHTML =
-            '<p style="color:var(--text-secondary);text-align:center;padding:40px;grid-column:1/-1;">報價載入中，請稍後重新整理...</p>';
-    });
-}
-
-// ===== Resize handler =====
-var resizeTimer;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        Object.keys(miniCharts).forEach(function(key) {
-            var chart = miniCharts[key];
-            if (chart && chart.chartElement) {
+                        for(let x = canvas.width/4; x <= canvas.width; x += canvas.width/2) {
+                            for(let y = canvas.height/4; y <= canvas.height; y += canvas.height/2) {
+                                ctx.save();
+                                ctx.translate(x, y);
+                                ctx.rotate(-Math.PI / 6);
+                                ctx.fillText(watermark, 0, 0);
+                                ctx.restore();
+                            }
+                        }
+                        handleInputChange(fieldName, canvas.toDataURL('image/jpeg', 0.6));
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+            const handleFileChange = (e, key) => {
+                const file = e.target.files[0];
+                if (file) {
+                    processImage(file, key);
+                }
+            };
+            const validateStep1 = () => {
+                const idRegex = /^[A-Z][12]\d{8}$/;
+                if (!formData.name || formData.name.length < 2) { showToast("請填寫正確真實姓名"); return false; }
+                if (!idRegex.test(formData.idNumber)) { showToast("身分證字號格式錯誤 (首字母大寫)"); return false; }
+                if (formData.birthDate.length !== 7) { showToast("出生日期請填寫 7 位數字"); return false; }
+                if (formData.idExpiry.length !== 7) { showToast("發證日期請填寫 7 位數字"); return false; }
+                if (!formData.phone || !formData.email) { showToast("請填寫聯繫資訊"); return false; }
+                return true;
+            };
+            const handleSubmit = async () => {
+                if (!formData.bankName || !formData.bankAccount || !formData.idFront || !formData.idBack || !formData.bankPassbook) {
+                    showToast("請上傳所有必要的證件影像與銀行資訊"); return;
+                }
+                if (!checks.nameMatch || !checks.qualityOk) {
+                    showToast("請勾選並確認宣告事項"); return;
+                }
+                setLoading(true);
                 try {
-                    var el = chart.chartElement().parentElement;
-                    if (el) chart.resize(el.clientWidth, el.clientHeight);
-                } catch(e) {}
+                    await fetch(GAS_WEB_APP_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ...formData,
+                            action: 'kyc_upload',
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    setTimeout(() => {
+                        setSubmitted(true);
+                        setLoading(false);
+                    }, 2000);
+                } catch (err) {
+                    console.error("傳輸失敗:", err);
+                    showToast("連線至雲端失敗，請檢查網路狀態");
+                    setLoading(false);
+                }
+            };
+            if (submitted) {
+                return (
+                    <div className="h-full flex items-center justify-center p-6 text-white text-center">
+                        <div className="max-w-md w-full bg-[#161b22] border border-orange-500/30 rounded-[2.5rem] p-12 shadow-2xl animate-slide-up">
+                            <div className="w-24 h-24 bg-orange-500 text-black rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(249,115,22,0.4)]">
+                                <Icons.Check className="w-12 h-12" />
+                            </div>
+                            <h2 className="text-3xl font-black mb-4 italic uppercase tracking-tighter">Verified Success</h2>
+                            <p className="text-slate-400 mb-10 text-base leading-relaxed">您的認證資料已成功送出。<br/>系統已將資料加密傳送至雲端存儲。</p>
+                            <button
+                                onClick={() => window.location.href = 'index.html'}
+                                className="w-full py-5 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold transition-all uppercase tracking-widest text-sm"
+                            >
+                                回到首頁
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-        });
-    }, 200);
-});
+            return (
+                <div className="min-h-full flex flex-col">
+                    {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
 
-// ===== Init =====
-(function init() {
-    fetchHistory().then(function() {
-        return fetchPrices();
-    });
-    // Auto refresh every 15 min
-    setInterval(function() {
-        fetchHistory().then(function() { return fetchPrices(); });
-    }, 15 * 60 * 1000);
-})();
-</script>
+                    <main className="flex-grow max-w-2xl mx-auto w-full mt-8 px-4 pb-12">
+                        {/* 進度條 */}
+                        <div className="mb-8 px-2">
+                            <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">
+                                <span className={currentStep === 1 ? 'text-white' : ''}>STEP 01. BASIC</span>
+                                <span className={currentStep === 2 ? 'text-white' : ''}>STEP 02. VERIFY</span>
+                            </div>
+                            <div className="bg-[#161b22] rounded-full h-1.5 w-full p-0.5 border border-slate-800">
+                                <div className={`h-full rounded-full transition-all duration-700 ${currentStep === 1 ? 'w-1/2 bg-slate-600' : 'w-full bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.5)]'}`}></div>
+                            </div>
+                        </div>
+                        <div className="bg-[#161b22] border border-slate-800/50 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                            <div className="p-8 md:p-12">
+                                {currentStep === 1 ? (
+                                    <div className="space-y-8 animate-slide-up">
+                                        <h2 className="text-2xl font-black italic uppercase tracking-tight text-white text-left">基本資料填寫</h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                                            <InputField label="姓名" placeholder="需與證件一致" value={formData.name} onChange={val => handleInputChange('name', val)} />
+                                            <div className="flex-1 mb-4 text-left">
+                                                <label className="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">性別</label>
+                                                <div className="flex gap-2 p-1.5 bg-[#0d1117] border border-slate-800 rounded-xl h-[58px]">
+                                                    {['男', '女'].map(g => (
+                                                        <button key={g} type="button" onClick={() => handleInputChange('gender', g)} className={`flex-1 rounded-lg font-bold text-sm transition-all ${formData.gender === g ? 'bg-white text-black shadow-lg' : 'text-slate-500'}`}>{g}</button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <InputField label="出生年月日 (7碼)" placeholder="0791010" maxLength={7} value={formData.birthDate} onChange={val => handleInputChange('birthDate', val)} />
+                                            <InputField label="出生地" placeholder="縣市名稱" value={formData.birthPlace} onChange={val => handleInputChange('birthPlace', val)} />
+                                            <InputField label="身分證號" placeholder="首字母需大寫" value={formData.idNumber} onChange={val => handleInputChange('idNumber', val)} />
+                                            <InputField label="發證日期 (7碼)" placeholder="1130225" maxLength={7} value={formData.idExpiry} onChange={val => handleInputChange('idExpiry', val)} />
+                                            <InputField label="電子郵件" type="email" placeholder="example@mail.com" value={formData.email} onChange={val => handleInputChange('email', val)} />
+                                            <InputField label="手機號碼" placeholder="09xx-xxx-xxx" value={formData.phone} onChange={val => handleInputChange('phone', val)} />
+                                        </div>
+                                        <button type="button" onClick={() => validateStep1() && setCurrentStep(2)} className="w-full py-5 bg-white text-black rounded-2xl font-black uppercase tracking-widest hover:bg-orange-500 transition-all text-sm shadow-xl active:scale-[0.98]">下一步 NEXT →</button>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-8 animate-slide-up">
+                                        <h2 className="text-2xl font-black italic uppercase tracking-tight text-white text-left">證件與帳戶上傳</h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#0d1117] p-6 rounded-3xl border border-slate-800 shadow-inner">
+                                            <InputField label="🏛 銀行名稱" placeholder="例如：國泰世華" value={formData.bankName} onChange={val => handleInputChange('bankName', val)} />
+                                            <InputField label="💳 銀行帳號" placeholder="請輸入完整數字" value={formData.bankAccount} onChange={val => handleInputChange('bankAccount', val)} />
+                                        </div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            {[
+                                                { id: 'idFront', label: '身分證正面' },
+                                                { id: 'idBack', label: '身分證反面' },
+                                                { id: 'bankPassbook', label: '存摺封面' }
+                                            ].map(item => (
+                                                <div key={item.id} className="relative aspect-[4/3] bg-[#0d1117] border border-slate-800 rounded-2xl flex flex-col items-center justify-center overflow-hidden hover:border-orange-500/50 transition-all cursor-pointer group shadow-inner">
+                                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, item.id)} className="absolute inset-0 opacity-0 z-20 cursor-pointer" />
+                                                    {formData[item.id] ? (
+                                                        <div className="w-full h-full relative">
+                                                            <img src={formData[item.id]} className="w-full h-full object-cover" />
+                                                            <div className="absolute top-2 right-2 bg-green-500 text-white p-1 rounded-full shadow-lg"><Icons.Check className="w-3 h-3" /></div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="text-center px-2">
+                                                            <Icons.Camera className="w-8 h-8 mx-auto mb-3 text-slate-700 group-hover:text-orange-500 transition-colors" />
+                                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{item.label}</span>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
 
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "日央水原",
-    "url": "https://sunwater.me/",
-    "logo": "https://sunwater.me/images/logo.png",
-    "description": "台灣最專業的遊戲虛寶交易平台，提供遊戲帳號、遊戲幣、遊戲道具買賣，安全交易・即時到帳。",
-    "sameAs": [
-        "https://www.facebook.com/profile.php?id=100064047333025",
-        "https://www.instagram.com/sunwater168168/",
-        "https://www.youtube.com/@sunwater_game.service",
-        "https://www.tiktok.com/@sunwater168168",
-        "https://line.me/R/ti/p/@321enghh"
-    ]
-}
-</script>
+                                        <div className="flex items-start gap-4 p-5 bg-orange-500/5 border border-orange-500/10 rounded-2xl">
+                                            <Icons.Shield className="w-6 h-6 text-orange-500 shrink-0" />
+                                            <p className="text-[12px] font-bold text-orange-200/70 leading-relaxed text-left">安全提示：所有影像將覆蓋「供日央水原交易審核用」防偽浮水印。</p>
+                                        </div>
+                                        <div className="bg-[#0d1117] border border-slate-800 rounded-2xl p-6 space-y-4 text-[13px] text-slate-400 text-left">
+                                            <label className="flex items-start gap-4 cursor-pointer select-none">
+                                                <input type="checkbox" className="mt-1 w-5 h-5 rounded border-slate-700 bg-slate-800 text-orange-500 focus:ring-0" checked={checks.nameMatch} onChange={e => setChecks({...checks, nameMatch: e.target.checked})} />
+                                                <span className={checks.nameMatch ? 'text-white font-bold' : ''}>我保證以上資訊均屬實無誤，並願意承擔法律責任。</span>
+                                            </label>
+                                            <label className="flex items-start gap-4 cursor-pointer select-none">
+                                                <input type="checkbox" className="mt-1 w-5 h-5 rounded border-slate-700 bg-slate-800 text-orange-500 focus:ring-0" checked={checks.qualityOk} onChange={e => setChecks({...checks, qualityOk: e.target.checked})} />
+                                                <span className={checks.qualityOk ? 'text-white font-bold' : ''}>我確認上傳影像清晰可辨識，無遮擋或反光情形。</span>
+                                            </label>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            <button type="button" onClick={() => setCurrentStep(1)} className="flex-1 py-5 border border-slate-800 text-slate-500 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-800 transition-all text-sm">返回</button>
+                                            <button
+                                                type="button"
+                                                onClick={handleSubmit}
+                                                disabled={loading}
+                                                className={`flex-[2] py-5 rounded-2xl font-black uppercase tracking-widest transition-all text-sm shadow-xl flex items-center justify-center gap-3 ${loading ? 'bg-slate-700 text-slate-400' : 'bg-orange-500 text-black hover:bg-orange-400 active:scale-95'}`}
+                                            >
+                                                {loading ? <Icons.Loader /> : "確認並上傳"}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
