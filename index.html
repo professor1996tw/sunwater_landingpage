@@ -64,7 +64,7 @@
             transition: all 0.3s ease;
         }
         .nav.scrolled { padding: 10px 40px; background: rgba(5, 5, 16, 0.95); }
-        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-brand { display: flex; align-items: center; text-decoration: none; }
         .nav-brand img { height: 36px; }
         .nav-links { display: flex; gap: 28px; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.3s; }
@@ -87,7 +87,6 @@
             position: absolute; inset: 0; overflow: hidden; z-index: 0;
             background: url('./images/hero-banner.jpg') center center / cover no-repeat;
         }
-        /* Fallback gradient overlay (also darkens the banner image for readability) */
         .hero-bg::before {
             content: ''; position: absolute; inset: 0;
             background:
@@ -96,7 +95,8 @@
                 linear-gradient(180deg, rgba(5,5,16,0.6) 0%, rgba(5,5,16,0.85) 100%);
             z-index: 1;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 700px; }
+        #particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+        .hero-content { position: relative; z-index: 3; max-width: 700px; }
         .hero-logo {
             max-width: 360px; width: 80%; margin: 0 auto 32px;
             animation: logoGlow 4s ease-in-out infinite alternate;
@@ -110,10 +110,7 @@
             font-size: 14px; letter-spacing: 6px; text-transform: uppercase;
             color: var(--gold); margin-bottom: 16px; font-weight: 400;
         }
-        .hero-desc {
-            font-size: 17px; color: var(--text-secondary); margin-bottom: 40px;
-            line-height: 1.8;
-        }
+        .hero-desc { font-size: 17px; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.8; }
         .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-primary {
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -135,8 +132,7 @@
         /* ===== Stats Bar ===== */
         .stats-bar {
             display: flex; justify-content: center; gap: 60px;
-            padding: 40px 20px; position: relative; z-index: 1;
-            margin-top: -40px;
+            padding: 40px 20px; position: relative; z-index: 1; margin-top: -40px;
         }
         .stat-item { text-align: center; }
         .stat-number {
@@ -165,6 +161,13 @@
             background: linear-gradient(90deg, var(--gold), var(--cyan));
         }
 
+        /* ===== Scroll Animations ===== */
+        .fade-up {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
         /* ===== Price Cards Grid ===== */
         .price-header-bar {
             display: flex; justify-content: space-between; align-items: center;
@@ -174,49 +177,29 @@
         .price-sync { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
         .price-sync .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
         .price-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
         }
         .price-card {
-            background: var(--navy);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 24px 20px 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 20px 16px; cursor: pointer;
+            transition: all 0.3s; position: relative; overflow: hidden;
         }
         .price-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, var(--gold), var(--cyan));
             opacity: 0; transition: opacity 0.3s;
         }
         .price-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
         .price-card:hover::before { opacity: 1; }
         .price-card-header {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            margin-bottom: 16px;
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;
         }
-        .price-card-name {
-            font-size: 15px; font-weight: 700; line-height: 1.3;
-        }
-        .price-card-rate {
-            font-size: 24px; font-weight: 800; color: var(--cyan);
-            white-space: nowrap;
-        }
-        .price-card-unit {
-            font-size: 11px; color: var(--text-secondary); margin-top: 2px;
-            text-align: right;
-        }
+        .price-card-name { font-size: 15px; font-weight: 700; line-height: 1.3; }
+        .price-card-rate { font-size: 24px; font-weight: 800; color: var(--cyan); white-space: nowrap; }
+        .price-card-unit { font-size: 11px; color: var(--text-secondary); margin-top: 2px; text-align: right; }
         .price-card-chart {
-            width: 100%; height: 120px;
-            border-radius: 8px;
-            overflow: hidden;
+            width: 100%; height: 120px; border-radius: 8px; overflow: hidden;
             background: rgba(0,0,0,0.2);
         }
 
@@ -229,26 +212,18 @@
         .price-modal-overlay.show { display: flex; }
         .price-modal {
             background: var(--navy); border: 1px solid rgba(200,150,62,0.2);
-            border-radius: 20px; padding: 32px; max-width: 700px; width: 100%;
-            position: relative;
+            border-radius: 20px; padding: 32px; max-width: 700px; width: 100%; position: relative;
         }
         .price-modal-close {
-            position: absolute; top: 16px; right: 20px;
-            background: none; border: none; color: var(--text-secondary);
-            font-size: 24px; cursor: pointer; transition: color 0.3s;
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            color: var(--text-secondary); font-size: 24px; cursor: pointer; transition: color 0.3s;
         }
         .price-modal-close:hover { color: white; }
-        .price-modal-title {
-            font-size: 22px; font-weight: 800; margin-bottom: 4px;
-        }
-        .price-modal-rate {
-            font-size: 36px; font-weight: 800; color: var(--cyan); margin-bottom: 20px;
-        }
+        .price-modal-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+        .price-modal-rate { font-size: 36px; font-weight: 800; color: var(--cyan); margin-bottom: 20px; }
         .price-modal-rate span { font-size: 14px; color: var(--text-secondary); font-weight: 400; margin-left: 8px; }
         .price-modal-chart {
-            width: 100%; height: 320px;
-            border-radius: 12px;
-            overflow: hidden;
+            width: 100%; height: 320px; border-radius: 12px; overflow: hidden;
             background: rgba(0,0,0,0.3);
         }
 
@@ -260,8 +235,8 @@
             transition: all 0.4s; position: relative; overflow: hidden;
         }
         .service-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: linear-gradient(90deg, var(--gold), var(--cyan));
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
             opacity: 0; transition: opacity 0.4s;
         }
         .service-card:hover { transform: translateY(-6px); border-color: rgba(200,150,62,0.2); }
@@ -297,8 +272,7 @@
             width: 44px; height: 44px; border-radius: 50%;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: #0a0a0a; font-size: 18px; font-weight: 800;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
         }
         .flow-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
         .flow-step p { font-size: 13px; color: var(--text-secondary); }
@@ -309,8 +283,7 @@
         .social-card {
             background: var(--navy); border: 1px solid var(--glass-border);
             border-radius: 14px; padding: 22px 28px; text-align: center;
-            text-decoration: none; color: var(--text-primary);
-            transition: all 0.3s; min-width: 140px;
+            text-decoration: none; color: var(--text-primary); transition: all 0.3s; min-width: 140px;
         }
         .social-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
         .social-card .social-icon { width: 32px; height: 32px; margin: 0 auto 10px; display: block; }
@@ -325,10 +298,6 @@
         .footer-links a { font-size: 12px; color: var(--text-secondary); transition: color 0.3s; }
         .footer-links a:hover { color: var(--gold-light); }
 
-        /* ===== Scroll Animations ===== */
-        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
-
         /* ===== Mobile Menu ===== */
         .mobile-menu {
             display: none; position: fixed; inset: 0;
@@ -340,7 +309,6 @@
         .mobile-menu .close-btn { position: absolute; top: 20px; right: 24px; font-size: 28px; color: white; background: none; border: none; cursor: pointer; }
 
         /* ===== Particles ===== */
-        #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         .particle {
             position: absolute; border-radius: 50%;
             animation: float var(--dur, 5s) ease-in-out var(--delay, 0s) infinite alternate;
@@ -427,7 +395,7 @@
     <a href="#" class="nav-cta" style="margin-top:16px;" onclick="closeMobile();showComingSoon(event)">進入交易網 →</a>
 </div>
 
-<!-- Hero with Banner Background -->
+<!-- Hero -->
 <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <div id="particles"></div>
@@ -448,21 +416,12 @@
 
 <!-- Stats Bar -->
 <div class="stats-bar fade-up">
-    <div class="stat-item">
-        <div class="stat-number">34,000+</div>
-        <div class="stat-label">累積交易筆數</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number">99%</div>
-        <div class="stat-label">客戶好評率</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number">5 min</div>
-        <div class="stat-label">平均到帳時間</div>
-    </div>
+    <div class="stat-item"><div class="stat-number">34,000+</div><div class="stat-label">累積交易筆數</div></div>
+    <div class="stat-item"><div class="stat-number">99%</div><div class="stat-label">客戶好評率</div></div>
+    <div class="stat-item"><div class="stat-number">5 min</div><div class="stat-label">平均到帳時間</div></div>
 </div>
 
-<!-- Price Section — Card Grid -->
+<!-- Price Section -->
 <section class="section fade-up" id="prices">
     <div class="section-label">Real-Time Pricing</div>
     <div class="section-title">天堂經典版 即時幣價</div>
@@ -471,9 +430,7 @@
         <h3>伺服器匯率 (TWD)</h3>
         <div class="price-sync"><span class="dot"></span> <span id="syncTime">同步中...</span></div>
     </div>
-    <div class="price-grid" id="priceGrid">
-        <!-- Cards generated by JS -->
-    </div>
+    <div class="price-grid" id="priceGrid"></div>
 </section>
 
 <!-- Price Detail Modal -->
@@ -493,32 +450,20 @@
     <div class="section-desc">提供全方位的遊戲虛寶交易服務，滿足您的所有需求</div>
     <div class="services-grid">
         <div class="service-card">
-            <div class="service-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <h4>遊戲帳號</h4>
-            <p>各類遊戲帳號安全買賣，資料完整移交，保障雙方權益</p>
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h4>遊戲帳號</h4><p>各類遊戲帳號安全買賣，資料完整移交，保障雙方權益</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <h4>遊戲幣</h4>
-            <p>即時匯率報價，快速交易到帳，支援多種遊戲幣種</p>
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h4>遊戲幣</h4><p>即時匯率報價，快速交易到帳，支援多種遊戲幣種</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            </div>
-            <h4>遊戲道具</h4>
-            <p>稀有裝備、道具安心交易，品項齊全，價格透明</p>
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h4>遊戲道具</h4><p>稀有裝備、道具安心交易，品項齊全，價格透明</p>
         </div>
         <div class="service-card">
-            <div class="service-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h4>輔助程式</h4>
-            <p>實用遊戲輔助工具，提升遊戲體驗，安全穩定</p>
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <h4>輔助程式</h4><p>實用遊戲輔助工具，提升遊戲體驗，安全穩定</p>
         </div>
     </div>
 </section>
@@ -529,26 +474,10 @@
     <div class="section-title">為什麼選擇日央水原</div>
     <div class="section-desc">我們致力於打造最安全、最專業的交易環境</div>
     <div class="why-grid">
-        <div class="why-card">
-            <div class="why-icon">🔒</div>
-            <h4>安全交易</h4>
-            <p>嚴格的交易流程與風控機制，確保每筆交易安全無虞</p>
-        </div>
-        <div class="why-card">
-            <div class="why-icon">⚡</div>
-            <h4>即時到帳</h4>
-            <p>高效的交易處理系統，確認後快速完成撥付</p>
-        </div>
-        <div class="why-card">
-            <div class="why-icon">✅</div>
-            <h4>實名認證</h4>
-            <p>完善的 KYC 身份驗證機制，杜絕詐騙風險</p>
-        </div>
-        <div class="why-card">
-            <div class="why-icon">🏆</div>
-            <h4>資深團隊</h4>
-            <p>專業經營團隊，豐富的遊戲交易市場經驗</p>
-        </div>
+        <div class="why-card"><div class="why-icon">🔒</div><h4>安全交易</h4><p>嚴格的交易流程與風控機制，確保每筆交易安全無虞</p></div>
+        <div class="why-card"><div class="why-icon">⚡</div><h4>即時到帳</h4><p>高效的交易處理系統，確認後快速完成撥付</p></div>
+        <div class="why-card"><div class="why-icon">✅</div><h4>實名認證</h4><p>完善的 KYC 身份驗證機制，杜絕詐騙風險</p></div>
+        <div class="why-card"><div class="why-icon">🏆</div><h4>資深團隊</h4><p>專業經營團隊，豐富的遊戲交易市場經驗</p></div>
     </div>
 </section>
 
@@ -566,7 +495,7 @@
         </div>
         <div class="flow-step">
             <div class="flow-num">2</div>
-            <h4>完成KYC</h4>
+            <h4>完成 KYC</h4>
             <p>上傳身分證件<br>完成身分驗證</p>
             <span class="flow-arrow">→</span>
         </div>
@@ -592,28 +521,23 @@
     <div class="social-grid">
         <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="social-card">
             <svg class="social-icon" viewBox="0 0 24 24" fill="#06c755"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
-            <div class="social-name">LINE</div>
-            <div class="social-handle">@321enghh</div>
+            <div class="social-name">LINE</div><div class="social-handle">@321enghh</div>
         </a>
         <a href="https://www.facebook.com/profile.php?id=100064047333025" target="_blank" rel="noopener" class="social-card">
             <svg class="social-icon" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            <div class="social-name">Facebook</div>
-            <div class="social-handle">粉絲專頁</div>
+            <div class="social-name">Facebook</div><div class="social-handle">粉絲專頁</div>
         </a>
         <a href="https://www.instagram.com/sunwater168168/" target="_blank" rel="noopener" class="social-card">
             <svg class="social-icon" viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs><rect width="20" height="20" x="2" y="2" rx="5" fill="url(#ig)"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
-            <div class="social-name">Instagram</div>
-            <div class="social-handle">@sunwater168168</div>
+            <div class="social-name">Instagram</div><div class="social-handle">@sunwater168168</div>
         </a>
         <a href="https://www.youtube.com/@sunwater_game.service" target="_blank" rel="noopener" class="social-card">
             <svg class="social-icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            <div class="social-name">YouTube</div>
-            <div class="social-handle">影片頻道</div>
+            <div class="social-name">YouTube</div><div class="social-handle">影片頻道</div>
         </a>
         <a href="https://www.tiktok.com/@sunwater168168" target="_blank" rel="noopener" class="social-card">
             <svg class="social-icon" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="#fff"/><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="url(#tiktok)"/><defs><linearGradient id="tiktok" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#25F4EE"/><stop offset="50%" stop-color="#fff"/><stop offset="100%" stop-color="#FE2C55"/></linearGradient></defs></svg>
-            <div class="social-name">TikTok</div>
-            <div class="social-handle">@sunwater168168</div>
+            <div class="social-name">TikTok</div><div class="social-handle">@sunwater168168</div>
         </a>
     </div>
 </section>
@@ -655,128 +579,149 @@
 <script>
 // ===== Navigation =====
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-document.getElementById('mobileToggle').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 50); });
+document.getElementById('mobileToggle').addEventListener('click', function() { document.getElementById('mobileMenu').classList.add('open'); });
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 function showComingSoon(e) { e.preventDefault(); document.getElementById('comingSoonModal').classList.add('show'); }
 document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
 
-// ===== Scroll Animations =====
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-// ===== Particles (inside hero only) =====
-const particlesEl = document.getElementById('particles');
-const isMobile = window.innerWidth <= 768;
-for(let i = 0; i < (isMobile ? 12 : 28); i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random()*100+'%';
-    p.style.top = Math.random()*100+'%';
-    p.style.setProperty('--dur', (3+Math.random()*5)+'s');
-    p.style.setProperty('--delay', (Math.random()*8)+'s');
-    const sz = 1.5+Math.random()*2.5;
-    p.style.width = sz+'px'; p.style.height = sz+'px';
-    const r = Math.random();
-    if(r>0.7){ p.style.background='rgba(200,150,62,0.6)'; p.style.boxShadow='0 0 6px rgba(200,150,62,0.3)'; }
-    else if(r>0.5){ p.style.background='rgba(56,189,248,0.4)'; }
-    else { p.style.background='rgba(255,255,255,0.4)'; }
-    particlesEl.appendChild(p);
-}
-
-// ===== Google Sheets Config =====
-const SHEET_ID = '1ujUTvJcHLN7MTMLJrbuLX_m789syksY0cSPmKw175yY';
-const PRICE_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-// OHLC sheet — expects columns: server, date, open, high, low, close
-const OHLC_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=1`;
-
-// ===== Fallback OHLC Data =====
-const fallbackOHLC = {"太陽神阿波羅":[{"time":"2026-04-06","open":295,"high":300,"low":285,"close":300},{"time":"2026-04-07","open":300,"high":310,"low":295,"close":305},{"time":"2026-04-08","open":310,"high":310,"low":300,"close":300}],"愛神丘比特":[{"time":"2026-04-06","open":310,"high":320,"low":290,"close":290},{"time":"2026-04-07","open":295,"high":325,"low":280,"close":325},{"time":"2026-04-08","open":325,"high":330,"low":310,"close":310}],"勝利女神雅典娜":[{"time":"2026-04-06","open":245,"high":260,"low":230,"close":260},{"time":"2026-04-07","open":260,"high":260,"low":255,"close":255},{"time":"2026-04-08","open":260,"high":260,"low":250,"close":250}],"美神維納斯":[{"time":"2026-04-06","open":320,"high":335,"low":300,"close":305},{"time":"2026-04-07","open":305,"high":320,"low":305,"close":315},{"time":"2026-04-08","open":315,"high":325,"low":305,"close":305}],"天神宙斯":[{"time":"2026-04-06","open":250,"high":255,"low":235,"close":250},{"time":"2026-04-07","open":250,"high":265,"low":250,"close":260},{"time":"2026-04-08","open":260,"high":260,"low":250,"close":250}],"天后海拉":[{"time":"2026-04-06","open":235,"high":245,"low":230,"close":240},{"time":"2026-04-07","open":240,"high":255,"low":240,"close":250},{"time":"2026-04-08","open":250,"high":255,"low":245,"close":245}],"戰神馬爾斯":[{"time":"2026-04-06","open":320,"high":340,"low":310,"close":330},{"time":"2026-04-07","open":330,"high":330,"low":320,"close":325},{"time":"2026-04-08","open":325,"high":335,"low":325,"close":325}],"月亮女神阿緹蜜斯":[{"time":"2026-04-06","open":240,"high":260,"low":240,"close":260},{"time":"2026-04-07","open":260,"high":260,"low":250,"close":260},{"time":"2026-04-08","open":250,"high":255,"low":250,"close":250}],"海神波塞頓":[{"time":"2026-04-06","open":285,"high":295,"low":280,"close":280},{"time":"2026-04-07","open":280,"high":300,"low":280,"close":295},{"time":"2026-04-08","open":300,"high":300,"low":285,"close":285}],"水蛇許德拉":[{"time":"2026-04-06","open":400,"high":420,"low":370,"close":395},{"time":"2026-04-07","open":395,"high":405,"low":365,"close":380},{"time":"2026-04-08","open":390,"high":405,"low":380,"close":385}],"冥王黑帝斯":[{"time":"2026-04-06","open":325,"high":345,"low":315,"close":340},{"time":"2026-04-07","open":345,"high":345,"low":300,"close":325},{"time":"2026-04-08","open":315,"high":325,"low":310,"close":310}],"火神赫發斯特斯":[{"time":"2026-04-06","open":240,"high":250,"low":240,"close":250},{"time":"2026-04-07","open":250,"high":250,"low":240,"close":245},{"time":"2026-04-08","open":245,"high":245,"low":245,"close":245}],"收獲女神蒂蜜特":[{"time":"2026-04-06","open":305,"high":320,"low":300,"close":300},{"time":"2026-04-07","open":300,"high":320,"low":295,"close":315},{"time":"2026-04-08","open":315,"high":320,"low":295,"close":305}],"蛇髮女墨杜沙":[{"time":"2026-04-06","open":330,"high":345,"low":310,"close":335},{"time":"2026-04-07","open":335,"high":350,"low":310,"close":340},{"time":"2026-04-08","open":345,"high":345,"low":280,"close":280}],"半人馬涅索斯":[{"time":"2026-04-06","open":275,"high":285,"low":270,"close":285},{"time":"2026-04-07","open":285,"high":300,"low":280,"close":290},{"time":"2026-04-08","open":290,"high":295,"low":285,"close":285}],"牛人彌諾陶洛斯":[{"time":"2026-04-06","open":255,"high":270,"low":255,"close":270},{"time":"2026-04-07","open":270,"high":295,"low":270,"close":290},{"time":"2026-04-08","open":285,"high":295,"low":280,"close":280}],"泰坦女神瑞亞":[{"time":"2026-04-06","open":380,"high":415,"low":375,"close":405},{"time":"2026-04-07","open":405,"high":410,"low":390,"close":405},{"time":"2026-04-08","open":410,"high":410,"low":390,"close":390}]};
-
-// ===== State =====
-let ohlcDataMap = { ...fallbackOHLC };
-let priceDataList = [];
-const miniCharts = {};  // serverName -> chart instance
-let modalChart = null;
-
-// ===== Fetch OHLC from Sheets (gid=1) =====
-async function fetchOHLC() {
-    try {
-        const resp = await fetch(OHLC_CSV_URL);
-        const text = await resp.text();
-        const rows = text.split('\n').slice(1);
-        const map = {};
-        rows.forEach(row => {
-            const cols = row.split(',');
-            if (cols.length >= 6) {
-                const server = cols[0].trim().replace(/^"|"$/g, '');
-                const dateRaw = cols[1].trim().replace(/^"|"$/g, '');
-                const o = parseFloat(cols[2]);
-                const h = parseFloat(cols[3]);
-                const l = parseFloat(cols[4]);
-                const c = parseFloat(cols[5]);
-                if (!server || isNaN(o)) return;
-                // Convert date to YYYY-MM-DD
-                let time = dateRaw;
-                if (dateRaw.includes('/')) {
-                    const parts = dateRaw.split('/');
-                    if (parts.length === 3) {
-                        time = `${parts[0].padStart(4,'0')}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
-                    } else if (parts.length === 2) {
-                        const y = new Date().getFullYear();
-                        time = `${y}-${parts[0].padStart(2,'0')}-${parts[1].padStart(2,'0')}`;
-                    }
-                }
-                if (!map[server]) map[server] = [];
-                map[server].push({ time, open: o, high: h, low: l, close: c });
+// ===== Scroll Animations (fixed: rootMargin + re-observe on load) =====
+function initScrollAnimations() {
+    var elements = document.querySelectorAll('.fade-up');
+    if (!elements.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
-        // Sort each server's data by time
-        Object.keys(map).forEach(k => {
-            map[k].sort((a, b) => a.time.localeCompare(b.time));
+    }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
+    elements.forEach(function(el) { observer.observe(el); });
+    // Fallback: force check after a short delay (handles edge cases)
+    setTimeout(function() {
+        elements.forEach(function(el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight + 80) {
+                el.classList.add('visible');
+            }
+        });
+    }, 500);
+}
+initScrollAnimations();
+
+// ===== Particles =====
+(function() {
+    var particlesEl = document.getElementById('particles');
+    var isMob = window.innerWidth <= 768;
+    for (var i = 0; i < (isMob ? 12 : 28); i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random()*100+'%';
+        p.style.top = Math.random()*100+'%';
+        p.style.setProperty('--dur', (3+Math.random()*5)+'s');
+        p.style.setProperty('--delay', (Math.random()*8)+'s');
+        var sz = 1.5+Math.random()*2.5;
+        p.style.width = sz+'px'; p.style.height = sz+'px';
+        var r = Math.random();
+        if (r>0.7) { p.style.background='rgba(200,150,62,0.6)'; p.style.boxShadow='0 0 6px rgba(200,150,62,0.3)'; }
+        else if (r>0.5) { p.style.background='rgba(56,189,248,0.4)'; }
+        else { p.style.background='rgba(255,255,255,0.4)'; }
+        particlesEl.appendChild(p);
+    }
+})();
+
+// ===== Config =====
+var SHEET_ID = '1ujUTvJcHLN7MTMLJrbuLX_m789syksY0cSPmKw175yY';
+var PRICE_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0';
+var OHLC_CSV_URL  = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=1';
+
+// ===== Fallback OHLC =====
+var fallbackOHLC = {"太陽神阿波羅":[{"time":"2026-04-06","open":295,"high":300,"low":285,"close":300},{"time":"2026-04-07","open":300,"high":310,"low":295,"close":305},{"time":"2026-04-08","open":310,"high":310,"low":300,"close":300}],"愛神丘比特":[{"time":"2026-04-06","open":310,"high":320,"low":290,"close":290},{"time":"2026-04-07","open":295,"high":325,"low":280,"close":325},{"time":"2026-04-08","open":325,"high":330,"low":310,"close":310}],"勝利女神雅典娜":[{"time":"2026-04-06","open":245,"high":260,"low":230,"close":260},{"time":"2026-04-07","open":260,"high":260,"low":255,"close":255},{"time":"2026-04-08","open":260,"high":260,"low":250,"close":250}],"美神維納斯":[{"time":"2026-04-06","open":320,"high":335,"low":300,"close":305},{"time":"2026-04-07","open":305,"high":320,"low":305,"close":315},{"time":"2026-04-08","open":315,"high":325,"low":305,"close":305}],"天神宙斯":[{"time":"2026-04-06","open":250,"high":255,"low":235,"close":250},{"time":"2026-04-07","open":250,"high":265,"low":250,"close":260},{"time":"2026-04-08","open":260,"high":260,"low":250,"close":250}],"天后海拉":[{"time":"2026-04-06","open":235,"high":245,"low":230,"close":240},{"time":"2026-04-07","open":240,"high":255,"low":240,"close":250},{"time":"2026-04-08","open":250,"high":255,"low":245,"close":245}],"戰神馬爾斯":[{"time":"2026-04-06","open":320,"high":340,"low":310,"close":330},{"time":"2026-04-07","open":330,"high":330,"low":320,"close":325},{"time":"2026-04-08","open":325,"high":335,"low":325,"close":325}],"月亮女神阿緹蜜斯":[{"time":"2026-04-06","open":240,"high":260,"low":240,"close":260},{"time":"2026-04-07","open":260,"high":260,"low":250,"close":260},{"time":"2026-04-08","open":250,"high":255,"low":250,"close":250}],"海神波塞頓":[{"time":"2026-04-06","open":285,"high":295,"low":280,"close":280},{"time":"2026-04-07","open":280,"high":300,"low":280,"close":295},{"time":"2026-04-08","open":300,"high":300,"low":285,"close":285}],"水蛇許德拉":[{"time":"2026-04-06","open":400,"high":420,"low":370,"close":395},{"time":"2026-04-07","open":395,"high":405,"low":365,"close":380},{"time":"2026-04-08","open":390,"high":405,"low":380,"close":385}],"冥王黑帝斯":[{"time":"2026-04-06","open":325,"high":345,"low":315,"close":340},{"time":"2026-04-07","open":345,"high":345,"low":300,"close":325},{"time":"2026-04-08","open":315,"high":325,"low":310,"close":310}],"火神赫發斯特斯":[{"time":"2026-04-06","open":240,"high":250,"low":240,"close":250},{"time":"2026-04-07","open":250,"high":250,"low":240,"close":245},{"time":"2026-04-08","open":245,"high":245,"low":245,"close":245}],"收獲女神蒂蜜特":[{"time":"2026-04-06","open":305,"high":320,"low":300,"close":300},{"time":"2026-04-07","open":300,"high":320,"low":295,"close":315},{"time":"2026-04-08","open":315,"high":320,"low":295,"close":305}],"蛇髮女墨杜沙":[{"time":"2026-04-06","open":330,"high":345,"low":310,"close":335},{"time":"2026-04-07","open":335,"high":350,"low":310,"close":340},{"time":"2026-04-08","open":345,"high":345,"low":280,"close":280}],"半人馬涅索斯":[{"time":"2026-04-06","open":275,"high":285,"low":270,"close":285},{"time":"2026-04-07","open":285,"high":300,"low":280,"close":290},{"time":"2026-04-08","open":290,"high":295,"low":285,"close":285}],"牛人彌諾陶洛斯":[{"time":"2026-04-06","open":255,"high":270,"low":255,"close":270},{"time":"2026-04-07","open":270,"high":295,"low":270,"close":290},{"time":"2026-04-08","open":285,"high":295,"low":280,"close":280}],"泰坦女神瑞亞":[{"time":"2026-04-06","open":380,"high":415,"low":375,"close":405},{"time":"2026-04-07","open":405,"high":410,"low":390,"close":405},{"time":"2026-04-08","open":410,"high":410,"low":390,"close":390}]};
+
+// ===== State =====
+var ohlcDataMap = {};
+// Deep copy fallback
+(function() {
+    var keys = Object.keys(fallbackOHLC);
+    for (var i = 0; i < keys.length; i++) {
+        ohlcDataMap[keys[i]] = fallbackOHLC[keys[i]].slice();
+    }
+})();
+var miniCharts = {};
+var modalChart = null;
+
+// ===== Helper: strip leading number prefix like "1." or "1.太陽" -> "太陽" =====
+function stripPrefix(name) {
+    return name.replace(/^\d+[\.\.\s]+/, '').trim();
+}
+
+// ===== Fetch OHLC from Sheets (gid=1) =====
+function fetchOHLC() {
+    return fetch(OHLC_CSV_URL).then(function(resp) {
+        return resp.text();
+    }).then(function(text) {
+        var rows = text.split('\n').slice(1);
+        var map = {};
+        rows.forEach(function(row) {
+            var cols = row.split(',');
+            if (cols.length >= 6) {
+                var server = cols[0].trim().replace(/^"|"$/g, '');
+                var dateRaw = cols[1].trim().replace(/^"|"$/g, '');
+                var o = parseFloat(cols[2]), h = parseFloat(cols[3]);
+                var l = parseFloat(cols[4]), c = parseFloat(cols[5]);
+                if (!server || isNaN(o)) return;
+                var time = dateRaw;
+                if (dateRaw.indexOf('/') !== -1) {
+                    var parts = dateRaw.split('/');
+                    if (parts.length === 3) {
+                        time = parts[0].padStart(4,'0') + '-' + parts[1].padStart(2,'0') + '-' + parts[2].padStart(2,'0');
+                    } else if (parts.length === 2) {
+                        var y = new Date().getFullYear();
+                        time = y + '-' + parts[0].padStart(2,'0') + '-' + parts[1].padStart(2,'0');
+                    }
+                }
+                // Store with stripped name as key
+                var cleanName = stripPrefix(server);
+                if (!map[cleanName]) map[cleanName] = [];
+                map[cleanName].push({ time: time, open: o, high: h, low: l, close: c });
+            }
+        });
+        Object.keys(map).forEach(function(k) {
+            map[k].sort(function(a, b) { return a.time.localeCompare(b.time); });
         });
         if (Object.keys(map).length > 0) {
             ohlcDataMap = map;
         }
-    } catch(e) {
+    }).catch(function(e) {
         console.warn('OHLC fetch fallback:', e);
-    }
+    });
 }
 
 // ===== Create Mini Chart =====
 function createMiniChart(container, serverName) {
-    const data = ohlcDataMap[serverName];
+    var cleanName = stripPrefix(serverName);
+    var data = ohlcDataMap[cleanName];
     if (!data || data.length === 0) {
         container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.2);font-size:12px;">暫無數據</div>';
         return null;
     }
     container.innerHTML = '';
-    const chart = LightweightCharts.createChart(container, {
+    var chart = LightweightCharts.createChart(container, {
         width: container.clientWidth,
         height: container.clientHeight,
-        layout: {
-            background: { type: 'solid', color: 'transparent' },
-            textColor: 'rgba(255,255,255,0.3)',
-            fontSize: 10,
-        },
-        grid: {
-            vertLines: { color: 'rgba(255,255,255,0.04)' },
-            horzLines: { color: 'rgba(255,255,255,0.04)' },
-        },
+        layout: { background: { type: 'solid', color: 'transparent' }, textColor: 'rgba(255,255,255,0.3)', fontSize: 10 },
+        grid: { vertLines: { color: 'rgba(255,255,255,0.04)' }, horzLines: { color: 'rgba(255,255,255,0.04)' } },
         rightPriceScale: { borderVisible: false, scaleMargins: { top: 0.1, bottom: 0.1 } },
         timeScale: { borderVisible: false, visible: false },
         crosshair: { mode: 0 },
-        handleScroll: false,
-        handleScale: false,
+        handleScroll: false, handleScale: false,
     });
-    const series = chart.addCandlestickSeries({
-        upColor: '#22c55e',
-        downColor: '#ef4444',
-        borderUpColor: '#22c55e',
-        borderDownColor: '#ef4444',
-        wickUpColor: '#22c55e',
-        wickDownColor: '#ef4444',
+    var series = chart.addCandlestickSeries({
+        upColor: '#22c55e', downColor: '#ef4444',
+        borderUpColor: '#22c55e', borderDownColor: '#ef4444',
+        wickUpColor: '#22c55e', wickDownColor: '#ef4444',
     });
     series.setData(data);
     chart.timeScale().fitContent();
@@ -785,29 +730,19 @@ function createMiniChart(container, serverName) {
 
 // ===== Create Modal Chart =====
 function createModalChart(serverName) {
-    const container = document.getElementById('modalChartContainer');
-    const data = ohlcDataMap[serverName];
-    if (modalChart) {
-        modalChart.remove();
-        modalChart = null;
-    }
+    var container = document.getElementById('modalChartContainer');
+    var cleanName = stripPrefix(serverName);
+    var data = ohlcDataMap[cleanName];
+    if (modalChart) { modalChart.remove(); modalChart = null; }
     if (!data || data.length === 0) {
         container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.3);">暫無數據</div>';
         return;
     }
     container.innerHTML = '';
     modalChart = LightweightCharts.createChart(container, {
-        width: container.clientWidth,
-        height: container.clientHeight,
-        layout: {
-            background: { type: 'solid', color: 'rgba(0,0,0,0.2)' },
-            textColor: 'rgba(255,255,255,0.5)',
-            fontSize: 12,
-        },
-        grid: {
-            vertLines: { color: 'rgba(255,255,255,0.05)' },
-            horzLines: { color: 'rgba(255,255,255,0.05)' },
-        },
+        width: container.clientWidth, height: container.clientHeight,
+        layout: { background: { type: 'solid', color: 'rgba(0,0,0,0.2)' }, textColor: 'rgba(255,255,255,0.5)', fontSize: 12 },
+        grid: { vertLines: { color: 'rgba(255,255,255,0.05)' }, horzLines: { color: 'rgba(255,255,255,0.05)' } },
         rightPriceScale: { borderColor: 'rgba(255,255,255,0.1)' },
         timeScale: { borderColor: 'rgba(255,255,255,0.1)' },
         crosshair: {
@@ -815,24 +750,21 @@ function createModalChart(serverName) {
             horzLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
         },
     });
-    const series = modalChart.addCandlestickSeries({
-        upColor: '#22c55e',
-        downColor: '#ef4444',
-        borderUpColor: '#22c55e',
-        borderDownColor: '#ef4444',
-        wickUpColor: '#22c55e',
-        wickDownColor: '#ef4444',
+    var series = modalChart.addCandlestickSeries({
+        upColor: '#22c55e', downColor: '#ef4444',
+        borderUpColor: '#22c55e', borderDownColor: '#ef4444',
+        wickUpColor: '#22c55e', wickDownColor: '#ef4444',
     });
     series.setData(data);
     modalChart.timeScale().fitContent();
 }
 
-// ===== Open / Close Modal =====
+// ===== Modal =====
 function openPriceModal(serverName, rate) {
     document.getElementById('modalServerName').textContent = serverName;
-    document.getElementById('modalServerRate').innerHTML = rate + '<span>TWD</span>';
+    document.getElementById('modalServerRate').innerHTML = rate + '<span> TWD</span>';
     document.getElementById('priceModal').classList.add('show');
-    setTimeout(() => createModalChart(serverName), 50);
+    setTimeout(function() { createModalChart(serverName); }, 50);
 }
 function closePriceModal() {
     document.getElementById('priceModal').classList.remove('show');
@@ -841,93 +773,97 @@ function closePriceModal() {
 document.getElementById('priceModal').addEventListener('click', function(e) {
     if (e.target === this) closePriceModal();
 });
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePriceModal();
+});
 
 // ===== Render Price Cards =====
 function renderPriceCards(data) {
-    const grid = document.getElementById('priceGrid');
+    var grid = document.getElementById('priceGrid');
     grid.innerHTML = '';
-    data.forEach((item, i) => {
-        const card = document.createElement('div');
+    data.forEach(function(item, i) {
+        var card = document.createElement('div');
         card.className = 'price-card';
-        card.onclick = () => openPriceModal(item.name, item.value);
-        card.innerHTML = `
-            <div class="price-card-header">
-                <div class="price-card-name">${item.name}</div>
-                <div>
-                    <div class="price-card-rate">${item.value}</div>
-                    <div class="price-card-unit">TWD</div>
-                </div>
-            </div>
-            <div class="price-card-chart" id="minichart-${i}"></div>
-        `;
+        card.setAttribute('data-server', item.name);
+        card.setAttribute('data-rate', item.value);
+        card.onclick = function() { openPriceModal(item.name, item.value); };
+        card.innerHTML =
+            '<div class="price-card-header">' +
+                '<div class="price-card-name">' + item.name + '</div>' +
+                '<div><div class="price-card-rate">' + item.value + '</div>' +
+                '<div class="price-card-unit">TWD</div></div>' +
+            '</div>' +
+            '<div class="price-card-chart" id="minichart-' + i + '"></div>';
         grid.appendChild(card);
     });
     // Render mini charts after DOM paint
-    requestAnimationFrame(() => {
-        data.forEach((item, i) => {
-            const container = document.getElementById('minichart-' + i);
-            if (container) {
-                if (miniCharts[item.name]) {
-                    miniCharts[item.name].remove();
+    requestAnimationFrame(function() {
+        setTimeout(function() {
+            data.forEach(function(item, i) {
+                var container = document.getElementById('minichart-' + i);
+                if (container) {
+                    var key = stripPrefix(item.name);
+                    if (miniCharts[key]) {
+                        try { miniCharts[key].remove(); } catch(e) {}
+                    }
+                    miniCharts[key] = createMiniChart(container, item.name);
                 }
-                miniCharts[item.name] = createMiniChart(container, item.name);
-            }
-        });
+            });
+        }, 100);
     });
 }
 
 // ===== Fetch Prices =====
-async function fetchPrices() {
-    try {
-        const response = await fetch(PRICE_CSV_URL);
-        const csvText = await response.text();
-        const rows = csvText.split('\n').slice(1);
-        priceDataList = rows.map(row => {
-            const cols = row.split(',');
+function fetchPrices() {
+    return fetch(PRICE_CSV_URL).then(function(resp) {
+        return resp.text();
+    }).then(function(csvText) {
+        var rows = csvText.split('\n').slice(1);
+        var priceDataList = rows.map(function(row) {
+            var cols = row.split(',');
             if (cols.length >= 2) {
-                return {
-                    name: cols[0].trim().replace(/^"|"$/g, ''),
-                    value: cols[1].trim().replace(/^"|"$/g, '')
-                };
+                return { name: cols[0].trim().replace(/^"|"$/g, ''), value: cols[1].trim().replace(/^"|"$/g, '') };
             }
             return null;
-        }).filter(item => item && item.name);
-
+        }).filter(function(item) { return item && item.name; });
         renderPriceCards(priceDataList);
-
-        const now = new Date();
-        const pad = n => String(n).padStart(2, '0');
+        var now = new Date();
+        var pad = function(n) { return String(n).padStart(2, '0'); };
         document.getElementById('syncTime').textContent =
-            `${now.getFullYear()}/${pad(now.getMonth()+1)}/${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} 同步`;
-    } catch(err) {
+            now.getFullYear() + '/' + pad(now.getMonth()+1) + '/' + pad(now.getDate()) + ' ' +
+            pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()) + ' 同步';
+    }).catch(function(err) {
         console.error('Price fetch error:', err);
         document.getElementById('priceGrid').innerHTML =
             '<p style="color:var(--text-secondary);text-align:center;padding:40px;grid-column:1/-1;">報價載入中，請稍後重新整理...</p>';
-    }
+    });
 }
 
-// ===== Resize handler for mini charts =====
-let resizeTimer;
-window.addEventListener('resize', () => {
+// ===== Resize handler =====
+var resizeTimer;
+window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        Object.values(miniCharts).forEach(chart => {
-            if (chart && chart.resize) {
-                const container = chart.chartElement().parentElement;
-                if (container) chart.resize(container.clientWidth, container.clientHeight);
+    resizeTimer = setTimeout(function() {
+        Object.keys(miniCharts).forEach(function(key) {
+            var chart = miniCharts[key];
+            if (chart && chart.chartElement) {
+                try {
+                    var el = chart.chartElement().parentElement;
+                    if (el) chart.resize(el.clientWidth, el.clientHeight);
+                } catch(e) {}
             }
         });
     }, 200);
 });
 
 // ===== Init =====
-(async function init() {
-    await fetchOHLC();
-    await fetchPrices();
-    // Auto refresh every 15 min (prices + OHLC)
-    setInterval(async () => {
-        await fetchOHLC();
-        await fetchPrices();
+(function init() {
+    fetchOHLC().then(function() {
+        return fetchPrices();
+    });
+    // Auto refresh every 15 min
+    setInterval(function() {
+        fetchOHLC().then(function() { return fetchPrices(); });
     }, 15 * 60 * 1000);
 })();
 </script>
