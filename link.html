@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-X6099N611V');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>日央水原 SUNWATER — 遊戲交易服務商</title>
+    <meta name="description" content="日央水原商行 — 專業遊戲虛寶交易服務商，安全交易、即時到帳">
+    <meta property="og:title" content="日央水原 SUNWATER">
+    <meta property="og:description" content="專業遊戲虛寶交易服務商 — 安全交易・即時到帳">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS VARIABLES — single source of truth
+           =========================================== */
+        :root {
+            --bg-deep: #050510;
+            --navy: #0a1628;
+            --gold: #C8963E;
+            --gold-light: #e8be6a;
+            --gold-bright: #f5d78e;
+            --gold-glow: rgba(200, 150, 62, 0.5);
+            --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.55);
+            /* Mobile-first values (lightweight) */
+            --blur-card: blur(12px) saturate(1.2);
+            --blur-logo: blur(10px);
+            --blur-orb: blur(60px);
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --anim-dur: 0.4s;
+            --anim-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Desktop: upgrade to full effects */
+        @media (min-width: 769px) {
+            :root {
+                --blur-card: blur(40px) saturate(1.4);
+                --blur-logo: blur(20px);
+                --blur-orb: blur(80px);
+                --card-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 12px rgba(0,0,0,0.2);
+                --anim-dur: 0.7s;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans TC', 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           BACKGROUND — Glow Orbs
+           =========================================== */
+        .bg-canvas {
+            position: fixed; inset: 0;
+            z-index: 0; overflow: hidden;
+            background: radial-gradient(ellipse 120% 80% at 50% 20%, #0a1628 0%, var(--bg-deep) 70%);
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: var(--blur-orb);
+            opacity: 0;
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+        .glow-orb--gold  { width: 350px; height: 350px; top: -10%; left: -5%;  background: radial-gradient(circle, rgba(200,150,62,0.35) 0%, transparent 70%); animation-duration: 14s; }
+        .glow-orb--cyan  { width: 280px; height: 280px; top: 30%; right: -15%; background: radial-gradient(circle, rgba(56,189,248,0.2) 0%, transparent 70%);  animation-delay: 3s; animation-duration: 16s; }
+        .glow-orb--blue  { width: 300px; height: 300px; bottom: 5%; left: -10%; background: radial-gradient(circle, rgba(27,58,150,0.3) 0%, transparent 70%);   animation-delay: 6s; animation-duration: 18s; }
+        .glow-orb--gold2 { width: 200px; height: 200px; top: 60%; right: -5%;  background: radial-gradient(circle, rgba(200,150,62,0.2) 0%, transparent 70%);  animation-delay: 9s; animation-duration: 20s; }
+
+        @keyframes orbFloat {
+            0%, 100% { opacity: 0.5; transform: translate(0,0) scale(1); }
+            25%      { opacity: 0.8; transform: translate(30px,-20px) scale(1.15); }
+            50%      { opacity: 0.6; transform: translate(-20px,20px) scale(1.05); }
+            75%      { opacity: 0.9; transform: translate(15px,10px) scale(1.2); }
+        }
+
+        /* Mesh overlay + noise */
+        .mesh-overlay {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.04;
+            background-image:
+                radial-gradient(at 40% 20%, rgba(200,150,62,0.5) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(56,189,248,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(27,58,150,0.4) 0px, transparent 50%);
+        }
+        .noise {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") repeat;
+            background-size: 128px;
+        }
+
+        /* ===========================================
+           NEON PORTALS — hidden on mobile via CSS
+           =========================================== */
+        .neon-portals {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            perspective: 800px; perspective-origin: 50% 55%; overflow: hidden;
+            opacity: 0.3;
+        }
+        .portal {
+            position: absolute;
+            border: 1.5px solid rgba(140,210,255,0.25);
+            border-radius: 4px;
+            box-shadow: 0 0 12px rgba(140,210,255,0.08), 0 0 30px rgba(140,210,255,0.04), inset 0 0 12px rgba(140,210,255,0.03);
+            animation: portalPulse var(--p-dur) ease-in-out infinite var(--p-delay);
+        }
+        .portal--l1 { width:55px; height:110px; left:4%;  top:25%; transform:rotateY(30deg) rotateZ(-2deg); --p-dur:5s;   --p-delay:0s; }
+        .portal--l2 { width:40px; height:85px;  left:10%; top:32%; transform:rotateY(25deg) rotateZ(-1deg); --p-dur:6s;   --p-delay:1.5s; opacity:0.6; }
+        .portal--l3 { width:28px; height:60px;  left:16%; top:38%; transform:rotateY(20deg);                --p-dur:7s;   --p-delay:3s;   opacity:0.35; }
+        .portal--l4 { width:18px; height:40px;  left:21%; top:42%; transform:rotateY(15deg);                --p-dur:8s;   --p-delay:4s;   opacity:0.2; }
+        .portal--r1 { width:55px; height:110px; right:4%; top:25%; transform:rotateY(-30deg) rotateZ(2deg); --p-dur:5.5s; --p-delay:0.8s; }
+        .portal--r2 { width:40px; height:85px;  right:10%;top:32%; transform:rotateY(-25deg) rotateZ(1deg); --p-dur:6.5s; --p-delay:2s;   opacity:0.6; }
+        .portal--r3 { width:28px; height:60px;  right:16%;top:38%; transform:rotateY(-20deg);               --p-dur:7.5s; --p-delay:3.5s; opacity:0.35; }
+        .portal--r4 { width:18px; height:40px;  right:21%;top:42%; transform:rotateY(-15deg);               --p-dur:8.5s; --p-delay:4.5s; opacity:0.2; }
+        .portal--c1 { width:12px; height:26px;  left:50%; top:45%; transform:translateX(-50%);              --p-dur:9s;   --p-delay:5s;   opacity:0.12; }
+
+        @keyframes portalPulse {
+            0%, 100% { border-color: rgba(140,210,255,0.2); box-shadow: 0 0 12px rgba(140,210,255,0.06); }
+            50%      { border-color: rgba(140,210,255,0.4); box-shadow: 0 0 20px rgba(140,210,255,0.12), 0 0 50px rgba(140,210,255,0.06); }
+        }
+
+        .portal-fog {
+            position: fixed; left: 50%; top: 40%; transform: translate(-50%,-50%);
+            width: 300px; height: 200px;
+            background: radial-gradient(ellipse, rgba(140,210,255,0.04) 0%, transparent 70%);
+            filter: blur(30px); z-index: 0; pointer-events: none;
+            animation: fogPulse 8s ease-in-out infinite;
+        }
+        @keyframes fogPulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+            50%      { opacity: 1;   transform: translate(-50%,-50%) scale(1.2); }
+        }
+
+        /* Canvas — hidden on mobile via CSS */
+        .city-canvas, .network-canvas {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            pointer-events: none; display: none;
+        }
+        .city-canvas    { z-index: 0; }
+        .network-canvas { z-index: 1; }
+
+        /* Floating particles */
+        .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+        .particle {
+            position: absolute; border-radius: 50%;
+            animation: particleRise var(--dur) ease-in-out infinite var(--delay);
+            opacity: 0;
+        }
+        @keyframes particleRise {
+            0%   { opacity: 0; transform: translateY(20px) scale(0.5); }
+            20%  { opacity: 1; }
+            80%  { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-60px) scale(0.3); }
+        }
+
+        /* ===========================================
+           CONTAINER
+           =========================================== */
+        .container {
+            position: relative; z-index: 10;
+            width: 100%; max-width: 420px;
+            padding: 50px 22px 60px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* ===========================================
+           BRAND HERO
+           =========================================== */
+        .brand-hero { text-align: center; margin-bottom: 36px; position: relative; }
+
+        .logo-ring {
+            position: absolute; top: 50%; left: 50%;
+            width: 160px; height: 160px;
+            transform: translate(-50%, -70%);
+            border-radius: 50%; pointer-events: none;
+            animation: ringRotate 8s linear infinite;
+        }
+        .logo-ring::before {
+            content: ''; position: absolute; inset: -3px; border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0%, rgba(200,150,62,0.5) 15%, transparent 30%, rgba(56,189,248,0.3) 50%, transparent 65%, rgba(200,150,62,0.4) 80%, transparent 100%);
+            filter: blur(8px);
+        }
+        @keyframes ringRotate {
+            from { transform: translate(-50%,-70%) rotate(0deg); }
+            to   { transform: translate(-50%,-70%) rotate(360deg); }
+        }
+
+        .logo-pulse {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-70%);
+            width: 180px; height: 180px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,150,62,0.2) 0%, transparent 60%);
+            animation: pulseGlow 3s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: translate(-50%,-70%) scale(1); }
+            50%      { opacity: 1;   transform: translate(-50%,-70%) scale(1.25); }
+        }
+
+        .logo-container {
+            width: 120px; height: 120px; margin: 0 auto 24px;
+            position: relative; z-index: 2;
+            border-radius: 50%; overflow: hidden;
+            background: linear-gradient(135deg, rgba(200,150,62,0.12), rgba(10,22,40,0.8));
+            border: 1.5px solid rgba(200,150,62,0.3);
+            backdrop-filter: var(--blur-logo);
+            -webkit-backdrop-filter: var(--blur-logo);
+            box-shadow: 0 0 50px rgba(200,150,62,0.15), 0 0 100px rgba(200,150,62,0.05), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            animation: logoEntry 1s var(--anim-ease) 0.2s both;
+        }
+        .logo-container svg { width: 85%; height: 85%; }
+
+        /* Mobile-first: simple fade animations */
+        @keyframes logoEntry {
+            from { opacity: 0; transform: scale(0.9); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes textEntry {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cardEntry {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-text { animation: textEntry 0.8s var(--anim-ease) 0.5s both; }
+        .brand-en {
+            font-family: 'Inter', sans-serif; font-size: 32px; font-weight: 800;
+            letter-spacing: 8px; margin-bottom: 6px;
+            background: linear-gradient(135deg, #f5d78e 0%, #C8963E 40%, #e8be6a 60%, #f5d78e 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: textEntry 0.8s var(--anim-ease) 0.5s both, shimmerText 4s linear infinite;
+        }
+        @keyframes shimmerText { from { background-position: 0% center; } to { background-position: 200% center; } }
+
+        .brand-cn {
+            font-size: 15px; font-weight: 400; color: var(--text-secondary);
+            letter-spacing: 12px; margin-bottom: 16px;
+            animation: textEntry 0.8s var(--anim-ease) 0.65s both;
+        }
+        .brand-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 11px; color: var(--gold-light); letter-spacing: 3px;
+            padding: 6px 20px; border-radius: 24px;
+            background: linear-gradient(135deg, rgba(200,150,62,0.1), rgba(56,189,248,0.05));
+            border: 1px solid rgba(200,150,62,0.2);
+            backdrop-filter: blur(10px);
+            animation: textEntry 0.8s var(--anim-ease) 0.8s both;
+        }
+        .badge-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold-glow), 0 0 20px rgba(200,150,62,0.2);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.5; box-shadow: 0 0 8px var(--gold-glow); }
+            50%      { opacity: 1;   box-shadow: 0 0 12px var(--gold-glow), 0 0 25px rgba(200,150,62,0.3); }
+        }
+
+        /* Divider */
+        .divider {
+            width: 80px; height: 1px; margin: 0 auto 32px; position: relative;
+            animation: textEntry 0.8s var(--anim-ease) 0.9s both;
+        }
+        .divider::before { content:''; position:absolute; width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--gold-glow),rgba(56,189,248,0.3),transparent); }
+        .divider::after  { content:''; position:absolute; top:-2px; left:50%; transform:translateX(-50%); width:5px; height:5px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold-glow); }
+
+        /* ===========================================
+           SECTION TITLES
+           =========================================== */
+        .section-title {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 2px; margin-bottom: 6px; width: 100%;
+            animation: textEntry 0.8s var(--anim-ease) 0.95s both;
+        }
+        .section-title-cn { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--text-primary); }
+        .section-title-en { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 5px; color: var(--text-secondary); }
+        .section-title--social { margin-top: 12px; animation-delay: 1.6s; }
+
+        /* ===========================================
+           SHARED CARD BASE (link-card + social-card)
+           =========================================== */
+        .link-card, .social-card {
+            display: flex; align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-card);
+            -webkit-backdrop-filter: var(--blur-card);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            text-decoration: none; color: var(--text-primary);
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: all 0.5s var(--anim-ease);
+        }
+
+        /* Card stagger — JS sets --i on each card, CSS does the math */
+        .link-card, .social-card {
+            animation: cardEntry var(--anim-dur) var(--anim-ease) both;
+            animation-delay: calc(0.3s + var(--i, 0) * 0.1s);
+        }
+
+        /* --- Link card specifics --- */
+        .link-card { gap: 14px; width: 100%; padding: 15px 18px; border-radius: 16px; }
+        .links     { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+
+        /* --- Social card specifics --- */
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .social-card { gap: 10px; padding: 14px; border-radius: 14px; }
+        .social-card .link-icon  { width: 38px; height: 38px; border-radius: 12px; }
+        .social-card .link-title { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+        .social-card .link-desc  { font-size: 9.5px; }
+
+        /* ===========================================
+           ICON / CONTENT / ARROW
+           =========================================== */
+        .link-icon {
+            width: 44px; height: 44px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; position: relative; z-index: 1;
+            transition: all 0.4s var(--anim-ease);
+        }
+        .link-icon svg { width: 22px; height: 22px; }
+
+        .link-content { flex: 1; position: relative; z-index: 1; }
+        .link-title   { font-size: 14px; font-weight: 600; margin-bottom: 2px; letter-spacing: 0.5px; transition: color 0.3s ease; }
+        .link-desc    { font-size: 10.5px; color: var(--text-secondary); letter-spacing: 0.3px; }
+
+        .link-arrow   { color: rgba(255,255,255,0.15); transition: all 0.4s var(--anim-ease); position: relative; z-index: 1; }
+
+        /* Icon colour backgrounds */
+        .icon-trade  { background: linear-gradient(135deg, rgba(200,150,62,0.2), rgba(200,150,62,0.05));  box-shadow: 0 0 20px rgba(200,150,62,0.08); }
+        .icon-web    { background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(56,189,248,0.05));  box-shadow: 0 0 20px rgba(56,189,248,0.08); }
+        .icon-line   { background: linear-gradient(135deg, rgba(6,199,85,0.2), rgba(6,199,85,0.05));     box-shadow: 0 0 20px rgba(6,199,85,0.08); }
+        .icon-meta   { background: linear-gradient(135deg, rgba(24,119,242,0.2), rgba(24,119,242,0.05)); box-shadow: 0 0 20px rgba(24,119,242,0.08); }
+        .icon-ig     { background: linear-gradient(135deg, rgba(225,48,108,0.2), rgba(131,58,180,0.1));  box-shadow: 0 0 20px rgba(225,48,108,0.08); }
+        .icon-kyc    { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05)); box-shadow: 0 0 20px rgba(16,185,129,0.08); }
+        .icon-yt     { background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(255,0,0,0.05));       box-shadow: 0 0 20px rgba(255,0,0,0.08); }
+        .icon-tiktok { background: linear-gradient(135deg, rgba(105,201,208,0.2), rgba(238,29,82,0.1));  box-shadow: 0 0 20px rgba(105,201,208,0.08); }
+
+        /* ===========================================
+           FOOTER
+           =========================================== */
+        .footer { margin-top: 40px; text-align: center; animation: textEntry 0.6s ease-out 1.7s both; }
+        .footer-line { width: 40px; height: 1px; margin: 0 auto 14px; background: linear-gradient(90deg, transparent, rgba(200,150,62,0.25), transparent); }
+        .footer-text { font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 2px; font-weight: 300; }
+
+        /* ===========================================
+           MODAL — Coming Soon
+           =========================================== */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 999;
+            background: rgba(5,5,16,0.75);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border: 1px solid rgba(200,150,62,0.25); border-radius: 20px;
+            padding: 40px 36px; text-align: center; max-width: 320px; width: 90%;
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(200,150,62,0.08), inset 0 1px 0 rgba(255,255,255,0.1);
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.4s var(--anim-ease);
+        }
+        .modal-overlay.show .modal-box { transform: scale(1) translateY(0); }
+        .modal-icon { width: 50px; height: 50px; margin: 0 auto 18px; border-radius: 50%; background: linear-gradient(135deg, rgba(200,150,62,0.2), rgba(200,150,62,0.05)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(200,150,62,0.15); }
+        .modal-icon svg { width: 24px; height: 24px; }
+        .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, #f5d78e, #C8963E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; }
+        .modal-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 28px; border-radius: 12px;
+            border: 1px solid rgba(200,150,62,0.3);
+            background: linear-gradient(135deg, rgba(200,150,62,0.15), rgba(200,150,62,0.05));
+            color: var(--gold-light); font-size: 13px; font-weight: 600;
+            letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .modal-btn:hover { background: linear-gradient(135deg, rgba(200,150,62,0.25), rgba(200,150,62,0.1)); border-color: rgba(200,150,62,0.5); box-shadow: 0 0 20px rgba(200,150,62,0.15); }
+
+        /* Scrollbar + selection */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(200,150,62,0.15); border-radius: 3px; }
+        ::selection { background: rgba(200,150,62,0.3); color: white; }
+
+        /* Touch feedback */
+        @media (hover: none) {
+            .link-card:active, .social-card:active {
+                background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(200,150,62,0.04));
+                border-color: rgba(200,150,62,0.3);
+            }
+        }
+
+        /* Small phone tweak */
+        @media (max-width: 380px) {
+            .container { padding: 36px 16px 40px; }
+            .brand-en { font-size: 26px; letter-spacing: 5px; }
+            .link-card { padding: 12px 14px; gap: 12px; }
+            .link-icon { width: 40px; height: 40px; }
+        }
+
+        /* ===========================================
+           DESKTOP ENHANCEMENTS (≥769px)
+           =========================================== */
+        @media (min-width: 769px) {
+            .container { padding-top: 80px; }
+
+            /* Show canvas backgrounds */
+            .city-canvas, .network-canvas { display: block; }
+
+            /* Full-strength portals */
+            .neon-portals { opacity: 1; }
+
+            /* Rich entry animations */
+            @keyframes logoEntry {
+                from { opacity: 0; transform: scale(0.5) translateY(20px); filter: blur(10px); }
+                to   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            }
+            @keyframes textEntry {
+                from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+                to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+            }
+            @keyframes cardEntry {
+                from { opacity: 0; transform: translateX(-40px) scale(0.95); filter: blur(5px); }
+                to   { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+            }
+
+            /* Glow border on hover */
+            .link-card::before, .social-card::before {
+                content: ''; position: absolute; inset: -1px;
+                border-radius: inherit; padding: 1px;
+                background: linear-gradient(135deg, rgba(200,150,62,0.5), rgba(56,189,248,0.3), rgba(200,150,62,0.2));
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor; mask-composite: exclude;
+                opacity: 0; transition: opacity 0.5s ease;
+            }
+
+            /* Light sweep effect */
+            .link-card::after, .social-card::after {
+                content: ''; position: absolute; top: 0; left: -120%;
+                width: 60%; height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(200,150,62,0.08), rgba(255,255,255,0.06), transparent);
+                transform: skewX(-15deg); transition: none;
+            }
+
+            /* Hover states */
+            .link-card:hover, .social-card:hover {
+                transform: translateY(-4px) scale(1.02);
+                background: linear-gradient(135deg, rgba(255,255,255,0.13), rgba(200,150,62,0.06));
+                border-color: rgba(255,255,255,0.18);
+                box-shadow: 0 10px 40px rgba(200,150,62,0.12), 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+            }
+            .social-card:hover { transform: translateY(-3px) scale(1.03); }
+            .link-card:hover::before, .social-card:hover::before { opacity: 1; }
+            .link-card:hover::after, .social-card:hover::after { left: 130%; transition: left 0.8s ease; }
+            .link-card:active, .social-card:active { transform: translateY(-2px) scale(1.01); }
+
+            .link-card:hover .link-icon, .social-card:hover .link-icon { transform: scale(1.1) rotate(-3deg); }
+            .link-card:hover .link-title, .social-card:hover .link-title { color: var(--gold-light); }
+            .link-card:hover .link-arrow { color: var(--gold); transform: translateX(5px); filter: drop-shadow(0 0 6px var(--gold-glow)); }
+
+            /* Icon hover glow */
+            .link-card:hover .icon-trade, .social-card:hover .icon-trade  { box-shadow: 0 0 25px rgba(200,150,62,0.25); }
+            .link-card:hover .icon-web                                     { box-shadow: 0 0 25px rgba(56,189,248,0.25); }
+            .link-card:hover .icon-line                                    { box-shadow: 0 0 25px rgba(6,199,85,0.25); }
+            .link-card:hover .icon-kyc, .social-card:hover .icon-kyc       { box-shadow: 0 0 25px rgba(16,185,129,0.25); }
+            .social-card:hover .icon-meta   { box-shadow: 0 0 25px rgba(24,119,242,0.25); }
+            .social-card:hover .icon-ig     { box-shadow: 0 0 25px rgba(225,48,108,0.25); }
+            .social-card:hover .icon-yt     { box-shadow: 0 0 25px rgba(255,0,0,0.25); }
+            .social-card:hover .icon-tiktok { box-shadow: 0 0 25px rgba(105,201,208,0.25); }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .city-canvas, .network-canvas { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- BACKGROUND LAYERS -->
+    <div class="bg-canvas">
+        <div class="glow-orb glow-orb--gold"></div>
+        <div class="glow-orb glow-orb--cyan"></div>
+        <div class="glow-orb glow-orb--blue"></div>
+        <div class="glow-orb glow-orb--gold2"></div>
+    </div>
+    <div class="mesh-overlay"></div>
+
+    <div class="neon-portals">
+        <div class="portal portal--l1"></div><div class="portal portal--l2"></div>
+        <div class="portal portal--l3"></div><div class="portal portal--l4"></div>
+        <div class="portal portal--r1"></div><div class="portal portal--r2"></div>
+        <div class="portal portal--r3"></div><div class="portal portal--r4"></div>
+        <div class="portal portal--c1"></div>
+    </div>
+    <div class="portal-fog"></div>
+
+    <canvas class="city-canvas" id="cityCanvas"></canvas>
+    <canvas class="network-canvas" id="networkCanvas"></canvas>
+    <div class="noise"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="brand-hero">
+            <div class="logo-pulse"></div>
+            <div class="logo-ring"></div>
+            <div class="logo-container">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="circleClip"><circle cx="100" cy="100" r="96"/></clipPath>
+                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d4a84b"/><stop offset="50%" stop-color="#c8963e"/><stop offset="100%" stop-color="#b07e2a"/></linearGradient>
+                    <linearGradient id="navyGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1B3A5C"/><stop offset="100%" stop-color="#0f2340"/></linearGradient>
+                  </defs>
+                  <g clip-path="url(#circleClip)">
+                    <rect x="0" y="0" width="200" height="110" fill="url(#goldGrad)"/>
+                    <g transform="translate(100, 108)">
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-56)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-42)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-28)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-14)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(0)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(14)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(28)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(42)"/>
+                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(56)"/>
+                      <path d="M-32,0 A32,32 0 0,1 32,0 Z" fill="rgba(5,5,16,0.25)"/>
+                    </g>
+                    <path d="M-5,108 C20,88 45,104 70,96 S120,84 150,96 S190,108 210,95 L210,210 L-5,210 Z" fill="url(#navyGrad)"/>
+                    <path d="M-5,125 C25,108 50,122 80,114 S130,102 160,116 S195,126 210,118 L210,210 L-5,210 Z" fill="#0f2340"/>
+                    <path d="M-5,148 C30,133 55,145 90,138 S140,128 170,140 S200,150 210,142 L210,210 L-5,210 Z" fill="#091a30"/>
+                    <path d="M-5,110 C20,90 45,106 70,98 S120,86 150,98 S190,110 210,97" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2.8" stroke-linecap="round"/>
+                    <path d="M-5,127 C25,110 50,124 80,116 S130,104 160,118 S195,128 210,120" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M-5,150 C30,135 55,147 90,140 S140,130 170,142 S200,152 210,144" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round"/>
+                  </g>
+                  <circle cx="100" cy="100" r="96" fill="none" stroke="rgba(200,150,62,0.25)" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <div class="brand-en">SUNWATER</div>
+                <div class="brand-cn">日 央 水 原</div>
+                <div class="brand-badge"><span class="badge-dot"></span>遊戲交易服務商</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 服務入口 SERVICE -->
+        <div class="section-title">
+            <span class="section-title-cn">服務入口</span>
+            <span class="section-title-en">SERVICE</span>
+        </div>
+        <div class="links">
+            <a href="javascript:void(0)" class="link-card" onclick="document.getElementById('comingSoonModal').classList.add('show');return false;">
+                <div class="link-icon icon-trade"><svg viewBox="0 0 24 24" fill="none" stroke="#C8963E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                <div class="link-content"><div class="link-title">日央水原交易網</div><div class="link-desc">安全交易 流程簡單</div></div>
+                <div class="link-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+            </a>
+            <a href="https://sunwater.me" class="link-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-web"><svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                <div class="link-content"><div class="link-title">官方網站</div><div class="link-desc">了解更多服務內容</div></div>
+                <div class="link-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+            </a>
+            <a href="https://line.me/R/ti/p/@321enghh" class="link-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-line"><svg viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></div>
+                <div class="link-content"><div class="link-title">LINE 官方帳號</div><div class="link-desc">即時客服・報價查詢</div></div>
+                <div class="link-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+            </a>
+            <a href="https://sunwater.me/kyc.html" class="link-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-kyc"><svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <div class="link-content"><div class="link-title">KYC 實名認證</div><div class="link-desc">快速驗證・安心交易</div></div>
+                <div class="link-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+            </a>
+        </div>
+
+        <!-- 社群媒體 SOCIAL MEDIA -->
+        <div class="section-title section-title--social">
+            <span class="section-title-cn">社群媒體</span>
+            <span class="section-title-en">SOCIAL MEDIA</span>
+        </div>
+        <div class="social-grid">
+            <a href="https://www.facebook.com/profile.php?id=100064047333025" class="social-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-meta"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+                <div class="link-content"><div class="link-title">Facebook</div><div class="link-desc">粉絲專頁</div></div>
+            </a>
+            <a href="https://www.instagram.com/sunwater168168/" class="social-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-ig"><svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="url(#igGrad)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="url(#igGrad)"/></svg></div>
+                <div class="link-content"><div class="link-title">Instagram</div><div class="link-desc">日常動態</div></div>
+            </a>
+            <a href="https://www.youtube.com/@sunwater_game.service" class="social-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-yt"><svg viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+                <div class="link-content"><div class="link-title">YouTube</div><div class="link-desc">影片頻道</div></div>
+            </a>
+            <a href="https://www.tiktok.com/@sunwater168168" class="social-card" target="_blank" rel="noopener">
+                <div class="link-icon icon-tiktok"><svg viewBox="0 0 24 24" fill="none"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.53v-3.5a4.82 4.82 0 0 1-1-.51z" fill="#ffffff"/><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.53v-3.5a4.82 4.82 0 0 1-1-.51z" fill="url(#tiktokGrad)" opacity="0.8"/><defs><linearGradient id="tiktokGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#69C9D0"/><stop offset="100%" stop-color="#EE1D52"/></linearGradient></defs></svg></div>
+                <div class="link-content"><div class="link-title">TikTok</div><div class="link-desc">短影音</div></div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="footer-line"></div>
+            <div class="footer-text">&copy; 2026 SUNWATER 日央水原商行</div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const isDesktop = window.innerWidth > 768 && !('ontouchstart' in window);
+
+        // === Auto-assign stagger index (--i) to cards ===
+        let idx = 0;
+        document.querySelectorAll('.link-card').forEach(c => c.style.setProperty('--i', idx++));
+        document.querySelectorAll('.social-card').forEach(c => c.style.setProperty('--i', idx++));
+
+        // === Floating particles (fewer on mobile) ===
+        const particlesEl = document.getElementById('particles');
+        const particleCount = isDesktop ? 45 : 15;
+        for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
+            p.style.setProperty('--delay', (Math.random() * 8) + 's');
+            const size = 1.5 + Math.random() * 3;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            const r = Math.random();
+            if (r > 0.7)      { p.style.background = 'rgba(200,150,62,0.7)'; p.style.boxShadow = '0 0 6px rgba(200,150,62,0.4)'; }
+            else if (r > 0.5) { p.style.background = 'rgba(56,189,248,0.5)'; p.style.boxShadow = '0 0 6px rgba(56,189,248,0.3)'; }
+            else              { p.style.background = 'rgba(255,255,255,0.5)'; }
+            particlesEl.appendChild(p);
+        }
+
+        // === Card click ripple ===
+        document.querySelectorAll('.link-card, .social-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.cssText = `position:absolute;width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;border-radius:50%;background:radial-gradient(circle,rgba(200,150,62,0.15) 0%,transparent 70%);transform:scale(0);opacity:1;animation:rippleOut 0.6s ease-out forwards;pointer-events:none;z-index:0;`;
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // === Desktop-only: heavy canvas animations ===
+        if (isDesktop) {
+            // Interactive orb parallax
+            const orbs = document.querySelectorAll('.glow-orb');
+            document.addEventListener('mousemove', (e) => {
+                const mx = e.clientX / window.innerWidth - 0.5;
+                const my = e.clientY / window.innerHeight - 0.5;
+                orbs.forEach((orb, i) => {
+                    orb.style.transform = `translate(${mx*(15+i*8)}px, ${my*(15+i*8)}px)`;
+                });
+            });
+
+            // --- Wireframe City ---
+            (function() {
+                const c = document.getElementById('cityCanvas');
+                const ctx = c.getContext('2d');
+                let buildings = [], beams = [], dataDrops = [], W, H, time = 0;
+
+                function resize() {
+                    W = c.width = innerWidth;
+                    H = c.height = innerHeight;
+                    generate();
+                }
+
+                function generate() {
+                    buildings = []; beams = []; dataDrops = [];
+                    const baseY = H * 0.82;
+                    let x = -10;
+                    while (x < W + 10) {
+                        const w = 12 + Math.random() * 40;
+                        const h = (40 + Math.random() * (H * 0.38 - 40)) * Math.max(0.3, 1 - Math.abs((x / W) - 0.5) * 1.2);
+                        buildings.push({
+                            x, y: baseY - h, w, h,
+                            wCols: Math.max(1, Math.floor(w / 8)),
+                            wRows: Math.max(2, Math.floor(h / 12)),
+                            antenna: Math.random() > 0.7 && h > 100,
+                            antennaH: 10 + Math.random() * 25,
+                            spire: Math.random() > 0.8 && h > 120,
+                            glow: Math.random() * 0.3
+                        });
+                        x += w + 2 + Math.random() * 6;
+                    }
+                    for (let i = 0; i < 3; i++) {
+                        beams.push({ x: W * (0.2 + Math.random() * 0.6), w: 1 + Math.random() * 2, speed: 0.2 + Math.random() * 0.5, offset: Math.random() * 100 });
+                    }
+                    for (let i = 0; i < 30; i++) {
+                        dataDrops.push({ x: Math.random() * W, y: Math.random() * H, speed: 1 + Math.random() * 3, len: 8 + Math.random() * 20, opacity: 0.05 + Math.random() * 0.15 });
+                    }
+                }
+
+                function draw() {
+                    ctx.clearRect(0, 0, W, H);
+                    time += 0.016;
+                    // Data rain
+                    dataDrops.forEach(d => {
+                        d.y += d.speed;
+                        if (d.y > H) { d.y = -d.len; d.x = Math.random() * W; }
+                        const g = ctx.createLinearGradient(d.x, d.y, d.x, d.y + d.len);
+                        g.addColorStop(0, `rgba(56,189,248,${d.opacity})`);
+                        g.addColorStop(1, 'transparent');
+                        ctx.strokeStyle = g; ctx.lineWidth = 0.5;
+                        ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x, d.y + d.len); ctx.stroke();
+                    });
+                    // Light beams
+                    beams.forEach(b => {
+                        const alpha = (Math.sin(time * b.speed + b.offset) * 0.5 + 0.5) * 0.06;
+                        const g = ctx.createLinearGradient(b.x, 0, b.x, H);
+                        g.addColorStop(0, `rgba(200,150,62,${alpha})`);
+                        g.addColorStop(0.5, `rgba(56,189,248,${alpha * 0.5})`);
+                        g.addColorStop(1, 'transparent');
+                        ctx.fillStyle = g; ctx.fillRect(b.x - b.w / 2, 0, b.w, H);
+                    });
+                    // Buildings
+                    buildings.forEach(bl => {
+                        ctx.strokeStyle = `rgba(56,189,248,${0.08 + bl.glow * Math.sin(time * 0.5) * 0.05})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.strokeRect(bl.x, bl.y, bl.w, bl.h);
+                        // Windows
+                        const ww = bl.w / bl.wCols, wh = bl.h / bl.wRows;
+                        for (let r = 0; r < bl.wRows; r++) {
+                            for (let cc = 0; cc < bl.wCols; cc++) {
+                                if (Math.sin(time * 0.3 + r * 2.1 + cc * 3.7 + bl.x * 0.1) > 0.3) {
+                                    ctx.fillStyle = `rgba(56,189,248,${0.03 + Math.random() * 0.04})`;
+                                    ctx.fillRect(bl.x + cc * ww + 1, bl.y + r * wh + 1, ww - 2, wh - 2);
+                                }
+                            }
+                        }
+                        if (bl.antenna) {
+                            ctx.beginPath(); ctx.moveTo(bl.x + bl.w / 2, bl.y); ctx.lineTo(bl.x + bl.w / 2, bl.y - bl.antennaH); ctx.stroke();
+                            const blink = Math.sin(time * 3 + bl.x) > 0.7 ? 0.6 : 0.15;
+                            ctx.fillStyle = `rgba(200,150,62,${blink})`;
+                            ctx.beginPath(); ctx.arc(bl.x + bl.w / 2, bl.y - bl.antennaH, 1.5, 0, Math.PI * 2); ctx.fill();
+                        }
+                        if (bl.spire) {
+                            ctx.beginPath(); ctx.moveTo(bl.x + bl.w * 0.3, bl.y); ctx.lineTo(bl.x + bl.w / 2, bl.y - 15); ctx.lineTo(bl.x + bl.w * 0.7, bl.y); ctx.strokeStyle = 'rgba(56,189,248,0.1)'; ctx.stroke();
+                        }
+                    });
+                    // Ground line
+                    ctx.strokeStyle = 'rgba(56,189,248,0.12)'; ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(0, H * 0.82); ctx.lineTo(W, H * 0.82); ctx.stroke();
+                    const gg = ctx.createLinearGradient(0, H * 0.82, 0, H);
+                    gg.addColorStop(0, 'rgba(56,189,248,0.04)'); gg.addColorStop(1, 'transparent');
+                    ctx.fillStyle = gg; ctx.fillRect(0, H * 0.82, W, H * 0.18);
+                    requestAnimationFrame(draw);
+                }
+                resize();
+                addEventListener('resize', resize);
+                draw();
+            })();
+
+            // --- Network Canvas (Polygon Mesh) ---
+            (function() {
+                const c = document.getElementById('networkCanvas');
+                const ctx = c.getContext('2d');
+                const NODES = 60, DIST = 130;
+                let nodes = [], mouseX = -1000, mouseY = -1000, animId;
+
+                function resize() { c.width = innerWidth; c.height = innerHeight; }
+                resize();
+                addEventListener('resize', resize);
+
+                for (let i = 0; i < NODES; i++) {
+                    nodes.push({ x: Math.random() * c.width, y: Math.random() * c.height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, r: 1 + Math.random() * 1.5, gold: Math.random() > 0.65 });
+                }
+
+                document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+                function draw() {
+                    ctx.clearRect(0, 0, c.width, c.height);
+                    nodes.forEach(n => {
+                        n.x += n.vx; n.y += n.vy;
+                        if (n.x < 0 || n.x > c.width) n.vx *= -1;
+                        if (n.y < 0 || n.y > c.height) n.vy *= -1;
+                        const dx = n.x - mouseX, dy = n.y - mouseY, md = Math.sqrt(dx * dx + dy * dy);
+                        if (md < 150) { n.vx += dx * 0.0005; n.vy += dy * 0.0005; }
+                        const sp = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+                        if (sp > 0.8) { n.vx *= 0.8 / sp; n.vy *= 0.8 / sp; }
+                    });
+                    for (let i = 0; i < nodes.length; i++) {
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y, d = Math.sqrt(dx * dx + dy * dy);
+                            if (d < DIST) {
+                                const a = (1 - d / DIST) * 0.15;
+                                ctx.strokeStyle = (nodes[i].gold || nodes[j].gold) ? `rgba(200,150,62,${a})` : `rgba(56,189,248,${a * 0.6})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                            }
+                        }
+                    }
+                    nodes.forEach(n => {
+                        ctx.fillStyle = n.gold ? 'rgba(200,150,62,0.8)' : 'rgba(56,189,248,0.5)';
+                        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+                        const md = Math.sqrt((n.x - mouseX) ** 2 + (n.y - mouseY) ** 2);
+                        if (md < 180) {
+                            ctx.fillStyle = n.gold ? `rgba(200,150,62,${(1 - md / 180) * 0.4})` : `rgba(56,189,248,${(1 - md / 180) * 0.4})`;
+                            ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3, 0, Math.PI * 2); ctx.fill();
+                        }
+                    });
+                    animId = requestAnimationFrame(draw);
+                }
+                draw();
+                document.addEventListener('visibilitychange', () => { document.hidden ? cancelAnimationFrame(animId) : draw(); });
+            })();
+        }
+
+        // Ripple keyframes
+        const s = document.createElement('style');
+        s.textContent = '@keyframes rippleOut { to { transform: scale(2.5); opacity: 0; } }';
+        document.head.appendChild(s);
+    </script>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal-overlay" id="comingSoonModal">
+        <div class="modal-box">
+            <div class="modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8963E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="modal-title">準備上線中</div>
+            <div class="modal-desc">交易網正在緊鑼密鼓地建設中<br>敬請期待！</div>
+            <button class="modal-btn" onclick="document.getElementById('comingSoonModal').classList.remove('show')">我知道了</button>
+        </div>
+    </div>
+    <script>document.getElementById('comingSoonModal').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('show'); });</script>
+</body>
+</html>
