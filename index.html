@@ -855,19 +855,21 @@ function fetchPrices() {
         var rows = csvText.split('\n').slice(1);
         var priceDataList = rows.map(function(row) {
             var cols = row.split(',');
-            if (cols.length >= 2) {
-                return { name: cols[0].trim().replace(/^"|"$/g, ''), value: cols[1].trim().replace(/^"|"$/g, '') };
+            if (cols.length >= 8) {
+                return {
+                    name: cols[0].trim().replace(/^"|"$/g, ''),        // A欄：伺服器名稱
+                    value: cols[1].trim().replace(/^"|"$/g, ''),       // B欄：顯示用 "1:315"
+                    chartPrice: parseFloat(cols[7].trim().replace(/^"|"$/g, ''))  // H欄：純數字 315
+                };
             }
             return null;
         }).filter(function(item) { return item && item.name; });
 
-        // 將即時價格注入 historyDataMap 作為最新一筆資料點
+        // 將 H 欄即時價格注入 historyDataMap 作為最新一筆資料點
         var nowTs = Math.floor(Date.now() / 1000);
         priceDataList.forEach(function(item) {
             var cleanName = stripPrefix(item.name);
-            // item.value 可能是 "1:315" 格式，取冒號後面的數字
-            var rawVal = String(item.value);
-            var price = parseFloat(rawVal.indexOf(':') !== -1 ? rawVal.split(':').pop() : rawVal);
+            var price = item.chartPrice;
             if (isNaN(price)) return;
             if (!historyDataMap[cleanName]) historyDataMap[cleanName] = [];
             var arr = historyDataMap[cleanName];
