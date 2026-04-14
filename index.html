@@ -169,7 +169,7 @@
         }
         .section-title {
             text-align: center; font-size: clamp(24px, 3.5vw, 36px);
-            font-weight: 800; margin-top: 0; margin-bottom: 16px;
+            font-weight: 800; margin-bottom: 16px;
         }
         .section-desc {
             text-align: center; color: var(--text-secondary); font-size: 15px;
@@ -309,6 +309,29 @@
         .social-card .social-name { font-size: 14px; font-weight: 600; }
         .social-card .social-handle { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
 
+        /* ===== FAQ ===== */
+        .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+        .faq-item {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 14px; overflow: hidden; transition: border-color 0.3s;
+        }
+        .faq-item:hover { border-color: rgba(200,150,62,0.25); }
+        .faq-question {
+            width: 100%; padding: 18px 22px; background: none; border: none;
+            color: var(--text-primary); font-size: 15px; font-weight: 600;
+            text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+        }
+        .faq-question::after {
+            content: '+'; font-size: 20px; color: var(--gold); transition: transform 0.3s; flex-shrink: 0; margin-left: 12px;
+        }
+        .faq-item.active .faq-question::after { content: '−'; }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 22px; color: var(--text-secondary); font-size: 14px; line-height: 1.7;
+        }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 22px 18px; }
+
         /* ===== Footer ===== */
         .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); margin-top: 60px; }
         .footer p { font-size: 13px; color: var(--text-secondary); }
@@ -394,7 +417,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
     <a href="#" class="nav-brand">
-        <img src="./images/nav-logo.png" alt="日央水原 SUNWATER 天堂經典版天幣交易"
+        <img src="./images/nav-logo.png" alt="日央水原 SUNWATER"
              onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.height='32px';this.style.borderRadius='50%';">
     </a>
     <div class="nav-links">
@@ -430,10 +453,10 @@
     <div class="hero-bg"></div>
     <div id="particles"></div>
     <div class="hero-content">
-        <img class="hero-logo" src="./images/logo.png" alt="日央水原 SUNWATER 天堂經典版天幣交易平台"
+        <img class="hero-logo" src="./images/logo.png" alt="日央水原 SUNWATER"
              onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.maxWidth='100px';this.style.borderRadius='50%';">
         <p class="hero-tagline">Professional Game Trading Platform</p>
-        <p class="hero-desc">天堂經典版天幣安全交易平台<br>即時幣價查詢・快速到帳・透明匯率</p>
+        <p class="hero-desc">台灣專業遊戲虛寶交易平台<br>安全交易・即時到帳・透明報價</p>
         <div class="hero-buttons">
             <a href="./kyc.html" class="btn-kyc">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
@@ -458,16 +481,13 @@
 <!-- Price Section -->
 <section class="section fade-up" id="prices">
     <div class="section-label">Real-Time Pricing</div>
-    <h1 class="section-title">天堂經典版 即時幣價</h1>
+    <div class="section-title">天堂經典版 即時幣價</div>
     <div class="divider" style="margin-bottom: 40px;"></div>
     <div class="price-header-bar">
         <h3>伺服器匯率 (TWD)</h3>
         <div class="price-sync"><span class="dot"></span> <span id="syncTime">同步中...</span></div>
     </div>
     <div class="price-grid" id="priceGrid"></div>
-    <noscript>
-    <p>支援伺服器天幣報價：太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯。天堂經典版全伺服器即時幣價查詢，安全買幣推薦日央水原 SUNWATER。</p>
-    </noscript>
 </section>
 
 <!-- Price Detail Modal -->
@@ -484,7 +504,7 @@
 <section class="section fade-up" id="services">
     <div class="section-label">Services</div>
     <div class="section-title">交易服務項目</div>
-    <div class="section-desc">天堂經典版天幣哪裡買？日央水原提供遊戲幣價格查詢、安全買幣推薦與全方位虛寶交易服務</div>
+    <div class="section-desc">提供全方位的遊戲虛寶交易服務，滿足您的所有需求</div>
     <div class="services-grid">
         <div class="service-card">
             <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
@@ -579,6 +599,59 @@
     </div>
 </section>
 
+<!-- FAQ -->
+<section class="section fade-up" id="faq">
+    <div class="section-label">FAQ</div>
+    <div class="section-title">常見問題</div>
+    <div class="section-desc">關於天堂經典版天幣交易的常見疑問</div>
+    <div class="faq-list">
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天堂經典版天幣怎麼買？</button>
+            <div class="faq-answer">加入日央水原 LINE 官方帳號（@321enghh），告知需要的伺服器與金額，付款後由專人遊戲內面交，快速到帳。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">支援哪些伺服器？</button>
+            <div class="faq-answer">支援全部 17 個伺服器，包含太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天幣報價多久更新一次？</button>
+            <div class="faq-answer">網站報價每 15 分鐘自動更新，可隨時查詢各伺服器最新幣價走勢。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">交易安全嗎？</button>
+            <div class="faq-answer">日央水原為合法經營商行，採用透明報價與專人面交，交易過程全程可追蹤，保障買家權益。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">付款方式有哪些？</button>
+            <div class="faq-answer">支援銀行轉帳、LINE Pay 等方式，詳細付款資訊請透過 LINE 官方帳號洽詢。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">買完天幣多久會到？</button>
+            <div class="faq-answer">正常情況下付款確認後 5-15 分鐘內完成遊戲內面交到帳。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">有最低購買金額嗎？</button>
+            <div class="faq-answer">最低購買金額為新台幣 1,000 元，可依需求自由選擇購買數量，詳情請洽 LINE 客服。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天幣價格為什麼會波動？</button>
+            <div class="faq-answer">天幣價格受遊戲內供需、伺服器活躍度及市場行情影響，日央水原提供即時報價，讓您掌握最佳買入時機。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">如何查詢即時天幣報價？</button>
+            <div class="faq-answer">直接進入日央水原官網 sunwater.me，首頁即顯示全伺服器即時幣價與 K 線走勢圖，每 15 分鐘自動更新。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">為什麼需要實名認證？</button>
+            <div class="faq-answer">實名認證是為了保障交易雙方權益，防止盜用帳號或不法交易。完成認證後即可享有更快速的交易流程與完整的售後保障。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">如何避免天幣交易詐騙？</button>
+            <div class="faq-answer">請認明日央水原官方 LINE 帳號（@321enghh），不要透過私人帳號或來路不明的管道交易。官方不會主動要求提供遊戲帳號密碼，付款前請務必確認對方身分。</div>
+        </div>
+    </div>
+</section>
+
 <!-- Footer -->
 <footer class="footer">
     <div class="footer-links">
@@ -621,6 +694,7 @@ document.getElementById('mobileToggle').addEventListener('click', function() { d
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 function showComingSoon(e) { e.preventDefault(); document.getElementById('comingSoonModal').classList.add('show'); }
+function toggleFaq(btn) { var item = btn.parentElement; item.classList.toggle('active'); }
 document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
 
 // ===== Scroll Animations (fixed: rootMargin + re-observe on load) =====
@@ -977,6 +1051,102 @@ window.addEventListener('resize', function() {
     "name": "日央水原 SUNWATER",
     "url": "https://sunwater.me/",
     "description": "天堂經典版天幣即時報價與買賣交易平台"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "天堂經典版天幣怎麼買？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "加入日央水原 LINE 官方帳號（@321enghh），告知需要的伺服器與金額，付款後由專人遊戲內面交，快速到帳。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "支援哪些伺服器？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "支援伺服器天幣報價：太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "天幣報價多久更新一次？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "網站報價每 15 分鐘自動更新，可隨時查詢各伺服器最新幣價走勢。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "交易安全嗎？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "日央水原為合法經營商行，採用透明報價與專人面交，交易過程全程可追蹤，保障買家權益。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "付款方式有哪些？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "支援銀行轉帳、LINE Pay 等方式，詳細付款資訊請透過 LINE 官方帳號洽詢。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "買完天幣多久會到？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "正常情況下付款確認後 5-15 分鐘內完成遊戲內面交到帳。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "有最低購買金額嗎？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "最低購買金額為新台幣 1,000 元，可依需求自由選擇購買數量，詳情請洽 LINE 客服。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "天幣價格為什麼會波動？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "天幣價格受遊戲內供需、伺服器活躍度及市場行情影響，日央水原提供即時報價，讓您掌握最佳買入時機。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "如何查詢即時天幣報價？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "直接進入日央水原官網 sunwater.me，首頁即顯示全伺服器即時幣價與 K 線走勢圖，每 15 分鐘自動更新。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "為什麼需要實名認證？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "實名認證是為了保障交易雙方權益，防止盜用帳號或不法交易。完成認證後即可享有更快速的交易流程與完整的售後保障。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "如何避免天幣交易詐騙？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "請認明日央水原官方 LINE 帳號（@321enghh），不要透過私人帳號或來路不明的管道交易。官方不會主動要求提供遊戲帳號密碼，付款前請務必確認對方身分。"
+            }
+        }
+    ]
 }
 </script>
 </body>
