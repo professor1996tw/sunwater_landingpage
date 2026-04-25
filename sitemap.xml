@@ -1,50 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- 首頁 -->
     <url>
         <loc>https://sunwater.me/</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
+    <!-- KYC 實名認證頁 -->
     <url>
         <loc>https://sunwater.me/kyc.html</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 法律頁 -->
     <url>
         <loc>https://sunwater.me/legal.html</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
+    <!-- 最新消息列表頁 -->
     <url>
         <loc>https://sunwater.me/news/</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
+    <!-- 文章：PSS 自動練功合法嗎？跟違規工作室差在哪？（市場情報） -->
     <url>
-        <loc>https://sunwater.me/news/5日K線速報-20260424/</loc>
-        <lastmod>2026-04-24</lastmod>
+        <loc>https://sunwater.me/news/pss自動練功-違規工作室-差別/</loc>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+    <!-- 文章：遊戲交易 2 大陷阱：低價誘餌與假賣家（防詐騙） -->
     <url>
         <loc>https://sunwater.me/news/遊戲交易-2大陷阱-低價誘餌-假賣家/</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+    <!-- 文章：【5 日 K 線速報】2026/04/19~04/24（市場情報） -->
+    <url>
+        <loc>https://sunwater.me/news/5日K線速報-20260424/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 文章：第一次跟日央水原交易？5 分鐘看完完整流程（日央消息） -->
     <url>
         <loc>https://sunwater.me/news/第一次跟日央水原交易-完整流程/</loc>
         <lastmod>2026-04-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+    <!-- 文章：天幣代購詐騙：7 個交易前必查的安全要點（防詐騙） -->
     <url>
         <loc>https://sunwater.me/news/天幣代購詐騙-7個檢查要點/</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-04-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
