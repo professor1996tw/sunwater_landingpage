@@ -28,6 +28,13 @@
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
+    <!-- 文章：三方詐騙完整解析：買家匯款拿不到、賣家平白被當人頭的隱性騙局（防詐騙） -->
+    <url>
+        <loc>https://sunwater.me/news/三方詐騙-隱性騙局完整解析/</loc>
+        <lastmod>2026-04-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
     <!-- 文章：為什麼買天幣要 KYC？跟銀行開戶其實是同一件事（日央消息） -->
     <url>
         <loc>https://sunwater.me/news/kyc認證-買家保障-為何必要/</loc>
@@ -67,6 +74,13 @@
     <url>
         <loc>https://sunwater.me/news/天幣代購詐騙-7個檢查要點/</loc>
         <lastmod>2026-04-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 文章：日央水原是合法的代購公司嗎？營業登記與合規動作公開（日央消息） -->
+    <url>
+        <loc>https://sunwater.me/news/is-sunwater-a-legal-company/</loc>
+        <lastmod>2026-04-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
