@@ -143,6 +143,23 @@
             .cta-buttons { flex-direction: column; }
             .cta-buttons a { justify-content: center; }
         }
+    
+        /* ===== Related Articles ===== */
+        .related-articles { margin: 64px 0 32px; }
+        .related-articles .related-title { font-size: 18px; font-weight: 800; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border); }
+        .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .related-card { background: var(--navy); border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; text-decoration: none; color: var(--text-primary); transition: all 0.3s; display: flex; flex-direction: column; }
+        .related-card:hover { transform: translateY(-2px); border-color: rgba(200,150,62,0.25); }
+        .related-card-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
+        .related-card-body { padding: 12px 14px; }
+        .related-card-meta { font-size: 11px; color: var(--gold-light); margin-bottom: 6px; }
+        .related-card-title { font-size: 13px; font-weight: 600; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        @media (max-width: 768px) { .related-grid { grid-template-columns: 1fr; } }
+        /* ===== Article Category Link ===== */
+        .article-category-link { margin: 24px 0; padding: 14px 18px; background: rgba(200,150,62,0.05); border: 1px solid rgba(200,150,62,0.15); border-radius: 8px; }
+        .article-category-link p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+        .article-category-link a { color: var(--gold-light); text-decoration: none; font-weight: 600; }
+        .article-category-link a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -180,12 +197,14 @@
 <!-- Article -->
 <article class="article-container">
     <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="../../">首頁</a>
+            <a href="../../">首頁</a>
         <span class="sep">/</span>
-        <a href="../">最新消息</a>
+        <a href="../../news/">最新消息</a>
+        <span class="sep">/</span>
+        <a href="../../news/category/market/">市場情報</a>
         <span class="sep">/</span>
         <span>PSS 自動練功合法嗎？跟違規工作室差在哪？</span>
-    </nav>
+        </nav>
     <div class="article-meta">
         <span class="category">市場情報</span>
         <span>發布日期：2026/04/26</span>
@@ -239,6 +258,19 @@
 <p>下次再看到有人爭論「自動練功是不是違規」，記得：<strong>用對工具是合法權益，用錯工具是帳號風險</strong>。把帳號玩沒了，再多角色養成都歸零。</p>
     </div>
     <!-- Article CTA -->
+    <!-- Related Articles -->
+    <section class="related-articles" aria-label="相關文章推薦">
+        <h2 class="related-title">你可能也想看</h2>
+        <div class="related-grid">
+        <a href="../../news/5日K線速報-20260424/" class="related-card">
+            <div class="related-card-image" style="background-image: url('../../images/news/weekly-20260424.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="related-card-body">
+                <div class="related-card-meta">2026/04/24</div>
+                <div class="related-card-title">【5 日 K 線速報】2026/04/19~04/24</div>
+            </div>
+        </a>
+        </div>
+    </section>
     <div class="article-cta">
         <h3>想購買天堂經典版天幣？</h3>
         <p>即時報價・安全交易・5 分鐘到帳</p>
@@ -247,6 +279,10 @@
             <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="btn-secondary">LINE 諮詢</a>
             <a href="../../kyc.html" class="btn-kyc-sm">實名認證</a>
         </div>
+    </div>
+    <!-- Category Footer Link -->
+    <div class="article-category-link">
+        <p>這篇屬於：📊 <strong>市場情報</strong>｜<a href="../../news/category/market/">看更多 市場情報 文章 &rarr;</a></p>
     </div>
     <!-- Prev / Next -->
     <nav class="article-nav" aria-label="文章導覽">
@@ -332,9 +368,30 @@ document.getElementById('comingSoonModal').addEventListener('click', function(e)
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "首頁", "item": "https://sunwater.me/" },
-        { "@type": "ListItem", "position": 2, "name": "最新消息", "item": "https://sunwater.me/news/" },
-        { "@type": "ListItem", "position": 3, "name": "PSS 自動練功合法嗎？跟違規工作室差在哪？", "item": "https://sunwater.me/news/pss自動練功-違規工作室-差別/" }
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首頁",
+            "item": "https://sunwater.me/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "最新消息",
+            "item": "https://sunwater.me/news/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "市場情報",
+            "item": "https://sunwater.me/news/category/market/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "PSS 自動練功合法嗎？跟違規工作室差在哪？",
+            "item": "https://sunwater.me/news/pss自動練功-違規工作室-差別/"
+        }
     ]
 }
 </script>

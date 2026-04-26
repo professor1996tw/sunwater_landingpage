@@ -192,19 +192,20 @@
 </section>
 <!-- Categories Filter (預留，目前只顯示，未連結) -->
 <div class="categories">
-    <a href="#" class="category-chip active" data-filter="all">全部文章</a>
-    <a href="#" class="category-chip" data-filter="市場情報">市場情報</a>
-    <a href="#" class="category-chip" data-filter="日央消息">日央消息</a>
-    <a href="#" class="category-chip" data-filter="防詐騙">防詐騙</a>
+    <a href="./" class="category-chip active">全部文章</a>
+    <a href="./category/market/" class="category-chip">市場情報</a>
+    <a href="./category/anti-fraud/" class="category-chip">防詐騙</a>
+    <a href="./category/updates/" class="category-chip">日央消息</a>
+    <a href="./category/" class="category-chip" style="border-style:dashed; opacity:0.7;" title="看完整分類介紹">📂 看完整分類介紹</a>
 </div>
 <!-- News Grid -->
 <main class="news-list">
     <div class="news-grid">
-        <a href="./kyc認證-買家保障-為何必要/" class="news-card" data-category="防詐騙">
+        <a href="./kyc認證-買家保障-為何必要/" class="news-card" data-category="日央消息">
             <div class="news-card-image" style="background-image: url('../images/news/kyc-id-verification.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
             <div class="news-card-body">
                 <div class="news-card-meta">
-                    <span class="news-category">防詐騙</span>
+                    <span class="news-category">日央消息</span>
                     <span>2026/04/26</span>
                 </div>
                 <h2 class="news-card-title">為什麼買天幣要 KYC？跟銀行開戶其實是同一件事</h2>
@@ -304,22 +305,7 @@ document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 function showComingSoon(e) { e.preventDefault(); document.getElementById('comingSoonModal').classList.add('show'); }
 document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
-// Category filter
-document.querySelectorAll('.category-chip').forEach(function(chip) {
-    chip.addEventListener('click', function(e) {
-        e.preventDefault();
-        var filter = this.getAttribute('data-filter');
-        document.querySelectorAll('.category-chip').forEach(function(c) { c.classList.remove('active'); });
-        this.classList.add('active');
-        document.querySelectorAll('.news-card').forEach(function(card) {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-});
+// Category filter（已改用連結直接跳分類頁，不需 JS filter）
 </script>
 <!-- Structured Data: CollectionPage + ItemList -->
 <script type="application/ld+json">

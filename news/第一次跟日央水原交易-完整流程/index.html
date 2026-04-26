@@ -117,6 +117,23 @@
             .cta-buttons { flex-direction: column; }
             .cta-buttons a { justify-content: center; }
         }
+    
+        /* ===== Related Articles ===== */
+        .related-articles { margin: 64px 0 32px; }
+        .related-articles .related-title { font-size: 18px; font-weight: 800; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border); }
+        .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .related-card { background: var(--navy); border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; text-decoration: none; color: var(--text-primary); transition: all 0.3s; display: flex; flex-direction: column; }
+        .related-card:hover { transform: translateY(-2px); border-color: rgba(200,150,62,0.25); }
+        .related-card-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
+        .related-card-body { padding: 12px 14px; }
+        .related-card-meta { font-size: 11px; color: var(--gold-light); margin-bottom: 6px; }
+        .related-card-title { font-size: 13px; font-weight: 600; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        @media (max-width: 768px) { .related-grid { grid-template-columns: 1fr; } }
+        /* ===== Article Category Link ===== */
+        .article-category-link { margin: 24px 0; padding: 14px 18px; background: rgba(200,150,62,0.05); border: 1px solid rgba(200,150,62,0.15); border-radius: 8px; }
+        .article-category-link p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+        .article-category-link a { color: var(--gold-light); text-decoration: none; font-weight: 600; }
+        .article-category-link a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -150,12 +167,14 @@
 </div>
 <article class="article-container">
     <nav class="breadcrumb" aria-label="breadcrumb">
-        <a href="../../">首頁</a>
+            <a href="../../">首頁</a>
         <span class="sep">/</span>
-        <a href="../">最新消息</a>
+        <a href="../../news/">最新消息</a>
+        <span class="sep">/</span>
+        <a href="../../news/category/updates/">日央消息</a>
         <span class="sep">/</span>
         <span>第一次跟日央水原交易？5 分鐘看完完整流程</span>
-    </nav>
+        </nav>
     <div class="article-meta">
         <span class="category">日央消息</span>
         <span>發布日期：2026/04/24</span>
@@ -239,6 +258,19 @@
         <h2>交易網上線預告</h2>
         <p>目前所有交易透過 LINE 官方帳號人工處理，確保每筆交易都有完整紀錄、以安全為優先。未來我們規劃推出<strong>自助交易網</strong>，讓老客戶線上下單、自動報價、快速交付。交易網上線時會在首頁與 LINE 公告。</p>
     </div>
+    <!-- Related Articles -->
+    <section class="related-articles" aria-label="相關文章推薦">
+        <h2 class="related-title">你可能也想看</h2>
+        <div class="related-grid">
+        <a href="../../news/kyc認證-買家保障-為何必要/" class="related-card">
+            <div class="related-card-image" style="background-image: url('../../images/news/kyc-id-verification.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="related-card-body">
+                <div class="related-card-meta">2026/04/26</div>
+                <div class="related-card-title">為什麼買天幣要 KYC？跟銀行開戶其實是同一件事</div>
+            </div>
+        </a>
+        </div>
+    </section>
     <div class="article-cta">
         <h3>準備好跟日央水原交易了嗎？</h3>
         <p>透明報價・合法合規・5 分鐘到帳</p>
@@ -247,6 +279,10 @@
             <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="btn-secondary">LINE 諮詢</a>
             <a href="../../kyc.html" class="btn-kyc-sm">實名認證</a>
         </div>
+    </div>
+    <!-- Category Footer Link -->
+    <div class="article-category-link">
+        <p>這篇屬於：🏢 <strong>日央消息</strong>｜<a href="../../news/category/updates/">看更多 日央消息 文章 &rarr;</a></p>
     </div>
     <nav class="article-nav" aria-label="文章導覽">
         <a href="../5日K線速報-20260424/" class="prev">
@@ -311,9 +347,30 @@ document.getElementById('comingSoonModal').addEventListener('click', function(e)
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "首頁", "item": "https://sunwater.me/" },
-        { "@type": "ListItem", "position": 2, "name": "最新消息", "item": "https://sunwater.me/news/" },
-        { "@type": "ListItem", "position": 3, "name": "第一次跟日央水原交易？5 分鐘看完完整流程", "item": "https://sunwater.me/news/第一次跟日央水原交易-完整流程/" }
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首頁",
+            "item": "https://sunwater.me/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "最新消息",
+            "item": "https://sunwater.me/news/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "日央消息",
+            "item": "https://sunwater.me/news/category/updates/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "第一次跟日央水原交易？5 分鐘看完完整流程",
+            "item": "https://sunwater.me/news/第一次跟日央水原交易-完整流程/"
+        }
     ]
 }
 </script>
