@@ -148,19 +148,19 @@
 <nav class="nav" id="nav">
     <a href="../" class="nav-brand">
         <img src="../images/nav-logo.png" alt="日央水原 SUNWATER"
-             onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.height='32px';this.style.borderRadius='50%';">
+             onerror="this.src=&apos;https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png&apos;;this.style.height=&apos;32px&apos;;this.style.borderRadius=&apos;50%&apos;;">
     </a>
     <div class="nav-links">
         <a href="../#prices">即時報價</a>
         <a href="../#services">服務項目</a>
         <a href="../#why">關於我們</a>
         <a href="../#social">社群</a>
-        <a href="./" class="active">最新消息</a>
+        <a href="../news/" class="active">最新消息</a>
         <a href="../kyc.html" class="nav-kyc">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
             實名認證
         </a>
-        <a href="#" class="nav-cta" onclick="showComingSoon(event)">進入交易網 &rarr;</a>
+        <a href="#" class="nav-cta" onclick="showComingSoon(event)">進入交易網 →</a>
     </div>
     <button class="nav-mobile-toggle" id="mobileToggle" aria-label="選單">&#9776;</button>
 </nav>
@@ -171,9 +171,9 @@
     <a href="../#services" onclick="closeMobile()">服務項目</a>
     <a href="../#why" onclick="closeMobile()">關於我們</a>
     <a href="../#social" onclick="closeMobile()">社群</a>
-    <a href="./" onclick="closeMobile()">最新消息</a>
+    <a href="../news/" onclick="closeMobile()">最新消息</a>
     <a href="../kyc.html" class="nav-kyc" style="margin-top:16px;" onclick="closeMobile()">實名認證</a>
-    <a href="#" class="nav-cta" onclick="closeMobile();showComingSoon(event)">進入交易網 &rarr;</a>
+    <a href="#" class="nav-cta" onclick="closeMobile();showComingSoon(event)">進入交易網 →</a>
 </div>
 <!-- Breadcrumb -->
 <div style="max-width: 1200px; margin: 0 auto; padding: 120px 20px 0;">
@@ -201,6 +201,19 @@
 <!-- News Grid -->
 <main class="news-list">
     <div class="news-grid">
+        <a href="./三方詐騙-隱性騙局完整解析/" class="news-card" data-category="防詐騙">
+            <div class="news-card-image" style="background-image: url('../images/news/three-party-scam.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="news-card-body">
+                <div class="news-card-meta">
+                    <span class="news-category">防詐騙</span>
+                    <span>2026/04/27</span>
+                </div>
+                <h2 class="news-card-title">三方詐騙完整解析：買家匯款拿不到、賣家平白被當人頭的隱性騙局</h2>
+                <p class="news-card-excerpt">天堂幣最讓人冤枉的詐騙——你匯款的戶頭其實是另一位合法商家的帳戶，
+中間有第三個人冒充賣家在騙你。你拿不到天幣、那位商家也莫名被牽連。
+本文拆解三方詐騙劇本，告訴你怎麼從匯款戶名第一步就辨識危險訊號。</p>
+            </div>
+        </a>
         <a href="./kyc認證-買家保障-為何必要/" class="news-card" data-category="日央消息">
             <div class="news-card-image" style="background-image: url('../images/news/kyc-id-verification.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
             <div class="news-card-body">
@@ -287,6 +300,8 @@
     
     <!-- 只有 1 頁，不顯示分頁 -->
     
+    <!-- 只有 1 頁，不顯示分頁 -->
+    
     -->
 </main>
 <!-- Footer -->
@@ -333,13 +348,14 @@ document.getElementById('comingSoonModal').addEventListener('click', function(e)
     "mainEntity": {
         "@type": "ItemList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "url": "https://sunwater.me/news/kyc認證-買家保障-為何必要/", "name": "為什麼買天幣要 KYC？跟銀行開戶其實是同一件事" },
-            { "@type": "ListItem", "position": 2, "url": "https://sunwater.me/news/pss自動練功-違規工作室-差別/", "name": "PSS 自動練功合法嗎？跟違規工作室差在哪？" },
-            { "@type": "ListItem", "position": 3, "url": "https://sunwater.me/news/遊戲交易-2大陷阱-低價誘餌-假賣家/", "name": "遊戲交易 2 大陷阱：低價誘餌與假賣家" },
-            { "@type": "ListItem", "position": 4, "url": "https://sunwater.me/news/5日K線速報-20260424/", "name": "【5 日 K 線速報】2026/04/19~04/24" },
-            { "@type": "ListItem", "position": 5, "url": "https://sunwater.me/news/第一次跟日央水原交易-完整流程/", "name": "第一次跟日央水原交易？5 分鐘看完完整流程" },
-            { "@type": "ListItem", "position": 6, "url": "https://sunwater.me/news/天幣代購詐騙-7個檢查要點/", "name": "天幣代購詐騙：7 個交易前必查的安全要點" },
-            { "@type": "ListItem", "position": 7, "url": "https://sunwater.me/news/is-sunwater-a-legal-company/", "name": "日央水原是合法的代購公司嗎？營業登記與合規動作公開" }
+            { "@type": "ListItem", "position": 1, "url": "https://sunwater.me/news/三方詐騙-隱性騙局完整解析/", "name": "三方詐騙完整解析：買家匯款拿不到、賣家平白被當人頭的隱性騙局" },
+            { "@type": "ListItem", "position": 2, "url": "https://sunwater.me/news/kyc認證-買家保障-為何必要/", "name": "為什麼買天幣要 KYC？跟銀行開戶其實是同一件事" },
+            { "@type": "ListItem", "position": 3, "url": "https://sunwater.me/news/pss自動練功-違規工作室-差別/", "name": "PSS 自動練功合法嗎？跟違規工作室差在哪？" },
+            { "@type": "ListItem", "position": 4, "url": "https://sunwater.me/news/遊戲交易-2大陷阱-低價誘餌-假賣家/", "name": "遊戲交易 2 大陷阱：低價誘餌與假賣家" },
+            { "@type": "ListItem", "position": 5, "url": "https://sunwater.me/news/5日K線速報-20260424/", "name": "【5 日 K 線速報】2026/04/19~04/24" },
+            { "@type": "ListItem", "position": 6, "url": "https://sunwater.me/news/第一次跟日央水原交易-完整流程/", "name": "第一次跟日央水原交易？5 分鐘看完完整流程" },
+            { "@type": "ListItem", "position": 7, "url": "https://sunwater.me/news/天幣代購詐騙-7個檢查要點/", "name": "天幣代購詐騙：7 個交易前必查的安全要點" },
+            { "@type": "ListItem", "position": 8, "url": "https://sunwater.me/news/is-sunwater-a-legal-company/", "name": "日央水原是合法的代購公司嗎？營業登記與合規動作公開" }
         ]-pss自動練功-外掛工作室-差別/", "name": "PSS 自動練功合法嗎？跟外掛工作室差在哪？" }
         ]-pss自動練功-外掛工作室-差別/", "name": "PSS 自動練功合法嗎？跟外掛工作室差在哪？" },
             { "@type": "ListItem", "position": 2, "url": "https://sunwater.me/news/第一次跟日央水原交易-完整流程/", "name": "第一次跟日央水原交易？5 分鐘看完完整流程" },
