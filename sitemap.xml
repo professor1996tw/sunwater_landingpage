@@ -3,30 +3,37 @@
     <!-- 首頁 -->
     <url>
         <loc>https://sunwater.me/</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <!-- KYC 實名認證頁 -->
     <url>
         <loc>https://sunwater.me/kyc.html</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <!-- 法律頁 -->
     <url>
         <loc>https://sunwater.me/legal.html</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <!-- 最新消息列表頁 -->
     <url>
         <loc>https://sunwater.me/news/</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+    </url>
+    <!-- 文章：為什麼買天幣要 KYC？跟銀行開戶其實是同一件事（日央消息） -->
+    <url>
+        <loc>https://sunwater.me/news/kyc認證-買家保障-為何必要/</loc>
+        <lastmod>2026-04-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <!-- 文章：PSS 自動練功合法嗎？跟違規工作室差在哪？（市場情報） -->
     <url>
