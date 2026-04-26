@@ -1,4 +1,49 @@
+# sunwater.me robots.txt
+# 一般搜尋引擎
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /tmp/
+Disallow: /admin-backup/
+Disallow: /admin-settings.json
+Disallow: /site-elements.json
 
+# OpenAI（ChatGPT）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic（Claude）
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI（Gemini、AI Overview）
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Bing AI / Copilot
+User-agent: bingbot
+Allow: /
+
+# Sitemap
 Sitemap: https://sunwater.me/sitemap.xml
