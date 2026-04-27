@@ -123,6 +123,27 @@
             line-height: 1.4;
             letter-spacing: -0.5px;
         }
+        .hero-h1-brand {
+            display: block;
+            font-size: 1em;
+            line-height: 1.2;
+        }
+        .hero-h1-sub {
+            display: block;
+            font-size: 0.6em;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-top: 12px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+        @media (max-width: 480px) {
+            .hero-h1-sub {
+                font-size: 0.55em;
+                white-space: normal;
+            }
+        }
         .brand-statement {
             max-width: 760px;
             margin: 0 auto 40px;
@@ -567,7 +588,10 @@
     <div class="hero-content">
         <img class="hero-logo" src="./images/logo.png" alt="日央水原 SUNWATER"
              onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.maxWidth='100px';this.style.borderRadius='50%';">
-        <h1 class="hero-h1">日央水原｜天幣購買・遊戲交易服務商</h1>
+        <h1 class="hero-h1">
+            <span class="hero-h1-brand">日央水原</span>
+            <span class="hero-h1-sub">天幣購買・遊戲交易服務商</span>
+        </h1>
         <p class="hero-tagline">Professional Game Trading Platform</p>
         <p class="hero-desc">天堂經典版玩家專屬｜KYC 認證・開立發票・加密個資保護的安全天幣代購</p>
         <div class="hero-buttons">
@@ -1224,10 +1248,6 @@ window.addEventListener('resize', function() {
         "@type": "Country",
         "name": "Taiwan"
     },
-    "sameAs": [
-        "https://www.facebook.com/profile.php?id=100064047333025",
-        "https://line.me/R/ti/p/@321enghh"
-    ],
     "sameAs": [
         "https://www.facebook.com/profile.php?id=100064047333025",
         "https://www.instagram.com/sunwater168168/",
