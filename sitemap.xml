@@ -3,28 +3,35 @@
     <!-- 首頁 -->
     <url>
         <loc>https://sunwater.me/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <!-- KYC 實名認證頁 -->
     <url>
         <loc>https://sunwater.me/kyc.html</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <!-- 法律頁 -->
     <url>
         <loc>https://sunwater.me/legal.html</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
+    </url>
+    <!-- DD373 代購頁 -->
+    <url>
+        <loc>https://sunwater.me/dd373.html</loc>
+        <lastmod>2026-04-30</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
     <!-- 最新消息列表頁 -->
     <url>
         <loc>https://sunwater.me/news/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -87,28 +94,28 @@
     <!-- 分類：分類總覽 -->
     <url>
         <loc>https://sunwater.me/news/category/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：天堂幣行情・市場情報 -->
     <url>
         <loc>https://sunwater.me/news/category/market/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：天堂代購防詐騙・交易安全指南 -->
     <url>
         <loc>https://sunwater.me/news/category/anti-fraud/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：日央水原・服務動態與公告 -->
     <url>
         <loc>https://sunwater.me/news/category/updates/</loc>
-        <lastmod>2026-04-26</lastmod>
+        <lastmod>2026-04-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
