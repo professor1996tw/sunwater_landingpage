@@ -24,7 +24,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- ⚠️ Babel 必須鎖 7.x：7 預設用 classic JSX runtime（編譯成 React.createElement，相容 UMD React）。
+         不鎖版會抓到 Babel 8，預設改成 automatic runtime → 自動插入 import → 整頁 React 掛掉、中間空白。 -->
+    <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+    <script>
+        // 雙重保險：明確註冊 classic runtime 的 react preset（即使日後有人改回最新 Babel 也不會壞）
+        Babel.registerPreset('react-classic', { presets: [[Babel.availablePresets.react, { runtime: 'classic' }]] });
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
         html, body {
@@ -191,7 +197,7 @@ function showComingSoon(e) { e.preventDefault(); document.getElementById('coming
 document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
 </script>
 <!-- KYC React Code -->
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react-classic">
         const { useState, useEffect, memo } = React;
         // --- 設定區：您的 Google Apps Script 網址 ---
         const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxMOwBCqpEhFcivpnz4e4QLqN9hEnWJLIMbfU4V4zdvH6dJPLKC11N5ysAnEFKrAgqwow/exec";
