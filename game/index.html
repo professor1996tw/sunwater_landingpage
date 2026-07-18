@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-X6099N611V');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <title>天幣購買｜日央水原・台灣合法天堂經典版代購服務</title>
+    <meta name="description" content="日央水原是台灣合法登記的天堂經典版天幣購買服務商。提供 KYC 認證、開立發票、加密個資保護的安全代購服務。專業客服 24 小時 LINE 對話，5 分鐘完成天幣購買。">
+    <meta name="keywords" content="天幣購買,天幣怎麼買,買天幣,天堂經典版,天幣,天幣報價,天幣買賣,NC天幣,天堂代購,天堂幣,日央水原,SUNWATER,天堂經典版代購">
+    <meta property="og:title" content="天幣購買｜日央水原・台灣合法天堂經典版代購服務">
+    <meta property="og:description" content="台灣合法登記的天幣購買服務商。KYC 認證・開立發票・加密個資保護。LINE @321enghh，5 分鐘完成天幣購買。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sunwater.me/game/">
+    <meta property="og:image" content="https://sunwater.me/images/og-image.jpg">
+    <meta property="og:locale" content="zh_TW">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://sunwater.me/game/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050510;
+            --navy: #0a1628;
+            --navy-light: #0f1f3d;
+            --gold: #C8963E;
+            --gold-light: #e8be6a;
+            --gold-bright: #f5d78e;
+            --gold-glow: rgba(200, 150, 62, 0.5);
+            --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.3);
+            --green: #22c55e;
+            --red: #ef4444;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.55);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans TC', 'Inter', -apple-system, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 14px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(5, 5, 16, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        .nav.scrolled { padding: 10px 40px; background: rgba(5, 5, 16, 0.95); }
+        .nav-brand { display: flex; align-items: center; text-decoration: none; }
+        .nav-brand img { height: 36px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold-light); }
+        .nav-kyc {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 600;
+            font-size: 14px; text-decoration: none; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .nav-kyc:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(34,197,94,0.4); }
+        .nav-kyc svg { flex-shrink: 0; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #000 !important; padding: 8px 22px; border-radius: 8px; font-weight: 900;
+            font-size: 14px; text-decoration: none; transition: all 0.3s;
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--gold-glow); }
+        .nav-mobile-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 120px 20px 80px; position: relative;
+        }
+        .hero-bg {
+            position: absolute; inset: 0; overflow: hidden; z-index: 0;
+            background: url('/images/hero-banner.jpg') center center / cover no-repeat;
+        }
+        .hero-bg::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(200,150,62,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(56,189,248,0.05) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(5,5,16,0.6) 0%, rgba(5,5,16,0.85) 100%);
+            z-index: 1;
+        }
+        #particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+        .hero-content { position: relative; z-index: 3; max-width: 700px; }
+        .hero-logo {
+            max-width: 360px; width: 80%; margin: 0 auto 32px;
+            animation: logoGlow 4s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 30px rgba(200,150,62,0.2));
+        }
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(200,150,62,0.15)); }
+            100% { filter: drop-shadow(0 0 40px rgba(200,150,62,0.3)); }
+        }
+        .hero-h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+        }
+        .hero-h1-brand {
+            display: block;
+            font-size: 1em;
+            line-height: 1.2;
+        }
+        .hero-h1-sub {
+            display: block;
+            font-size: 0.6em;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-top: 12px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+        @media (max-width: 480px) {
+            .hero-h1-sub {
+                font-size: 0.55em;
+                white-space: normal;
+            }
+        }
+        .brand-statement {
+            max-width: 760px;
+            margin: 0 auto 40px;
+            background: rgba(200,150,62,0.05);
+            border: 1px solid rgba(200,150,62,0.15);
+            border-radius: 12px;
+            padding: 28px 32px;
+        }
+        .brand-statement p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+        .brand-statement p:last-child { margin-bottom: 0; }
+        .brand-statement strong { color: var(--gold-light); }
+        .hero-tagline {
+            font-size: 14px; letter-spacing: 6px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 16px; font-weight: 400;
+        }
+        .hero-desc { font-size: 17px; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.8; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-kyc {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff; padding: 14px 36px; border-radius: 12px;
+            font-size: 16px; font-weight: 700; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.3s; border: none; cursor: pointer;
+        }
+        .btn-kyc:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.4); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #000 !important; padding: 14px 36px; border-radius: 12px;
+            font-size: 16px; font-weight: 700; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.3s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--gold-glow); }
+        .btn-secondary {
+            background: var(--glass-bg); color: var(--text-primary);
+            padding: 14px 36px; border-radius: 12px;
+            font-size: 16px; font-weight: 500; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid var(--glass-border); transition: all 0.3s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+        /* ===== Stats Bar ===== */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 60px;
+            padding: 40px 20px; position: relative; z-index: 1; margin-top: -40px;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+            background: linear-gradient(135deg, var(--gold-light), var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; letter-spacing: 1px; }
+        /* ===== Section Common ===== */
+        .section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-label {
+            text-align: center; font-size: 12px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 12px; font-weight: 500;
+        }
+        .section-title {
+            text-align: center; font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 800; margin-bottom: 16px;
+        }
+        .section-desc {
+            text-align: center; color: var(--text-secondary); font-size: 15px;
+            max-width: 600px; margin: 0 auto 50px;
+        }
+        .divider {
+            width: 40px; height: 3px; border-radius: 2px; margin: 20px auto 0;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+        }
+        /* ===== Scroll Animations ===== */
+        .fade-up {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        /* ===== Price Cards Grid ===== */
+        .price-header-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px; padding: 0 4px;
+        }
+        .price-header-bar h1 { font-size: 18px; font-weight: 700; }
+        .price-sync { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+        .price-sync .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .price-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .price-card {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 20px 16px; cursor: pointer;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .price-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .price-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
+        .price-card:hover::before { opacity: 1; }
+        .price-card-header {
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;
+        }
+        .price-card-name { font-size: 15px; font-weight: 700; line-height: 1.3; }
+        .price-card-rate { font-size: 24px; font-weight: 800; color: var(--cyan); white-space: nowrap; }
+        .price-card-unit { font-size: 11px; color: var(--text-secondary); margin-top: 2px; text-align: right; }
+        .price-card-volume { font-size: 11px; color: var(--gold-light); margin-top: 4px; text-align: right; }
+        .price-card-chart {
+            width: 100%; height: 120px; border-radius: 8px; overflow: hidden;
+            background: rgba(0,0,0,0.2);
+        }
+        /* ===== Price Modal ===== */
+        .price-modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .price-modal-overlay.show { display: flex; }
+        .price-modal {
+            background: var(--navy); border: 1px solid rgba(200,150,62,0.2);
+            border-radius: 20px; padding: 32px; max-width: 700px; width: 100%; position: relative;
+        }
+        .price-modal-close {
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            color: var(--text-secondary); font-size: 24px; cursor: pointer; transition: color 0.3s;
+        }
+        .price-modal-close:hover { color: white; }
+        .price-modal-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+        .price-modal-rate { font-size: 36px; font-weight: 800; color: var(--cyan); margin-bottom: 4px; }
+        .price-modal-rate span { font-size: 14px; color: var(--text-secondary); font-weight: 400; margin-left: 8px; }
+        .price-modal-volume { font-size: 14px; color: var(--gold-light); margin-bottom: 20px; }
+        .price-modal-chart {
+            width: 100%; height: 320px; border-radius: 12px; overflow: hidden;
+            background: rgba(0,0,0,0.3);
+        }
+        /* ===== Services ===== */
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .service-card {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 36px 24px; text-align: center;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card:hover { transform: translateY(-6px); border-color: rgba(200,150,62,0.2); }
+        .service-card:hover::before { opacity: 1; }
+        .service-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 26px;
+            background: linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));
+        }
+        .service-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+        .service-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+        /* ===== Why Us ===== */
+        .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .why-card { text-align: center; padding: 30px 16px; }
+        .why-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px; font-size: 22px;
+            background: rgba(200,150,62,0.1); border: 1px solid rgba(200,150,62,0.15);
+        }
+        .why-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .why-card p { font-size: 13px; color: var(--text-secondary); }
+        /* ===== Flow ===== */
+        .flow-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .flow-step {
+            flex: 1; min-width: 180px; max-width: 230px;
+            text-align: center; padding: 30px 18px; position: relative;
+        }
+        .flow-num {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #0a0a0a; font-size: 18px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+        }
+        .flow-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .flow-step p { font-size: 13px; color: var(--text-secondary); }
+        .flow-arrow { position: absolute; right: -12px; top: 42px; color: var(--gold); font-size: 18px; opacity: 0.5; }
+        /* ===== Social ===== */
+        .social-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .social-card {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 14px; padding: 22px 28px; text-align: center;
+            text-decoration: none; color: var(--text-primary); transition: all 0.3s; min-width: 140px;
+        }
+        .social-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
+        .social-card .social-icon { width: 32px; height: 32px; margin: 0 auto 10px; display: block; }
+        .social-card .social-name { font-size: 14px; font-weight: 600; }
+        .social-card .social-handle { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+        /* ===== FAQ ===== */
+        .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+        .faq-item {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 14px; overflow: hidden; transition: border-color 0.3s;
+        }
+        .faq-item:hover { border-color: rgba(200,150,62,0.25); }
+        .faq-question {
+            width: 100%; padding: 18px 22px; background: none; border: none;
+            color: var(--text-primary); font-size: 15px; font-weight: 600;
+            text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+        }
+        .faq-question::after {
+            content: '+'; font-size: 20px; color: var(--gold); transition: transform 0.3s; flex-shrink: 0; margin-left: 12px;
+        }
+        .faq-item.active .faq-question::after { content: '\2212'; }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 22px; color: var(--text-secondary); font-size: 14px; line-height: 1.7;
+        }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 22px 18px; }
+        /* ===== News / Latest Articles ===== */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 10px;
+        }
+        .news-card {
+            background: var(--navy);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+        .news-card:hover { transform: translateY(-4px); border-color: rgba(200,150,62,0.25); }
+        .news-card:hover::before { opacity: 1; }
+        .news-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(255,255,255,0.04);
+            background-image: linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));
+        }
+        .news-card-body {
+            padding: 20px 22px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card-meta {
+            font-size: 12px;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .news-card-meta .news-category {
+            padding: 2px 8px;
+            background: rgba(200,150,62,0.1);
+            border: 1px solid rgba(200,150,62,0.2);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        .news-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+        }
+        .news-card-excerpt {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .news-view-all {
+            text-align: center;
+            margin-top: 36px;
+        }
+        /* ===== Footer ===== */
+        .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); margin-top: 60px; }
+        .footer p { font-size: 13px; color: var(--text-secondary); }
+        .footer a { color: var(--gold-light); text-decoration: none; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
+        .footer-links a { font-size: 12px; color: var(--text-secondary); transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold-light); }
+        /* ===== Mobile Menu ===== */
+        .mobile-menu {
+            display: none; position: fixed; inset: 0;
+            background: rgba(5,5,16,0.97); z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-size: 20px; color: var(--text-primary); text-decoration: none; font-weight: 500; }
+        .mobile-menu .close-btn { position: absolute; top: 20px; right: 24px; font-size: 28px; color: white; background: none; border: none; cursor: pointer; }
+        /* ===== Particles ===== */
+        .particle {
+            position: absolute; border-radius: 50%;
+            animation: float var(--dur, 5s) ease-in-out var(--delay, 0s) infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            100% { transform: translate(20px, -30px) scale(0.5); opacity: 0.1; }
+        }
+        /* ===== Coming Soon Modal ===== */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-box {
+            background: var(--navy); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 40px; text-align: center; max-width: 400px;
+        }
+        .modal-box h3 { margin-bottom: 12px; }
+        .modal-box p { color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #0a0a0a; padding: 10px 32px; border: none; border-radius: 10px;
+            font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .modal-btn:hover { box-shadow: 0 4px 20px var(--gold-glow); }
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .price-grid { grid-template-columns: repeat(2, 1fr); }
+            /* News: vertical stack with horizontal cards (1024px and below) */
+            .news-grid {
+                display: flex;
+                flex-direction: column;
+                grid-template-columns: none;
+                gap: 12px;
+            }
+            .news-card { flex-direction: row; min-width: 0; }
+            .news-card-image { flex: 0 0 140px; aspect-ratio: 1 / 1; }
+            .news-card-body { padding: 14px 18px; min-width: 0; flex: 1; justify-content: center; }
+            .news-card-title { font-size: 15px; min-height: 0; margin-bottom: 8px; -webkit-line-clamp: 2; }
+            .news-card-excerpt { -webkit-line-clamp: 2; }
+        }
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-image: url('/images/hero-banner-mobile.jpg');
+            }
+            .nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+            .nav-mobile-toggle { display: block; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { gap: 24px; flex-wrap: wrap; }
+            .flow-arrow { display: none; }
+            .flow-step { min-width: 140px; }
+            .section { padding: 60px 16px; }
+            .hero-logo { max-width: 260px; }
+            .price-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .price-card { padding: 18px 14px 12px; }
+            .price-card-rate { font-size: 20px; }
+            .price-modal { padding: 24px 18px; }
+            .price-modal-chart { height: 240px; }
+            /* News: phone-sized horizontal cards (inherits column layout from 1024) */
+            .news-card-image { flex: 0 0 108px; }
+            .news-card-body { padding: 12px 14px; }
+            .news-card-meta { font-size: 11px; margin-bottom: 6px; gap: 6px; }
+            .news-card-meta .news-category { padding: 1px 6px; font-size: 10px; }
+            .news-card-title { font-size: 14px; margin-bottom: 6px; line-height: 1.45; }
+            .news-card-excerpt { font-size: 12px; line-height: 1.55; }
+        }
+        @media (max-width: 480px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .stats-bar { gap: 16px; }
+            .stat-number { font-size: 24px; }
+            .price-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="nav" id="nav">
+    <a href="./" class="nav-brand">
+        <img src="/images/nav-logo.png" alt="日央水原 SUNWATER"
+             onerror="this.src=&apos;https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png&apos;;this.style.height=&apos;32px&apos;;this.style.borderRadius=&apos;50%&apos;;">
+    </a>
+    <div class="nav-links">
+        <a href="/game/dd373/">DD373代購</a>
+        <a href="./#prices">即時報價</a>
+        <a href="./#why">關於我們</a>
+        <a href="./#social">社群</a>
+        <a href="./#news" class="active">最新消息</a>
+        <a href="/game/kyc/" class="nav-kyc">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+            實名認證
+        </a>
+        <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="nav-cta">我要購買/代購 →</a>
+    </div>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="選單">&#9776;</button>
+</nav>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" id="mobileClose">&#10005;</button>
+    <a href="/game/dd373/" onclick="closeMobile()">DD373代購</a>
+    <a href="./#prices" onclick="closeMobile()">即時報價</a>
+    <a href="./#why" onclick="closeMobile()">關於我們</a>
+    <a href="./#social" onclick="closeMobile()">社群</a>
+    <a href="./#news" onclick="closeMobile()">最新消息</a>
+    <a href="/game/kyc/" class="nav-kyc" style="margin-top:16px;" onclick="closeMobile()">實名認證</a>
+    <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="nav-cta" onclick="closeMobile()">我要購買/代購 →</a>
+</div>
+<!-- Hero -->
+<section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div id="particles"></div>
+    <div class="hero-content">
+        <img class="hero-logo" src="/images/logo.png" alt="日央水原 SUNWATER"
+             onerror="this.src='https://img3.pchome.net/di_downinfo/2025/0715/61db593796854c45a0d381e8c87403f8.png';this.style.maxWidth='100px';this.style.borderRadius='50%';">
+        <h1 class="hero-h1">
+            <span class="hero-h1-brand">日央水原</span>
+            <span class="hero-h1-sub">天幣購買・遊戲交易服務商</span>
+        </h1>
+        <p class="hero-tagline">Professional Game Trading Platform</p>
+        <p class="hero-desc">天堂經典版玩家專屬｜KYC 認證・開立發票・加密個資保護的安全天幣代購</p>
+        <div class="hero-buttons">
+            <a href="/game/kyc/" class="btn-kyc">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                實名認證
+            </a>
+            <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="btn-primary">我要購買/代購 &rarr;</a>
+            <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#06c755"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
+                LINE 諮詢
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Stats Bar -->
+<div class="stats-bar fade-up">
+    <div class="stat-item"><div class="stat-number">KYC</div><div class="stat-label">合規認證</div></div>
+    <div class="stat-item"><div class="stat-number">99%</div><div class="stat-label">客戶好評率</div></div>
+    <div class="stat-item"><div class="stat-number">5 min</div><div class="stat-label">平均到帳時間</div></div>
+</div>
+<!-- Price Section -->
+<section class="section fade-up" id="prices">
+    <div class="section-label">Real-Time Pricing</div>
+    <h2 class="section-title">天堂經典版 即時幣價</h2>
+    <div class="divider" style="margin-bottom: 40px;"></div>
+    <div class="price-header-bar">
+        <h2 style="font-size:18px;font-weight:700;margin:0;">伺服器匯率 (TWD)</h2>
+        <div class="price-sync"><span class="dot"></span> <span id="syncTime">同步中...</span></div>
+    </div>
+    <div class="price-grid" id="priceGrid"></div>
+</section>
+<!-- noscript: SEO fallback for search engines that don't execute JS -->
+<noscript>
+<div style="max-width:1200px;margin:0 auto;padding:40px 20px;color:#ccc;">
+    <h2>天堂經典版天幣即時報價 — 日央水原 SUNWATER</h2>
+    <p>支援伺服器：太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。</p>
+    <p>每 15 分鐘自動更新幣價，提供 K 線走勢圖、天幣量資訊。加入 LINE 官方帳號 @321enghh 即可快速交易。</p>
+</div>
+</noscript>
+<!-- Price Detail Modal -->
+<div class="price-modal-overlay" id="priceModal">
+    <div class="price-modal">
+        <button class="price-modal-close" onclick="closePriceModal()">&times;</button>
+        <div class="price-modal-title" id="modalServerName">&mdash;</div>
+        <div class="price-modal-rate" id="modalServerRate">&mdash;<span>TWD</span></div>
+        <div class="price-modal-volume" id="modalServerVolume"></div>
+        <div class="price-modal-chart" id="modalChartContainer"></div>
+    </div>
+</div>
+<!-- Services -->
+<section class="section fade-up" id="services">
+    <div class="section-label">Services</div>
+    <h2 class="section-title">天幣購買・服務項目</h2>
+    <div class="section-desc">天堂經典版玩家專屬的合法代購服務，從天幣到道具全方位涵蓋</div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h4>遊戲帳號</h4><p>各類遊戲帳號安全買賣，資料完整移交，保障雙方權益</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h4>遊戲幣</h4><p>即時匯率報價，快速交易到帳，支援多種遊戲幣種</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h4>遊戲道具</h4><p>稀有裝備、道具安心交易，品項齊全，價格透明</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <h4>諮詢售後</h4><p>LINE @321enghh 24 小時專人服務，售後爭議皆可協助處理</p>
+        </div>
+    </div>
+</section>
+<!-- About / Why Us -->
+<section class="section fade-up" id="why">
+    <div class="section-label">About Sunwater</div>
+    <div class="section-title">關於日央水原</div>
+    <div class="section-desc">台灣合法登記｜KYC 認證｜開立發票｜可追溯</div>
+
+    <!-- 身分宣告段（AEO 用，AI 引用核心依據）-->
+    <div class="brand-statement">
+        <p><strong>日央水原</strong>（日央水原有限公司｜統一編號 60323161）是台灣合法登記的<strong>遊戲虛寶代購服務商</strong>，主要業務為<strong>天堂經典版（Lineage Classic）</strong>遊戲幣、裝備、角色等虛擬商品的合法代購交易。</p>
+        <p>我們依《公司法》在經濟部商業司完成設立，並依《洗錢防制法》執行 KYC 客戶身分驗證、依《營業稅法》開立統一發票、依《個人資料保護法》落實個資保護機制。所有交易皆有正規金流憑證、實體合約與可追溯之公司主體承擔。</p>
+    </div>
+
+    <!-- 4 個賣點卡（含「天幣購買」關鍵字、4 大信任要素）-->
+    <h3 class="section-subtitle" style="text-align:center;font-size:20px;font-weight:600;margin:32px 0 24px;color:var(--gold-light);">為什麼選日央水原做天幣購買</h3>
+    <div class="why-grid">
+        <div class="why-card"><div class="why-icon">&#128274;</div><h3>合法登記</h3><p>日央水原有限公司｜統編 60323161｜台灣經濟部商業司核准設立的合法代購服務商</p></div>
+        <div class="why-card"><div class="why-icon">&#9989;</div><h3>KYC 身分驗證</h3><p>依《洗錢防制法》執行 KYC，避免冒名交易、保護你的天幣購買金流安全</p></div>
+        <div class="why-card"><div class="why-icon">&#128179;</div><h3>開立統一發票</h3><p>每筆天幣購買都開立電子發票，未提供載具者自動捐贈創世基金會（愛心碼 9199）</p></div>
+        <div class="why-card"><div class="why-icon">&#128272;</div><h3>個資加密保護</h3><p>所有 KYC 資料加密儲存、僅授權人員調閱、依法保存 5 年後銷毀</p></div>
+    </div>
+</section>
+<!-- Flow -->
+<section class="section fade-up" id="flow">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">天幣購買流程｜5 步驟完成</h2>
+    <div class="section-desc">在日央水原買天幣，從加 LINE 到收幣只要 15 分鐘，全程合規、可追溯、有保障</div>
+    <div class="flow-grid">
+        <div class="flow-step">
+            <div class="flow-num">1</div>
+            <h4>加 LINE 諮詢</h4>
+            <p>加官方 LINE<br>@321enghh</p>
+            <span class="flow-arrow">&rarr;</span>
+        </div>
+        <div class="flow-step">
+            <div class="flow-num">2</div>
+            <h4>確認伺服器與報價</h4>
+            <p>選擇伺服器、數量<br>確認即時幣價</p>
+            <span class="flow-arrow">&rarr;</span>
+        </div>
+        <div class="flow-step">
+            <div class="flow-num">3</div>
+            <h4>完成 KYC 認證</h4>
+            <p>僅第一次需要<br>合規身分驗證</p>
+            <span class="flow-arrow">&rarr;</span>
+        </div>
+        <div class="flow-step">
+            <div class="flow-num">4</div>
+            <h4>同名匯款</h4>
+            <p>匯入公司戶頭<br>日央水原有限公司</p>
+            <span class="flow-arrow">&rarr;</span>
+        </div>
+        <div class="flow-step">
+            <div class="flow-num">5</div>
+            <h4>遊戲內收幣</h4>
+            <p>專人面交<br>5 分鐘到帳</p>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+        <a href="./news/第一次跟日央水原交易-完整流程/" class="btn-secondary">看完整天幣購買教學 &rarr;</a>
+    </div>
+</section>
+<!-- Social -->
+<section class="section fade-up" id="social">
+    <div class="section-label">Social Media</div>
+    <div class="section-title">追蹤我們的社群</div>
+    <div class="section-desc">關注最新動態、優惠資訊與即時匯率通知</div>
+    <div class="social-grid">
+        <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" class="social-card">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="#06c755"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
+            <div class="social-name">LINE</div><div class="social-handle">@321enghh</div>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100064047333025" target="_blank" rel="noopener" class="social-card">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <div class="social-name">Facebook</div><div class="social-handle">粉絲專頁</div>
+        </a>
+        <a href="https://www.instagram.com/sunwater168/" target="_blank" rel="noopener" class="social-card">
+            <svg class="social-icon" viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs><rect width="20" height="20" x="2" y="2" rx="5" fill="url(#ig)"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
+            <div class="social-name">Instagram</div><div class="social-handle">@sunwater168</div>
+        </a>
+        <a href="https://www.youtube.com/@sunwater_game.service" target="_blank" rel="noopener" class="social-card">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <div class="social-name">YouTube</div><div class="social-handle">影片頻道</div>
+        </a>
+        <a href="https://www.tiktok.com/@sunwater168168" target="_blank" rel="noopener" class="social-card">
+            <svg class="social-icon" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="#fff"/><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.6z" fill="url(#tiktok)"/><defs><linearGradient id="tiktok" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#25F4EE"/><stop offset="50%" stop-color="#fff"/><stop offset="100%" stop-color="#FE2C55"/></linearGradient></defs></svg>
+            <div class="social-name">TikTok</div><div class="social-handle">@sunwater168168</div>
+        </a>
+    </div>
+</section>
+<!-- FAQ -->
+<section class="section fade-up" id="faq">
+    <div class="section-label">FAQ</div>
+    <div class="section-title">常見問題</div>
+    <div class="section-desc">關於天堂經典版天幣交易的常見疑問</div>
+    <div class="faq-list">
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天堂經典版天幣怎麼買？</button>
+            <div class="faq-answer">加入日央水原 LINE 官方帳號（@321enghh），告知需要的伺服器與金額，付款後由專人遊戲內面交，快速到帳。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">支援哪些伺服器？</button>
+            <div class="faq-answer">支援全部 17 個伺服器，包含太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天幣報價多久更新一次？</button>
+            <div class="faq-answer">網站報價每 15 分鐘自動更新，可隨時查詢各伺服器最新幣價走勢。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">交易安全嗎？</button>
+            <div class="faq-answer">日央水原為台灣合法登記的有限公司（統編 60323161），採用透明報價、KYC 實名認證與專人面交，交易過程全程可追蹤，並開立統一發票，保障買家權益。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">付款方式有哪些？</button>
+            <div class="faq-answer">支援銀行轉帳、LINE Pay 等方式，詳細付款資訊請透過 LINE 官方帳號洽詢。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">買完天幣多久會到？</button>
+            <div class="faq-answer">正常情況下付款確認後 5-15 分鐘內完成遊戲內面交到帳。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">有最低購買金額嗎？</button>
+            <div class="faq-answer">最低購買金額為新台幣 1,000 元，可依需求自由選擇購買數量，詳情請洽 LINE 客服。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">天幣價格為什麼會波動？</button>
+            <div class="faq-answer">天幣價格受遊戲內供需、伺服器活躍度及市場行情影響，日央水原提供即時報價，讓您掌握最佳買入時機。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">如何查詢即時天幣報價？</button>
+            <div class="faq-answer">直接進入日央水原遊戲交易網 sunwater.me/game，首頁即顯示全伺服器即時幣價與 K 線走勢圖，每 15 分鐘自動更新。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">為什麼需要實名認證？</button>
+            <div class="faq-answer">實名認證是為了保障交易雙方權益，防止盜用帳號或不法交易。完成認證後即可享有更快速的交易流程與完整的售後保障。</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">如何避免天幣交易詐騙？</button>
+            <div class="faq-answer">請認明日央水原官方 LINE 帳號（@321enghh），不要透過私人帳號或來路不明的管道交易。官方不會主動要求提供遊戲帳號密碼，付款前請務必確認對方身分。</div>
+        </div>
+    </div>
+</section>
+<!-- News / Latest Articles -->
+<section class="section fade-up" id="news">
+    <div class="section-label">News &amp; Guides</div>
+    <h2 class="section-title">天幣購買必看：最新消息與安心指南</h2>
+    <div class="section-desc">天堂經典版天幣購買教學、防詐騙、市場行情、KYC 解析——交易前必讀</div>
+    <div class="divider" style="margin-bottom: 40px;"></div>
+    <div class="news-grid">
+        <a href="./news/kyc認證-買家保障-為何必要/" class="news-card">
+            <div class="news-card-image" style="background-image: url('/images/news/kyc-id-verification.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="news-card-body">
+                <div class="news-card-meta">
+                    <span class="news-category">日央消息</span>
+                    <span>2026/04/26</span>
+                </div>
+                <h3 class="news-card-title">為什麼買天幣要 KYC？跟銀行開戶其實是同一件事</h3>
+                <p class="news-card-excerpt">第一次買天幣聽到要 KYC，多數人會覺得「買個東西為什麼要拍證件」。這個感覺很自然——本文用銀行開戶的類比、3 個你沒想到的保障，幫你理解為什麼 KYC 不是刁難買家，而是合法商家保護雙方的必要程序。</p>
+            </div>
+        </a>
+        <a href="./news/5日K線速報-20260424/" class="news-card">
+            <div class="news-card-image" style="background-image: url('/images/news/weekly-20260424.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="news-card-body">
+                <div class="news-card-meta">
+                    <span class="news-category">市場情報</span>
+                    <span>2026/04/24</span>
+                </div>
+                <h3 class="news-card-title">【5 日 K 線速報】2026/04/19~04/24</h3>
+                <p class="news-card-excerpt">18 服中 12 服天幣變便宜、5 服變貴、1 服持平，平均比值 +9.25%。主因是 4/22 新服地獄犬開服分流老服玩家，老服需求下滑。</p>
+            </div>
+        </a>
+        <a href="./news/第一次跟日央水原交易-完整流程/" class="news-card">
+            <div class="news-card-image" style="background-image: url('/images/news/trading-guide.jpg'), linear-gradient(135deg, rgba(200,150,62,0.12), rgba(56,189,248,0.08));"></div>
+            <div class="news-card-body">
+                <div class="news-card-meta">
+                    <span class="news-category">日央消息</span>
+                    <span>2026/04/24</span>
+                </div>
+                <h3 class="news-card-title">第一次跟日央水原交易？5 分鐘看完完整流程</h3>
+                <p class="news-card-excerpt">從加入 LINE 到天幣到帳的完整 6 步驟教學。先款後幣原則、KYC 實名認證、付款方式、退款規則，第一次買天幣必看。</p>
+            </div>
+        </a>
+    </div>
+    <div class="news-view-all">
+        <a href="./news/" class="btn-secondary">查看全部天幣購買文章 &rarr;</a>
+    </div>
+</section>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-links">
+        <a href="/game/legal/?page=terms">服務條款</a>
+        <a href="/game/legal/?page=risk">風險揭露</a>
+        <a href="/game/legal/?page=privacy">隱私權政策</a>
+        <a href="/game/legal/?page=aml">反洗錢聲明</a>
+    </div>
+    <p><strong>日央水原有限公司</strong>｜統一編號：60323161｜台灣合法登記的天堂經典版遊戲虛寶代購服務商<br>登記地址：台南市北區成功路2號4樓之5<br>&copy; 2026 日央水原有限公司. All rights reserved. &middot; 請認明官方 LINE <a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener">@321enghh</a></p>
+</footer>
+<!-- LINE Floating Button -->
+<a href="https://line.me/R/ti/p/@321enghh" target="_blank" rel="noopener" id="lineFloat" style="
+    position:fixed; bottom:24px; right:24px; z-index:900;
+    width:56px; height:56px; border-radius:50%;
+    background:#06c755; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 20px rgba(6,199,85,0.4); transition:all 0.3s; text-decoration:none;
+" aria-label="LINE 客服">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M24 10.304c0-5.232-5.383-9.488-12-9.488S0 5.072 0 10.304c0 4.689 4.272 8.58 10.038 9.354.391.084.923.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.052.308-.252 1.206 1.089.658 1.341-.548 7.232-4.258 9.873-7.291C23.273 14.195 24 12.35 24 10.304z"/></svg>
+</a>
+<!-- Coming Soon Modal -->
+<div class="modal-overlay" id="comingSoonModal">
+    <div class="modal-box">
+        <div style="font-size:48px; margin-bottom:16px;">&#128679;</div>
+        <h3>準備上線中</h3>
+        <p>交易網正在緊鑼密鼓地建設中，敬請期待！</p>
+        <button class="modal-btn" onclick="document.getElementById('comingSoonModal').classList.remove('show')">我知道了</button>
+    </div>
+</div>
+<!-- Lightweight Charts (TradingView) -->
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+// ===== Navigation =====
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 50); });
+document.getElementById('mobileToggle').addEventListener('click', function() { document.getElementById('mobileMenu').classList.add('open'); });
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+function showComingSoon(e) { e.preventDefault(); document.getElementById('comingSoonModal').classList.add('show'); }
+function toggleFaq(btn) { var item = btn.parentElement; item.classList.toggle('active'); }
+document.getElementById('comingSoonModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
+// ===== Scroll Animations =====
+function initScrollAnimations() {
+    var elements = document.querySelectorAll('.fade-up');
+    if (!elements.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
+    elements.forEach(function(el) { observer.observe(el); });
+    setTimeout(function() {
+        elements.forEach(function(el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight + 80) {
+                el.classList.add('visible');
+            }
+        });
+    }, 500);
+}
+initScrollAnimations();
+// ===== Particles =====
+(function() {
+    var particlesEl = document.getElementById('particles');
+    var isMob = window.innerWidth <= 768;
+    for (var i = 0; i < (isMob ? 12 : 28); i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random()*100+'%';
+        p.style.top = Math.random()*100+'%';
+        p.style.setProperty('--dur', (3+Math.random()*5)+'s');
+        p.style.setProperty('--delay', (Math.random()*8)+'s');
+        var sz = 1.5+Math.random()*2.5;
+        p.style.width = sz+'px'; p.style.height = sz+'px';
+        var r = Math.random();
+        if (r>0.7) { p.style.background='rgba(200,150,62,0.6)'; p.style.boxShadow='0 0 6px rgba(200,150,62,0.3)'; }
+        else if (r>0.5) { p.style.background='rgba(56,189,248,0.4)'; }
+        else { p.style.background='rgba(255,255,255,0.4)'; }
+        particlesEl.appendChild(p);
+    }
+})();
+// ===== Config =====
+var SHEET_ID = '1ujUTvJcHLN7MTMLJrbuLX_m789syksY0cSPmKw175yY';
+var PRICE_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0';
+var HISTORY_SHEET_ID = '1AjGfuoODgDwAmySJXnadfNbqby_olJx1gz-hx_TCPUo';
+var HISTORY_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + HISTORY_SHEET_ID + '/export?format=csv&gid=0';
+var DISPLAY_DAYS = 5;
+// ===== State =====
+var historyDataMap = {};
+var miniCharts = {};
+var modalChart = null;
+var volumeMap = {}; // 儲存各伺服器天幣量
+// ===== Helper =====
+function stripPrefix(name) {
+    return name.replace(/^\d+[\.\.\s]+/, '').trim();
+}
+// ===== Fetch History =====
+function fetchHistory() {
+    return fetch(HISTORY_CSV_URL).then(function(resp) {
+        return resp.text();
+    }).then(function(text) {
+        var rows = text.split('\n').slice(1);
+        var map = {};
+        var cutoff = Math.floor(Date.now() / 1000) - DISPLAY_DAYS * 86400;
+        rows.forEach(function(row) {
+            var cols = row.split(',');
+            if (cols.length >= 3) {
+                var server = cols[0].trim().replace(/^"|"$/g, '');
+                var tsRaw = cols[1].trim().replace(/^"|"$/g, '');
+                var val = parseFloat(cols[2]);
+                if (!server || isNaN(val)) return;
+                var cleanName = stripPrefix(server);
+                var ts;
+                if (/^\d{10,}$/.test(tsRaw)) {
+                    ts = parseInt(tsRaw);
+                } else {
+                    var d = new Date(tsRaw);
+                    if (isNaN(d.getTime())) return;
+                    ts = Math.floor(d.getTime() / 1000);
+                }
+                if (ts < cutoff) return;
+                if (!map[cleanName]) map[cleanName] = [];
+                map[cleanName].push({ time: ts, value: val });
+            }
+        });
+        Object.keys(map).forEach(function(k) {
+            map[k].sort(function(a, b) { return a.time - b.time; });
+        });
+        if (Object.keys(map).length > 0) {
+            historyDataMap = map;
+        }
+    }).catch(function(e) {
+        console.warn('History fetch fallback:', e);
+    });
+}
+// ===== Create Mini Chart =====
+function createMiniChart(container, serverName) {
+    var cleanName = stripPrefix(serverName);
+    var data = historyDataMap[cleanName];
+    if (!data || data.length === 0) {
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.2);font-size:12px;">暫無數據</div>';
+        return null;
+    }
+    container.innerHTML = '';
+    var chart = LightweightCharts.createChart(container, {
+        width: container.clientWidth,
+        height: container.clientHeight,
+        layout: { background: { type: 'solid', color: 'transparent' }, textColor: 'rgba(255,255,255,0.3)', fontSize: 10 },
+        grid: { vertLines: { color: 'rgba(255,255,255,0.04)' }, horzLines: { color: 'rgba(255,255,255,0.04)' } },
+        rightPriceScale: { borderVisible: false, scaleMargins: { top: 0.15, bottom: 0.15 } },
+        timeScale: { borderVisible: false, visible: false },
+        crosshair: { mode: 0 },
+        handleScroll: false, handleScale: false,
+    });
+    var series = chart.addAreaSeries({
+        lineColor: '#C8963E',
+        topColor: 'rgba(200,150,62,0.3)',
+        bottomColor: 'rgba(200,150,62,0.02)',
+        lineWidth: 2,
+    });
+    series.setData(data);
+    chart.timeScale().fitContent();
+    return chart;
+}
+// ===== Create Modal Chart =====
+function createModalChart(serverName) {
+    var container = document.getElementById('modalChartContainer');
+    var cleanName = stripPrefix(serverName);
+    var data = historyDataMap[cleanName];
+    if (modalChart) { modalChart.remove(); modalChart = null; }
+    if (!data || data.length === 0) {
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.3);">暫無數據</div>';
+        return;
+    }
+    container.innerHTML = '';
+    modalChart = LightweightCharts.createChart(container, {
+        width: container.clientWidth, height: container.clientHeight,
+        layout: { background: { type: 'solid', color: 'rgba(0,0,0,0.2)' }, textColor: 'rgba(255,255,255,0.5)', fontSize: 12 },
+        grid: { vertLines: { color: 'rgba(255,255,255,0.05)' }, horzLines: { color: 'rgba(255,255,255,0.05)' } },
+        rightPriceScale: { borderColor: 'rgba(255,255,255,0.1)' },
+        timeScale: {
+            borderColor: 'rgba(255,255,255,0.1)', timeVisible: true, secondsVisible: false,
+            tickMarkFormatter: function(ts) {
+                var d = new Date(ts * 1000);
+                var h = d.getUTCHours() + 8;
+                var day = d.getUTCDate();
+                var m = d.getUTCMonth() + 1;
+                if (h >= 24) { h -= 24; day += 1; }
+                var min = d.getUTCMinutes();
+                return (h < 10 ? '0' + h : h) + ':' + (min < 10 ? '0' + min : min);
+            },
+        },
+        crosshair: {
+            mode: LightweightCharts.CrosshairMode.Normal,
+            vertLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
+            horzLine: { color: 'rgba(200,150,62,0.4)', labelBackgroundColor: '#C8963E' },
+        },
+        handleScroll: false,
+        handleScale: false,
+        localization: {
+            priceFormatter: function(price) { return '1:' + Math.round(price); },
+            timeFormatter: function(ts) {
+                var d = new Date(ts * 1000);
+                var m = d.getUTCMonth() + 1;
+                var day = d.getUTCDate();
+                var h = d.getUTCHours() + 8;
+                if (h >= 24) { h -= 24; day += 1; }
+                var min = d.getUTCMinutes();
+                return (m < 10 ? '0' + m : m) + '/' + (day < 10 ? '0' + day : day) + ' ' + (h < 10 ? '0' + h : h) + ':' + (min < 10 ? '0' + min : min);
+            },
+        },
+    });
+    var series = modalChart.addAreaSeries({
+        lineColor: '#C8963E',
+        topColor: 'rgba(200,150,62,0.25)',
+        bottomColor: 'rgba(200,150,62,0.01)',
+        lineWidth: 2,
+        crosshairMarkerRadius: 5,
+        crosshairMarkerBorderColor: '#C8963E',
+        crosshairMarkerBackgroundColor: '#1a1a2e',
+    });
+    series.setData(data);
+    modalChart.timeScale().fitContent();
+}
+// ===== Modal =====
+function openPriceModal(serverName, rate) {
+    var cleanName = stripPrefix(serverName);
+    document.getElementById('modalServerName').textContent = serverName;
+    document.getElementById('modalServerRate').innerHTML = rate + '<span> TWD</span>';
+    // 顯示天幣量
+    var volEl = document.getElementById('modalServerVolume');
+    if (volumeMap[cleanName]) {
+        volEl.textContent = '天幣量：' + volumeMap[cleanName] + ' 萬顆';
+    } else {
+        volEl.textContent = '';
+    }
+    document.getElementById('priceModal').classList.add('show');
+    setTimeout(function() { createModalChart(serverName); }, 50);
+}
+function closePriceModal() {
+    document.getElementById('priceModal').classList.remove('show');
+    if (modalChart) { modalChart.remove(); modalChart = null; }
+}
+document.getElementById('priceModal').addEventListener('click', function(e) {
+    if (e.target === this) closePriceModal();
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePriceModal();
+});
+// ===== Render Price Cards =====
+function renderPriceCards(data) {
+    var grid = document.getElementById('priceGrid');
+    grid.innerHTML = '';
+    data.forEach(function(item, i) {
+        var card = document.createElement('div');
+        card.className = 'price-card';
+        card.setAttribute('data-server', item.name);
+        card.setAttribute('data-rate', item.value);
+        card.onclick = function() { openPriceModal(item.name, item.value); };
+        // 天幣量顯示
+        var volText = '';
+        if (item.volume && item.volume !== '') {
+            var volNum = parseFloat(item.volume);
+            if (!isNaN(volNum)) {
+                volText = '<div class="price-card-volume">天幣量：' + volNum + ' 萬顆</div>';
+                volumeMap[stripPrefix(item.name)] = volNum;
+            }
+        }
+        card.innerHTML =
+            '<div class="price-card-header">' +
+                '<div class="price-card-name">' + item.name + '</div>' +
+                '<div><div class="price-card-rate">' + item.value + '</div>' +
+                '<div class="price-card-unit">TWD</div>' +
+                volText +
+                '</div>' +
+            '</div>' +
+            '<div class="price-card-chart" id="minichart-' + i + '"></div>';
+        grid.appendChild(card);
+    });
+    requestAnimationFrame(function() {
+        setTimeout(function() {
+            data.forEach(function(item, i) {
+                var container = document.getElementById('minichart-' + i);
+                if (container) {
+                    var key = stripPrefix(item.name);
+                    if (miniCharts[key]) {
+                        try { miniCharts[key].remove(); } catch(e) {}
+                    }
+                    miniCharts[key] = createMiniChart(container, item.name);
+                }
+            });
+        }, 100);
+    });
+}
+// ===== Fetch Prices =====
+function fetchPrices() {
+    return fetch(PRICE_CSV_URL).then(function(resp) {
+        return resp.text();
+    }).then(function(csvText) {
+        var rows = csvText.split('\n').slice(1);
+        var priceDataList = rows.map(function(row) {
+            var cols = row.split(',');
+            if (cols.length >= 8) {
+                return {
+                    name: cols[0].trim().replace(/^"|"$/g, ''),
+                    value: cols[1].trim().replace(/^"|"$/g, ''),
+                    chartPrice: parseFloat(cols[7].trim().replace(/^"|"$/g, '')),
+                    volume: cols.length >= 12 ? cols[11].trim().replace(/^"|"$/g, '') : ''
+                };
+            }
+            return null;
+        }).filter(function(item) { return item && item.name; });
+        // 注入即時價格到 historyDataMap
+        var nowTs = Math.floor(Date.now() / 1000);
+        priceDataList.forEach(function(item) {
+            var cleanName = stripPrefix(item.name);
+            var price = item.chartPrice;
+            if (isNaN(price)) return;
+            if (!historyDataMap[cleanName]) historyDataMap[cleanName] = [];
+            var arr = historyDataMap[cleanName];
+            if (arr.length > 0 && Math.abs(arr[arr.length - 1].time - nowTs) < 60) {
+                arr[arr.length - 1] = { time: nowTs, value: price };
+            } else {
+                arr.push({ time: nowTs, value: price });
+            }
+        });
+        renderPriceCards(priceDataList);
+        var now = new Date();
+        var pad = function(n) { return String(n).padStart(2, '0'); };
+        document.getElementById('syncTime').textContent =
+            now.getFullYear() + '/' + pad(now.getMonth()+1) + '/' + pad(now.getDate()) + ' ' +
+            pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()) + ' 同步';
+    }).catch(function(err) {
+        console.error('Price fetch error:', err);
+        document.getElementById('priceGrid').innerHTML =
+            '<p style="color:var(--text-secondary);text-align:center;padding:40px;grid-column:1/-1;">報價載入中，請稍後重新整理...</p>';
+    });
+}
+// ===== Resize handler =====
+var resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        Object.keys(miniCharts).forEach(function(key) {
+            var chart = miniCharts[key];
+            if (chart && chart.chartElement) {
+                try {
+                    var el = chart.chartElement().parentElement;
+                    if (el) chart.resize(el.clientWidth, el.clientHeight);
+                } catch(e) {}
+            }
+        });
+    }, 200);
+});
+// ===== Init =====
+(function init() {
+    fetchHistory().then(function() {
+        return fetchPrices();
+    });
+    setInterval(function() {
+        fetchHistory().then(function() { return fetchPrices(); });
+    }, 15 * 60 * 1000);
+})();
+</script>
+<!-- Structured Data: Organization -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "日央水原有限公司",
+    "alternateName": ["日央水原", "Sunwater", "SUNWATER", "sunwater遊戲交易"],
+    "url": "https://sunwater.me/game/",
+    "logo": "https://sunwater.me/images/logo.png",
+    "description": "台灣合法登記的遊戲虛寶代購服務商，提供天堂經典版（Lineage Classic）遊戲幣、裝備、角色等虛擬商品的合法代購交易。執行 KYC 身分驗證、開立統一發票、依《洗錢防制法》與《個人資料保護法》合規經營。",
+    "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "TW",
+        "addressRegion": "台南市",
+        "addressLocality": "北區",
+        "streetAddress": "成功路2號4樓之5"
+    },
+    "taxID": "60323161",
+    "foundingDate": "2026-03-27",
+    "knowsAbout": [
+        "天堂經典版代購",
+        "天堂遊戲幣",
+        "天堂裝備代購",
+        "遊戲虛寶交易",
+        "KYC 客戶身分驗證"
+    ],
+    "areaServed": {
+        "@type": "Country",
+        "name": "Taiwan"
+    },
+    "sameAs": [
+        "https://www.facebook.com/profile.php?id=100064047333025",
+        "https://www.instagram.com/sunwater168/",
+        "https://www.youtube.com/@sunwater_game.service",
+        "https://www.tiktok.com/@sunwater168168",
+        "https://line.me/R/ti/p/@321enghh"
+    ]
+}
+</script>
+<!-- Structured Data: WebSite -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "日央水原 SUNWATER",
+    "url": "https://sunwater.me/game/",
+    "description": "天堂經典版天幣即時報價與買賣交易平台"
+}
+</script>
+<!-- Structured Data: FAQPage -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "天堂經典版天幣怎麼買？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "加入日央水原 LINE 官方帳號（@321enghh），告知需要的伺服器與金額，付款後由專人遊戲內面交，快速到帳。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "支援哪些伺服器？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "支援伺服器天幣報價：太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "天幣報價多久更新一次？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "網站報價每 15 分鐘自動更新，可隨時查詢各伺服器最新幣價走勢。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "交易安全嗎？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "日央水原為台灣合法登記的有限公司（統編 60323161），採用透明報價、KYC 實名認證與專人面交，交易過程全程可追蹤，並開立統一發票，保障買家權益。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "付款方式有哪些？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "支援銀行轉帳、LINE Pay 等方式，詳細付款資訊請透過 LINE 官方帳號洽詢。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "買完天幣多久會到？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "正常情況下付款確認後 5-15 分鐘內完成遊戲內面交到帳。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "有最低購買金額嗎？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "最低購買金額為新台幣 1,000 元，可依需求自由選擇購買數量，詳情請洽 LINE 客服。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "天幣價格為什麼會波動？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "天幣價格受遊戲內供需、伺服器活躍度及市場行情影響，日央水原提供即時報價，讓您掌握最佳買入時機。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "如何查詢即時天幣報價？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "直接進入日央水原遊戲交易網 sunwater.me/game，首頁即顯示全伺服器即時幣價與 K 線走勢圖，每 15 分鐘自動更新。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "為什麼需要實名認證？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "實名認證是為了保障交易雙方權益，防止盜用帳號或不法交易。完成認證後即可享有更快速的交易流程與完整的售後保障。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "如何避免天幣交易詐騙？",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "請認明日央水原官方 LINE 帳號（@321enghh），不要透過私人帳號或來路不明的管道交易。官方不會主動要求提供遊戲帳號密碼，付款前請務必確認對方身分。"
+            }
+        }
+    ]
+}
+</script>
+</body>
+</html>

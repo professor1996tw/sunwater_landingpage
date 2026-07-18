@@ -1,121 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- 首頁 -->
+    <!-- 新首頁：數位成長夥伴 -->
     <url>
         <loc>https://sunwater.me/</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>daily</changefreq>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+    <!-- 遊戲交易網首頁 -->
+    <url>
+        <loc>https://sunwater.me/game/</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
     <!-- KYC 實名認證頁 -->
     <url>
-        <loc>https://sunwater.me/kyc.html</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/kyc/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- DD373 代購頁 -->
+    <url>
+        <loc>https://sunwater.me/game/dd373/</loc>
+        <lastmod>2026-07-18</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <!-- 法律頁 -->
     <url>
-        <loc>https://sunwater.me/legal.html</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/legal/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
-    <!-- DD373 代購頁 -->
-    <url>
-        <loc>https://sunwater.me/dd373.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
     <!-- 最新消息列表頁 -->
     <url>
-        <loc>https://sunwater.me/news/</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/news/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
-    <!-- 文章：三方詐騙完整解析：買家匯款拿不到、賣家平白被當人頭的隱性騙局（防詐騙） -->
+    <!-- 文章：三方詐騙完整解析（防詐騙） -->
     <url>
-        <loc>https://sunwater.me/news/三方詐騙-隱性騙局完整解析/</loc>
+        <loc>https://sunwater.me/game/news/三方詐騙-隱性騙局完整解析/</loc>
         <lastmod>2026-04-27</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：為什麼買天幣要 KYC？跟銀行開戶其實是同一件事（日央消息） -->
+    <!-- 文章：為什麼買天幣要 KYC（日央消息） -->
     <url>
-        <loc>https://sunwater.me/news/kyc認證-買家保障-為何必要/</loc>
+        <loc>https://sunwater.me/game/news/kyc認證-買家保障-為何必要/</loc>
         <lastmod>2026-04-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：PSS 自動練功合法嗎？跟違規工作室差在哪？（市場情報） -->
+    <!-- 文章：PSS 自動練功合法嗎（市場情報） -->
     <url>
-        <loc>https://sunwater.me/news/pss自動練功-違規工作室-差別/</loc>
+        <loc>https://sunwater.me/game/news/pss自動練功-違規工作室-差別/</loc>
         <lastmod>2026-04-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：遊戲交易 2 大陷阱：低價誘餌與假賣家（防詐騙） -->
+    <!-- 文章：遊戲交易 2 大陷阱（防詐騙） -->
     <url>
-        <loc>https://sunwater.me/news/遊戲交易-2大陷阱-低價誘餌-假賣家/</loc>
+        <loc>https://sunwater.me/game/news/遊戲交易-2大陷阱-低價誘餌-假賣家/</loc>
         <lastmod>2026-04-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 文章：【5 日 K 線速報】2026/04/19~04/24（市場情報） -->
     <url>
-        <loc>https://sunwater.me/news/5日K線速報-20260424/</loc>
+        <loc>https://sunwater.me/game/news/5日K線速報-20260424/</loc>
         <lastmod>2026-04-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：第一次跟日央水原交易？5 分鐘看完完整流程（日央消息） -->
+    <!-- 文章：第一次跟日央水原交易（日央消息） -->
     <url>
-        <loc>https://sunwater.me/news/第一次跟日央水原交易-完整流程/</loc>
+        <loc>https://sunwater.me/game/news/第一次跟日央水原交易-完整流程/</loc>
         <lastmod>2026-04-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：天幣代購詐騙：7 個交易前必查的安全要點（防詐騙） -->
+    <!-- 文章：天幣代購詐騙 7 個檢查要點（防詐騙） -->
     <url>
-        <loc>https://sunwater.me/news/天幣代購詐騙-7個檢查要點/</loc>
+        <loc>https://sunwater.me/game/news/天幣代購詐騙-7個檢查要點/</loc>
         <lastmod>2026-04-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- 文章：日央水原是合法的代購公司嗎？營業登記與合規動作公開（日央消息） -->
+    <!-- 文章：日央水原是合法的代購公司嗎（日央消息） -->
     <url>
-        <loc>https://sunwater.me/news/is-sunwater-a-legal-company/</loc>
+        <loc>https://sunwater.me/game/news/is-sunwater-a-legal-company/</loc>
         <lastmod>2026-04-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：分類總覽 -->
     <url>
-        <loc>https://sunwater.me/news/category/</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/news/category/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：天堂幣行情・市場情報 -->
     <url>
-        <loc>https://sunwater.me/news/category/market/</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/news/category/market/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：天堂代購防詐騙・交易安全指南 -->
     <url>
-        <loc>https://sunwater.me/news/category/anti-fraud/</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/news/category/anti-fraud/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <!-- 分類：日央水原・服務動態與公告 -->
     <url>
-        <loc>https://sunwater.me/news/category/updates/</loc>
-        <lastmod>2026-04-30</lastmod>
+        <loc>https://sunwater.me/game/news/category/updates/</loc>
+        <lastmod>2026-07-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
