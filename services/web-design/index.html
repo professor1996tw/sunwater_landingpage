@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-X6099N611V');</script>
+<title>網頁設計案例｜互動品牌官網製作・日央水原 SUNWATER</title>
+<meta name="description" content="日央水原互動品牌官網製作作品：品牌形象官網、AI 諮詢平台、線上課程與遊戲交易平台。整合 SEO／GEO、動態視覺、購物車金流與轉換動線，一次做到位。">
+<link rel="canonical" href="https://sunwater.me/services/web-design/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="網頁設計案例｜互動品牌官網製作・日央水原 SUNWATER">
+<meta property="og:description" content="品牌形象官網、AI 諮詢平台、線上課程與遊戲交易平台——日央水原的網頁設計案例。">
+<meta property="og:url" content="https://sunwater.me/services/web-design/">
+<meta property="og:image" content="https://sunwater.me/images/og-home.jpg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#faf7f1; --paper-2:#f2ede3; --ink:#20242a; --ink-2:#5c5f66; --ink-3:#8a8d94;
+    --navy:#15385c; --navy-2:#0f2942; --gold:#c78f3c; --gold-soft:#f0e2c8; --rule:#e2dccf;
+    --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.85; letter-spacing:.02em; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ width:100%; max-width:1080px; margin:0 auto; padding:0 40px; }
+  @media(max-width:600px){ .wrap{ padding:0 22px; } }
+
+  /* NAV（透明疊在影片 banner 上） */
+  .nav{ position:absolute; top:0; left:0; right:0; z-index:20; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:24px 40px; }
+  @media(max-width:600px){ .nav{ padding:18px 22px; } }
+  .nav .brand img{ height:40px; width:auto; }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:15px; color:rgba(255,255,255,.9); text-decoration:none; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a.cta{ color:#fff; background:transparent; border:1px solid rgba(255,255,255,.55); padding:11px 22px; border-radius:2px; letter-spacing:.04em; }
+  .nav-links a.cta:hover{ background:rgba(255,255,255,.14); }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:42px; height:42px; background:none; border:none; cursor:pointer; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:.25s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{ display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:rgba(9,17,31,.97); border-top:1px solid rgba(255,255,255,.1); box-shadow:0 18px 30px rgba(0,0,0,.4); padding:6px 22px 18px; z-index:60; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ padding:15px 2px; border-bottom:1px solid rgba(255,255,255,.12); font-size:16px; }
+    .nav-links a.cta{ border:none; background:var(--navy); margin-top:14px; text-align:center; padding:14px; }
+  }
+
+  /* HERO 影片 banner */
+  .hero{ position:relative; min-height:min(72vh,640px); display:flex; align-items:center; overflow:hidden; background:#0a1424; }
+  .hero-vid{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .hero-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(6,11,20,.88) 0%, rgba(6,11,20,.58) 46%, rgba(6,11,20,.34) 100%), linear-gradient(180deg, rgba(4,8,15,.5) 0%, rgba(4,8,15,0) 22%, rgba(4,8,15,.4) 100%); }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero .kick{ font-family:var(--serif); font-style:italic; font-size:16px; color:var(--gold); margin-bottom:14px; }
+  .hero h1{ font-weight:700; font-size:clamp(30px,5vw,52px); line-height:1.22; margin:0; color:#fff; }
+  .hero .lead{ margin-top:22px; max-width:520px; font-size:clamp(15px,1.6vw,17px); color:rgba(255,255,255,.9); line-height:1.9; }
+
+  /* WORKS 區段標題 */
+  .works-sec{ padding:70px 0 40px; }
+  .sec-head{ text-align:center; margin-bottom:44px; }
+  .sec-label{ font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+  .sec-head h2{ font-weight:700; font-size:clamp(26px,3.6vw,40px); margin:0; color:var(--ink); }
+  .sec-head .sec-sub{ margin:14px auto 0; max-width:560px; color:var(--ink-2); font-size:15px; }
+  .sec-head .rule{ width:44px; height:3px; border-radius:2px; margin:20px auto 0; background:linear-gradient(90deg,var(--gold),var(--navy)); }
+
+  /* WORKS GRID */
+  .works{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+  @media(max-width:760px){ .works{ grid-template-columns:1fr; } }
+  .wk{ position:relative; display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--rule); border-radius:12px; overflow:hidden; transition:box-shadow .35s ease, transform .5s cubic-bezier(.22,.61,.36,1), border-color .35s ease, opacity .55s ease; }
+  .wk:hover{ box-shadow:0 30px 60px -28px rgba(21,56,92,.4); transform:translateY(-6px); border-color:var(--gold); }
+  .wk::after{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--navy)); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,.61,.36,1); z-index:4; }
+  .wk:hover::after{ transform:scaleX(1); }
+  .wk-thumb{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--paper-2); }
+  .wk-thumb img{ width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform .55s ease; }
+  .wk:hover .wk-thumb img{ transform:scale(1.045); }
+  .wk-ext{ position:absolute; top:12px; right:12px; z-index:2; background:rgba(9,17,31,.72); color:#fff; font-size:11.5px; border-radius:100px; padding:5px 11px; letter-spacing:.04em; display:inline-flex; align-items:center; gap:5px; }
+  .wk-body{ padding:22px 26px 26px; }
+  .wk-tag{ font-size:12.5px; letter-spacing:.05em; color:var(--gold); font-family:var(--serif); font-style:italic; }
+  .wk-body h3{ font-size:20px; margin:9px 0 9px; color:var(--ink); }
+  .wk-body p{ margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.8; }
+  .wk-more{ margin-top:18px; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; color:var(--navy); }
+  .wk-more svg{ transition:transform .3s ease; }
+  .wk:hover .wk-more svg{ transform:translateX(4px); }
+
+  /* 進場動畫 */
+  .reveal{ opacity:0; transform:translateY(30px); }
+  .reveal.in{ opacity:1; transform:none; }
+  .works-sec .reveal{ transition:opacity .7s ease, transform .7s cubic-bezier(.22,.61,.36,1); }
+  @media(prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; } }
+
+  /* FINAL CTA */
+  .final{ background:var(--navy); color:var(--paper); text-align:center; padding:76px 0; margin-top:44px; }
+  .final h2{ color:#fff; font-weight:700; font-size:clamp(24px,3.4vw,36px); margin:0; }
+  .final p{ color:rgba(255,255,255,.8); margin-top:14px; }
+  .final a{ margin-top:30px; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--navy-2); text-decoration:none; font-weight:600; font-size:17px; padding:18px 40px; border-radius:2px; }
+  .final a:hover{ filter:brightness(1.04); }
+
+  /* FOOTER */
+  footer{ background:var(--paper-2); padding:56px 0 34px; border-top:1px solid var(--rule); }
+  .foot{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+  @media(max-width:700px){ .foot{ grid-template-columns:1fr; gap:26px; } }
+  .foot img{ height:40px; margin-bottom:14px; }
+  .foot .fd{ font-size:14px; color:var(--ink-2); max-width:320px; }
+  .foot h5{ font-size:14px; color:var(--navy); margin:0 0 12px; letter-spacing:.06em; }
+  .foot ul{ list-style:none; margin:0; padding:0; }
+  .foot li{ margin-bottom:9px; }
+  .foot a{ font-size:14px; color:var(--ink-2); text-decoration:none; }
+  .foot a:hover{ color:var(--navy); }
+  .copy{ margin-top:40px; padding-top:20px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="brand" href="/"><img src="/images/logo-white.png" alt="日央水原 SUNWATER"></a>
+    <button class="nav-toggle" aria-label="選單" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open');"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navlinks" onclick="if(event.target.closest('a')){this.classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');}">
+      <a href="/#svc">服務</a>
+      <a href="/#flow">合作流程</a>
+      <a href="/#trade">天堂交易網</a>
+      <a href="/#why">關於我們</a>
+      <a class="cta" href="/#contact">免費諮詢</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO 影片 BANNER ===== -->
+  <div class="hero">
+    <video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="/images/web-poster.jpg">
+      <source src="/videos/web-hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim"></div>
+    <div class="wrap hero-inner">
+      <div class="kick">互動品牌官網製作</div>
+      <h1>把品牌，做成一個<br>會說話的網站</h1>
+      <p class="lead">從品牌形象官網、AI 諮詢平台到交易平台——整合 SEO／GEO、動態視覺與轉換動線，把品牌調性與載入速度一次做到位。</p>
+    </div>
+  </div>
+
+  <!-- ===== 網頁設計案例 ===== -->
+  <section class="works-sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-label">Website Design</div>
+        <h2>網頁設計案例</h2>
+        <p class="sec-sub">品牌形象官網、AI 諮詢平台、線上課程到交易平台——以下是日央水原自製與合作的部分網站作品。</p>
+        <div class="rule"></div>
+      </div>
+
+      <div class="works">
+
+        <!-- 日央水原官網 -->
+        <a class="wk reveal" href="/">
+          <div class="wk-thumb"><img src="/images/work-sunwater.jpg" alt="日央水原品牌官網 sunwater.me" loading="lazy"></div>
+          <div class="wk-body">
+            <div class="wk-tag">品牌形象官網 ・ SEO/GEO ・ 動態主視覺</div>
+            <h3>日央水原 品牌官網</h3>
+            <p>整合 SEO／GEO 佈局、AI 主視覺 banner、影片動態區塊與諮詢表單的數位成長品牌官網。</p>
+            <span class="wk-more">看網站 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <!-- 客戶作品：海外求子諮詢平台 -->
+        <a class="wk reveal" href="https://ivfnext.com/" target="_blank" rel="noopener nofollow">
+          <div class="wk-thumb"><span class="wk-ext">外部網站 ↗</span><img src="/images/work-ivf.jpg" alt="海外求子諮詢平台網站設計案例" loading="lazy"></div>
+          <div class="wk-body">
+            <div class="wk-tag">AI 諮詢平台 ・ 醫療 ・ 響應式</div>
+            <h3>海外求子諮詢平台</h3>
+            <p>海外試管嬰兒／求子的 AI 諮詢平台：整合全球醫院資訊、知識指南與線上評估流程，介面溫暖俐落。</p>
+            <span class="wk-more">看網站 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <!-- 客戶作品：國學教育品牌 -->
+        <a class="wk reveal" href="https://siwen.site/" target="_blank" rel="noopener nofollow">
+          <div class="wk-thumb"><span class="wk-ext">外部網站 ↗</span><img src="/images/work-edu.jpg" alt="國學教育品牌網站設計案例" loading="lazy"></div>
+          <div class="wk-body">
+            <div class="wk-tag">教育品牌官網 ・ 課程報名 ・ 質感視覺</div>
+            <h3>國學教育品牌</h3>
+            <p>奇門遁甲線上教學品牌官網：深色金質視覺、八卦動態主圖、課程體系介紹與線上報名／本命解析入口。</p>
+            <span class="wk-more">看網站 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <!-- 天堂遊戲交易網 -->
+        <a class="wk reveal" href="/game/">
+          <div class="wk-thumb"><img src="/images/work-game.jpg" alt="天堂遊戲交易網 sunwater.me/game" loading="lazy"></div>
+          <div class="wk-body">
+            <div class="wk-tag">交易平台 ・ 即時報價 ・ K 線圖表</div>
+            <h3>天堂經典版 天幣交易平台</h3>
+            <p>即時幣價、5 日走勢圖、KYC 交易流程與各伺服器獨立報價頁的遊戲虛寶交易平台。</p>
+            <span class="wk-more">看網站 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="final">
+    <div class="wrap">
+      <h2>想要一個像這樣的官網？</h2>
+      <p>從品牌調性、動線到 SEO，一次規劃到位。告訴我們你的需求，我們幫你把網站做起來。</p>
+      <a href="/#contact">免費諮詢官網製作
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img src="/images/logo-header.png" alt="日央水原 SUNWATER">
+          <p class="fd">整合搜尋聲量、品牌官網、Threads 自動發文與 AI 行業翻譯的數位成長夥伴。</p>
+        </div>
+        <div>
+          <h5>服務</h5>
+          <ul>
+            <li><a href="/#svc">SEO / GEO</a></li>
+            <li><a href="/services/web-design/">互動官網製作</a></li>
+            <li><a href="/services/threads/">Threads 自動發文</a></li>
+            <li><a href="/services/translate/">AI 行業翻譯</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>公司</h5>
+          <ul>
+            <li><a href="/#why">關於日央水原</a></li>
+            <li><a href="/#flow">合作流程</a></li>
+            <li><a href="/game/">天堂遊戲交易網</a></li>
+            <li><a href="mailto:sunwater168168@gmail.com">sunwater168168@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 日央水原 sunwater · 數位成長夥伴。</span>
+        <span>Crafted by 日央水原</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var els=document.querySelectorAll('.reveal');
+      var cards=[].slice.call(document.querySelectorAll('.works .wk'));
+      function delayFor(el){
+        if(el.classList.contains('sec-head')) return 0;
+        var i=cards.indexOf(el); if(i>=0) return (i%2)*90;
+        return 0;
+      }
+      if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('in'); }); return; }
+      var io=new IntersectionObserver(function(es,o){
+        es.forEach(function(e){ if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add('in'); }, delayFor(e.target)); o.unobserve(e.target); } });
+      },{ threshold:.12, rootMargin:'0px 0px -40px 0px' });
+      els.forEach(function(e){ io.observe(e); });
+    })();
+  </script>
+
+</body>
+</html>
