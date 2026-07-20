@@ -126,4 +126,25 @@
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
+    <!-- 服務總覽頁 -->
+    <url>
+        <loc>https://sunwater.me/services/</loc>
+        <lastmod>2026-07-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- 服務：ThreadsBoss Threads 自動發文 -->
+    <url>
+        <loc>https://sunwater.me/services/threads/</loc>
+        <lastmod>2026-07-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- 服務：SUNTALK AI 行業即時翻譯 -->
+    <url>
+        <loc>https://sunwater.me/services/translate/</loc>
+        <lastmod>2026-07-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

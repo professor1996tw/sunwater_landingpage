@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X6099N611V');
+</script>
+<title>ThreadsBoss · Threads 矩陣經營｜日央水原 AI 自動發文工具</title>
+<meta name="description" content="ThreadsBoss 是日央水原推出的 Threads 矩陣經營工具：一個人同時經營多個 Threads 帳號，AI 自動生成貼文、智能錯峰排程、自動回留言、競品分析與即時數據。綁自己的 Gemini 金鑰即可解鎖無限 AI，14 天全功能免費試用。">
+<link rel="canonical" href="https://sunwater.me/services/threads/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ThreadsBoss · Threads 矩陣經營｜日央水原 AI 自動發文工具">
+<meta property="og:description" content="一個人，經營十個 Threads 帳號。發文、留言、數據、排程、競品研究全交給 AI——多帳號矩陣同步、每個帳號自己語感、最佳時段自動排程。">
+<meta property="og:url" content="https://sunwater.me/services/threads/">
+<meta property="og:image" content="https://sunwater.me/images/og-home.jpg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#faf7f1; --paper-2:#f2ede3; --ink:#20242a; --ink-2:#5c5f66; --ink-3:#8a8d94;
+    --navy:#15385c; --navy-2:#0f2942; --gold:#c78f3c; --gold-soft:#f0e2c8; --rule:#e2dccf;
+    --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.85; letter-spacing:.02em; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ width:100%; max-width:1080px; margin:0 auto; padding:0 40px; }
+  @media(max-width:600px){ .wrap{ padding:0 22px; } }
+
+  /* NAV */
+  .nav{ position:relative; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:24px 40px; }
+  @media(max-width:600px){ .nav{ padding:18px 22px; } }
+  .nav .brand img{ height:42px; width:auto; }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:15px; color:var(--ink-2); text-decoration:none; }
+  .nav-links a:hover{ color:var(--navy); }
+  .nav-links a.cta{ color:var(--paper); background:var(--navy); padding:11px 22px; border-radius:2px; letter-spacing:.04em; }
+  .nav-links a.cta:hover{ background:var(--navy-2); }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:42px; height:42px; background:none; border:none; cursor:pointer; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:var(--navy); border-radius:2px; transition:.25s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{ display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 14px 26px rgba(0,0,0,.09); padding:6px 22px 18px; z-index:60; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ padding:15px 2px; border-bottom:1px solid var(--rule); font-size:16px; }
+    .nav-links a.cta{ border-bottom:none; margin-top:14px; text-align:center; padding:14px; }
+  }
+
+  /* HERO */
+  .hero{ padding:64px 0 76px; border-bottom:1px solid var(--rule); }
+  .kick{ font-family:var(--serif); font-style:italic; font-size:16px; color:var(--gold); margin-bottom:16px; }
+  .hero h1{ font-weight:700; font-size:clamp(34px,5.4vw,60px); line-height:1.18; margin:0; color:var(--ink); }
+  .hero h1 em{ font-style:normal; color:var(--navy); }
+  .hero .lead{ margin-top:26px; max-width:680px; font-size:clamp(16px,1.6vw,18px); color:var(--ink-2); line-height:1.95; }
+  .hero-actions{ margin-top:36px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-size:15px; letter-spacing:.04em; padding:15px 30px; border-radius:2px; }
+  .btn-solid{ background:var(--navy); color:var(--paper); }
+  .btn-solid:hover{ background:var(--navy-2); }
+  .btn-gold{ background:var(--gold); color:var(--navy-2); font-weight:600; }
+  .btn-gold:hover{ filter:brightness(1.04); }
+  .btn-line{ color:var(--navy); border-bottom:2px solid var(--gold); padding:0 0 3px; border-radius:0; }
+  .pills{ margin-top:40px; display:flex; gap:12px; flex-wrap:wrap; }
+  .pill{ font-size:13.5px; color:var(--ink-2); background:#fff; border:1px solid var(--rule); border-radius:100px; padding:8px 16px; }
+  .pill b{ color:var(--navy); font-weight:600; }
+
+  /* SECTIONS */
+  section{ padding:70px 0; }
+  .sec-no{ font-family:var(--serif); font-size:14px; color:var(--ink-3); letter-spacing:.16em; margin-bottom:10px; }
+  h2{ font-weight:700; font-size:clamp(26px,3.4vw,38px); line-height:1.3; margin:0; color:var(--ink); }
+  .sub{ margin-top:14px; max-width:660px; color:var(--ink-2); }
+
+  .core{ margin-top:40px; display:grid; grid-template-columns:1.1fr .9fr; gap:44px; align-items:start; }
+  @media(max-width:820px){ .core{ grid-template-columns:1fr; gap:30px; } }
+  .core p{ color:var(--ink-2); }
+  .specs{ list-style:none; margin:0; padding:0; display:grid; gap:2px; }
+  .specs li{ display:flex; gap:14px; padding:15px 0; border-bottom:1px solid var(--rule); }
+  .specs li:last-child{ border-bottom:none; }
+  .specs .k{ min-width:104px; font-weight:600; color:var(--navy); font-size:14.5px; }
+  .specs .v{ color:var(--ink-2); font-size:14.5px; }
+
+  .cards{ margin-top:44px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); }
+  @media(max-width:820px){ .cards{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:560px){ .cards{ grid-template-columns:1fr; } }
+  .card{ background:var(--paper); padding:32px 30px; }
+  .card .ic{ width:30px; height:30px; color:var(--navy); margin-bottom:14px; }
+  .card h3{ font-size:18px; margin:0 0 10px; color:var(--ink); }
+  .card p{ margin:0; font-size:14.5px; color:var(--ink-2); }
+  .card .tag{ margin-top:14px; font-size:13px; color:var(--gold); }
+
+  /* 運作方式（淺色） */
+  .flow{ background:var(--paper); }
+  .steps{ margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media(max-width:760px){ .steps{ grid-template-columns:1fr; gap:16px; } }
+  .step{ background:var(--paper-2); border:1px solid var(--rule); border-radius:6px; padding:30px 26px; }
+  .step .no{ font-family:var(--serif); font-size:30px; color:var(--gold); line-height:1; }
+  .step h3{ margin:14px 0 8px; font-size:19px; color:var(--ink); }
+  .step p{ margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.75; }
+
+  /* 方案（4 欄） */
+  .plans{ margin-top:44px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media(max-width:980px){ .plans{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:520px){ .plans{ grid-template-columns:1fr; } }
+  .plan{ background:#fff; border:1px solid var(--rule); border-radius:4px; padding:28px 24px; display:flex; flex-direction:column; }
+  .plan.hot{ border-color:var(--gold); box-shadow:0 10px 30px rgba(199,143,60,.12); }
+  .plan .tier{ font-size:14px; color:var(--ink-3); letter-spacing:.06em; }
+  .plan.hot .tier{ color:var(--gold); font-weight:600; }
+  .plan .price{ font-family:var(--serif); font-size:34px; color:var(--navy); line-height:1.1; margin:8px 0 2px; }
+  .plan .price i{ font-style:normal; font-size:15px; color:var(--gold); }
+  .plan .accts{ font-size:15px; color:var(--ink); font-weight:600; margin-top:2px; }
+  .plan .feat{ font-size:13.5px; color:var(--ink-2); margin-top:12px; line-height:1.7; flex:1; }
+  .plan .exp{ font-size:12.5px; color:var(--ink-3); margin-top:14px; padding-top:12px; border-top:1px solid var(--rule); }
+  .plans-note{ margin-top:18px; font-size:13.5px; color:var(--ink-3); }
+  .plans-note b{ color:var(--gold); font-weight:600; }
+
+  /* FINAL CTA */
+  .final{ background:var(--navy); color:var(--paper); text-align:center; }
+  .final h2{ color:#fff; }
+  .final p{ color:rgba(255,255,255,.8); margin-top:14px; }
+  .final .btn-gold{ margin-top:32px; font-size:17px; padding:18px 40px; }
+
+  /* FOOTER */
+  footer{ background:var(--paper-2); padding:56px 0 34px; border-top:1px solid var(--rule); }
+  .foot{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+  @media(max-width:700px){ .foot{ grid-template-columns:1fr; gap:26px; } }
+  .foot img{ height:40px; margin-bottom:14px; }
+  .foot .fd{ font-size:14px; color:var(--ink-2); max-width:320px; }
+  .foot h5{ font-size:14px; color:var(--navy); margin:0 0 12px; letter-spacing:.06em; }
+  .foot ul{ list-style:none; margin:0; padding:0; }
+  .foot li{ margin-bottom:9px; }
+  .foot a{ font-size:14px; color:var(--ink-2); text-decoration:none; }
+  .foot a:hover{ color:var(--navy); }
+  .copy{ margin-top:40px; padding-top:20px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="brand" href="/"><img src="/images/logo-white.png" alt="日央水原 SUNWATER"></a>
+    <button class="nav-toggle" aria-label="選單" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open');"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navlinks" onclick="if(event.target.closest('a')){this.classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');}">
+      <a href="/#svc">服務</a>
+      <a href="/#flow">合作流程</a>
+      <a href="/#trade">天堂交易網</a>
+      <a href="/#why">關於我們</a>
+      <a class="cta" href="/#contact">免費諮詢</a>
+    </nav>
+  </header>
+
+  <style>
+    /* 導覽列：絕對定位、透明疊在 banner 上、白字 */
+    .nav{ position:absolute; top:0; left:0; right:0; z-index:20; }
+    .nav .brand img{ height:40px; }
+    .nav-links a{ color:rgba(255,255,255,.9); }
+    .nav-links a:hover{ color:#fff; }
+    .nav-links a.cta{ background:transparent; border:1px solid rgba(255,255,255,.55); color:#fff; }
+    .nav-links a.cta:hover{ background:rgba(255,255,255,.14); }
+    .nav-toggle span{ background:#fff; }
+    @media(max-width:760px){
+      .nav-links{ background:rgba(9,17,31,.97); border-top:1px solid rgba(255,255,255,.1); box-shadow:0 18px 30px rgba(0,0,0,.4); }
+      .nav-links a{ color:#fff; border-bottom:1px solid rgba(255,255,255,.12); }
+      .nav-links a.cta{ background:var(--navy); border:none; }
+    }
+    /* HERO 滿版 banner */
+    .hero{ position:relative; min-height:100vh; min-height:100dvh; display:flex; align-items:center; overflow:hidden; background:#050a14; padding:0; border-bottom:none; }
+    .hero-bg{ position:absolute; inset:0; z-index:0; }
+    .hero-bg img{ width:100%; height:100%; object-fit:cover; object-position:center; }
+    .hero-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(4,8,16,.94) 0%, rgba(4,8,16,.78) 30%, rgba(4,8,16,.42) 55%, rgba(4,8,16,.14) 100%), linear-gradient(180deg, rgba(3,6,12,.6) 0%, rgba(3,6,12,0) 20%), linear-gradient(rgba(3,6,12,.2), rgba(3,6,12,.2)); }
+    .hero .wrap{ position:relative; z-index:2; }
+    .hero .kick{ color:var(--gold); }
+    .hero h1{ color:#fff; max-width:620px; }
+    .hero h1 em{ color:var(--gold); }
+    .hero .lead{ color:rgba(255,255,255,.9); max-width:500px; }
+    .hero .lead strong{ color:#fff; }
+    .hero .pills{ max-width:560px; }
+    .hero .btn-line{ color:#fff; border-bottom-color:var(--gold); }
+    .hero .pill{ color:rgba(255,255,255,.92); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.28); }
+    .hero .pill b{ color:var(--gold); }
+    @media(max-width:760px){
+      .hero{ align-items:flex-end; }
+      .hero .wrap{ padding-bottom:54px; }
+      .hero-bg img{ object-position:center top; }
+      .hero h1{ font-size:clamp(30px,7.6vw,44px); }
+      .hero .lead{ font-size:14.5px; line-height:1.7; margin-top:16px; }
+      .hero .hero-actions{ margin-top:22px; }
+      .hero .pills{ margin-top:22px; gap:8px; }
+      .hero .pill{ font-size:12px; padding:6px 12px; }
+      .hero .pills .pill:nth-child(n+4){ display:none; }
+      .hero-scrim{ background:linear-gradient(180deg, rgba(3,6,12,.34) 0%, rgba(4,8,16,.12) 24%, rgba(4,8,16,.72) 58%, rgba(4,8,16,.98) 100%); }
+    }
+  </style>
+  <!-- ===== HERO BANNER（滿版影像，桌機16:9 / 手機3:4 自動切換） ===== -->
+  <div class="hero">
+    <picture class="hero-bg">
+      <source media="(max-width:760px)" srcset="/images/threads-mobile.jpg">
+      <img src="/images/threads-desktop.jpg" alt="ThreadsBoss Threads 矩陣經營 AI" fetchpriority="high">
+    </picture>
+    <div class="hero-scrim"></div>
+    <div class="wrap">
+      <div class="kick">日央水原 · AI 工具</div>
+      <h1>ThreadsBoss · <em>Threads 矩陣經營</em></h1>
+      <p class="lead"><strong>一個人，經營十個 Threads 帳號。</strong>把發文、留言、數據、排程、競品研究全交給 AI——多帳號矩陣同步、每個帳號各自語感、最佳時段自動錯峰排程。不只是排程工具，是真正的 Threads 矩陣作業系統。綁自己的 Gemini 金鑰即可解鎖無限 AI。</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="https://threadsboss.vercel.app/" target="_blank" rel="noopener">免費開始試用
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-line" href="#core">看功能介紹 ↓</a>
+      </div>
+      <div class="pills">
+        <span class="pill">最多 <b>99</b> 帳號矩陣</span>
+        <span class="pill">AI 三品質模式</span>
+        <span class="pill">智能錯峰排程</span>
+        <span class="pill">AI 自動回留言</span>
+        <span class="pill">14 天全功能試用</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 核心：多帳號矩陣 ===== -->
+  <section id="core">
+    <div class="wrap">
+      <div class="sec-no">01 — 核心功能</div>
+      <h2>一個主題，N 個帳號各說各的話</h2>
+      <p class="sub">同一個題目丟進去，每個帳號用自己的語感生出不同貼文，一鍵分別發送或智能錯峰排程——像真人團隊在經營，而不是複製貼上的機器人。</p>
+      <div class="core">
+        <div>
+          <p>ThreadsBoss 為「多帳號矩陣經營」而生。你只要設定一次業務脈絡，系統就能替每個帳號產出<strong>語氣不同、角度不同</strong>的內容，避免多帳號千篇一律被判定灌水。發文可一鍵分送，也能交給 AI 依各帳號的最佳時段自動錯峰排程。</p>
+          <p style="margin-top:16px">寫出來的內容會扣著你真正的業務——上傳 <strong>PDF 文件、商品照片、品牌指南</strong>到知識庫，AI 生成時自動引用你的私房資料，不再寫一堆跟你無關的空話。搭配<strong>業務話題桶 + 鎖題</strong>機制，內容永遠不跑題。</p>
+          <p style="margin-top:16px">品質可依場合調整：日常發文用<strong>「快速」</strong>省用量，重要貼文切<strong>「高品質」</strong>衝表現。新留言由 AI <strong>自動分類、生成回覆草稿</strong>，你可以人工審核或設全自動發送，並有<strong>安全字詞過濾</strong>攔截擦邊球留言。</p>
+          <p style="margin-top:16px">數據不用自己抓——互動數直接從 <strong>Threads 官方數據</strong>拉，打開分析頁自動背景同步；Threads 授權 60 天到期前<strong>自動續期</strong>，省去每月重新授權的麻煩。</p>
+        </div>
+        <ul class="specs">
+          <li><span class="k">支援帳號數</span><span class="v">最多 99 個帳號矩陣</span></li>
+          <li><span class="k">AI 生成</span><span class="v">三品質模式（快速／標準／高品質）</span></li>
+          <li><span class="k">排程</span><span class="v">智能錯峰，自動避開灌水判定</span></li>
+          <li><span class="k">知識庫</span><span class="v">PDF、商品照、品牌指南（含圖片辨識）</span></li>
+          <li><span class="k">鎖題機制</span><span class="v">業務話題桶，內容不跑題</span></li>
+          <li><span class="k">自動回留言</span><span class="v">分類＋草稿，可人工審核／全自動</span></li>
+          <li><span class="k">安全過濾</span><span class="v">擦邊球留言自動攔截</span></li>
+          <li><span class="k">AI 金鑰</span><span class="v">綁自己的 Gemini 金鑰解鎖無限</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 介面預覽（深色，後台儀表板） ===== -->
+  <style>
+    .tbshow{ position:relative; overflow:hidden; background:#0a1220; }
+    .tbshow .bgv{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+    .tbshow .ov{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(8,14,26,.9) 0%, rgba(8,14,26,.72) 45%, rgba(8,14,26,.9) 100%), linear-gradient(rgba(6,11,22,.5), rgba(6,11,22,.5)); }
+    .tbshow::before{ content:""; position:absolute; top:-20%; right:-10%; width:60%; height:120%; background:radial-gradient(circle, rgba(43,111,214,.16), transparent 62%); z-index:1; }
+    .tbshow .wrap{ position:relative; z-index:2; }
+    .tbshow-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:center; }
+    @media(max-width:860px){ .tbshow-grid{ grid-template-columns:1fr; gap:40px; } }
+    .tbshow-copy .kick{ color:var(--gold); }
+    .tbshow-copy h2{ color:#fff; font-size:clamp(28px,3.8vw,44px); line-height:1.28; margin:0; }
+    .tbshow-copy .lead{ margin-top:18px; max-width:460px; font-size:clamp(15px,1.6vw,17px); color:rgba(255,255,255,.82); line-height:1.9; }
+    .tbshow-feats{ list-style:none; margin:28px 0 0; padding:0; display:grid; gap:12px; max-width:470px; }
+    .tbshow-feats li{ display:flex; gap:12px; align-items:flex-start; color:rgba(255,255,255,.86); font-size:15px; line-height:1.6; }
+    .tbshow-feats .dot{ color:var(--gold); font-weight:700; }
+    /* 後台儀表板 mockup（科技感 · 深色玻璃 + 霓虹） */
+    .tb-frame{ position:relative; background:linear-gradient(158deg, rgba(23,36,60,.97), rgba(9,16,30,.98)); border:1px solid rgba(96,160,240,.28); border-radius:16px; box-shadow:0 30px 70px rgba(0,0,0,.55), 0 0 42px rgba(60,120,220,.16); overflow:hidden; font-family:var(--sans); max-width:520px; margin:0 auto; }
+    .tb-frame::before{ content:""; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, rgba(96,175,255,.8), rgba(199,143,60,.55), transparent); z-index:3; }
+    .tb-frame::after{ content:""; position:absolute; inset:0; pointer-events:none; z-index:0; background-image:linear-gradient(rgba(120,180,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(120,180,255,.05) 1px, transparent 1px); background-size:26px 26px; }
+    .tb-bar{ position:relative; z-index:1; display:flex; align-items:center; gap:9px; padding:13px 18px; border-bottom:1px solid rgba(120,180,255,.14); }
+    .tb-dots{ display:flex; gap:6px; }
+    .tb-dots i{ width:9px; height:9px; border-radius:50%; display:block; opacity:.9; }
+    .tb-title{ font-size:13px; color:#dce7f6; font-weight:600; letter-spacing:.02em; }
+    .tb-live{ display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#5fe6a2; margin-left:2px; }
+    .tb-live i{ width:6px; height:6px; border-radius:50%; background:#5fe6a2; box-shadow:0 0 9px #5fe6a2; display:block; }
+    .tb-token{ margin-left:auto; background:rgba(96,175,255,.14); color:#8ec4ff; border:1px solid rgba(96,175,255,.34); border-radius:100px; padding:4px 12px; font-size:12px; font-weight:600; font-variant-numeric:tabular-nums; }
+    .tb-body{ position:relative; z-index:1; padding:16px 18px 18px; }
+    .tb-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .tb-stat{ background:rgba(96,150,230,.07); border:1px solid rgba(120,180,255,.16); border-radius:10px; padding:13px 13px 11px; }
+    .tb-stat .v{ font-size:22px; font-weight:800; color:#fff; line-height:1; letter-spacing:.5px; font-variant-numeric:tabular-nums; }
+    .tb-stat .v small{ font-size:12px; color:#8298bb; font-weight:600; }
+    .tb-stat .l{ font-size:11px; color:#8ea3c4; margin-top:6px; }
+    .tb-stat .bar{ margin-top:9px; height:3px; border-radius:2px; background:rgba(255,255,255,.08); overflow:hidden; }
+    .tb-stat .bar i{ display:block; height:100%; border-radius:2px; }
+    .tb-label{ font-size:11px; letter-spacing:.14em; color:#7189ab; margin:16px 0 9px; font-weight:600; text-transform:uppercase; }
+    .tb-accts{ display:flex; gap:7px; flex-wrap:wrap; }
+    .tb-acct{ display:flex; align-items:center; gap:6px; background:rgba(96,150,230,.08); border:1px solid rgba(120,180,255,.18); border-radius:100px; padding:4px 12px 4px 4px; font-size:12px; color:#c8d6ea; }
+    .tb-acct b{ width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10.5px; font-weight:700; box-shadow:0 0 10px rgba(0,0,0,.35); }
+    .tb-row{ display:flex; align-items:center; gap:10px; padding:11px 12px; background:rgba(96,150,230,.05); border:1px solid rgba(120,180,255,.13); border-radius:10px; margin-top:8px; font-size:13px; color:#cedaee; }
+    .tb-row .txt{ flex:1; line-height:1.45; min-width:0; }
+    .tb-row .txt small{ display:block; color:#8298bb; font-size:11.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .tb-pill{ font-size:11px; padding:4px 10px; border-radius:100px; font-weight:600; white-space:nowrap; }
+    .tb-pill.ok{ background:rgba(62,224,138,.13); color:#5fe6a2; border:1px solid rgba(62,224,138,.4); box-shadow:0 0 12px rgba(62,224,138,.16); }
+    .tb-pill.warn{ background:rgba(255,90,90,.13); color:#ff8a8a; border:1px solid rgba(255,120,120,.4); box-shadow:0 0 12px rgba(255,90,90,.16); }
+    .tb-pill.sch{ background:rgba(96,175,255,.13); color:#8ec4ff; border:1px solid rgba(96,175,255,.4); box-shadow:0 0 12px rgba(96,175,255,.16); }
+  </style>
+  <section class="tbshow">
+    <video class="bgv" data-src="/videos/translate-bg.mp4" data-poster="/videos/translate-poster.jpg" muted loop playsinline preload="none"></video>
+    <div class="ov"></div>
+    <div class="wrap">
+      <div class="tbshow-grid">
+        <div class="tbshow-copy">
+          <div class="kick">介面預覽</div>
+          <h2>一個後台，<br>管住整個帳號矩陣</h2>
+          <p class="lead">所有帳號的用量、發文、成功率、留言集中在同一個總覽頁——不用開十個 App 切來切去，打開就知道整個矩陣現在的狀態。</p>
+          <ul class="tbshow-feats">
+            <li><span class="dot">→</span><span>今日 AI 生成、本月發文、發布成功率一眼掌握</span></li>
+            <li><span class="dot">→</span><span>已連結帳號矩陣集中管理，智能錯峰排程自動跑</span></li>
+            <li><span class="dot">→</span><span>新留言自動分類，擦邊球即時攔截、不傷帳號</span></li>
+            <li><span class="dot">→</span><span>綁自己的 Gemini 金鑰，AI 生成無上限</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="tb-frame">
+            <div class="tb-bar">
+              <span class="tb-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
+              <span class="tb-title">ThreadsBoss · 總覽</span>
+              <span class="tb-live"><i></i>即時同步</span>
+              <span class="tb-token">用量 77%</span>
+            </div>
+            <div class="tb-body">
+              <div class="tb-stats">
+                <div class="tb-stat"><div class="v">77%</div><div class="l">今日 AI 生成</div><div class="bar"><i style="width:77%;background:#5fb0ff;box-shadow:0 0 10px rgba(95,176,255,.85)"></i></div></div>
+                <div class="tb-stat"><div class="v">23<small>/30</small></div><div class="l">本月發文</div><div class="bar"><i style="width:77%;background:#e0a23c;box-shadow:0 0 10px rgba(224,162,60,.75)"></i></div></div>
+                <div class="tb-stat"><div class="v">100%</div><div class="l">發布成功率</div><div class="bar"><i style="width:100%;background:#5fe6a2;box-shadow:0 0 10px rgba(95,230,162,.75)"></i></div></div>
+              </div>
+              <div class="tb-label">已連結帳號矩陣</div>
+              <div class="tb-accts">
+                <span class="tb-acct"><b style="background:#2b6fd6">A</b>@sun_style</span>
+                <span class="tb-acct"><b style="background:#c78f3c">B</b>@sun_daily</span>
+                <span class="tb-acct"><b style="background:#1f9d55">C</b>@sun_game</span>
+                <span class="tb-acct"><b style="background:#8a5cf6">D</b>@sun_tips</span>
+                <span class="tb-acct"><b style="background:#e0698a">+6</b>更多</span>
+              </div>
+              <div class="tb-label">排程 · 留言</div>
+              <div class="tb-row">
+                <div class="txt">今晚 20:30 自動發布<small>@sun_style ×3 帳號錯峰排程</small></div>
+                <span class="tb-pill sch">排程中</span>
+              </div>
+              <div class="tb-row">
+                <div class="txt">@taku_san：選 D. 讓 AI 決定 (笑)<small>AI 已生成回覆草稿</small></div>
+                <span class="tb-pill ok">已回覆</span>
+              </div>
+              <div class="tb-row">
+                <div class="txt">@spam_acc：點我私訊免費送遊戲幣…<small>安全字詞過濾</small></div>
+                <span class="tb-pill warn">已攔截</span>
+              </div>
+            </div>
+          </div>
+          <p style="text-align:center;margin-top:18px;font-size:13px;color:rgba(255,255,255,.6)">＊介面示意，實際功能以 ThreadsBoss 後台為準</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function(){
+        var sec=document.querySelector('.tbshow'); if(!sec) return;
+        var v=sec.querySelector('.bgv'); if(!v) return;
+        var io=new IntersectionObserver(function(es,o){
+          es.forEach(function(e){ if(e.isIntersecting){ v.poster=v.getAttribute('data-poster'); v.src=v.getAttribute('data-src'); v.load(); var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); o.disconnect(); } });
+        },{rootMargin:'500px 0px'});
+        io.observe(sec);
+      })();
+    </script>
+  </section>
+
+  <!-- ===== 運作方式（淺色） ===== -->
+  <section class="flow">
+    <div class="wrap">
+      <div class="sec-no">02 — 運作方式</div>
+      <h2>3 步驟，5 分鐘上線</h2>
+      <p class="sub">不用學設計、不用學行銷，設定一次，AI 幫你把整個 Threads 矩陣跑起來。</p>
+      <div class="steps">
+        <div class="step">
+          <div class="no">1</div>
+          <h3>連結 Threads</h3>
+          <p>一鍵 OAuth 授權，可同時連結多個帳號組成矩陣。授權到期自動續，不用每月重來。</p>
+        </div>
+        <div class="step">
+          <div class="no">2</div>
+          <h3>設定業務脈絡</h3>
+          <p>填行業關鍵字、上傳知識庫 PDF 與商品照，AI 寫的內容永遠扣著你的真正業務。</p>
+        </div>
+        <div class="step">
+          <div class="no">3</div>
+          <h3>AI 自動跑</h3>
+          <p>排程發文、自動回留言、背景刷新數據——你只要打開分析頁看結果就好。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 更多功能 ===== -->
+  <section style="background:var(--paper-2);">
+    <div class="wrap">
+      <div class="sec-no">03 — 更多實用功能</div>
+      <h2>不只發文，整套矩陣作業系統</h2>
+      <div class="cards">
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/></svg>
+          <h3>知識庫</h3>
+          <p>上傳 PDF、商品照、品牌指南。AI 寫文時自動引用你的私房資料，不再寫無關內容。Pro 起支援圖片辨識。</p>
+          <div class="tag">PDF · 圖片辨識 · 品牌指南</div>
+        </div>
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L4 21l1.1-3.8A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+          <h3>AI 自動回留言</h3>
+          <p>新留言自動分類、生成回覆草稿。可選人工審核或全自動發送，安全字詞過濾防擦邊球，維護帳號安全。</p>
+          <div class="tag">自動分類 · 草稿 · 安全過濾</div>
+        </div>
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <h3>最佳時段推薦</h3>
+          <p>基於你近 90 天的表現，AI 算出每個帳號各自的最佳發文時段，一鍵套用到排程，讓貼文被更多人看到。</p>
+          <div class="tag">數據演算 · 一鍵套用</div>
+        </div>
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l3-4 3 2 4-6"/></svg>
+          <h3>即時數據儀表板</h3>
+          <p>互動數直接從 Threads 官方數據拉，打開分析頁自動背景同步，永遠看到最新數字，不用自己開 App 一個個查。</p>
+          <div class="tag">官方數據 · 自動同步</div>
+        </div>
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 8-8 8 8 0 0 1 7 4"/><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-7-4"/><path d="M19 4v4h-4M5 20v-4h4"/></svg>
+          <h3>授權自動續期</h3>
+          <p>Threads 官方授權 60 天會過期，ThreadsBoss 在到期前自動幫你續，免去每月重新授權的痛苦，矩陣不中斷。</p>
+          <div class="tag">60 天授權 · 自動續</div>
+        </div>
+        <div class="card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><path d="M12 3v13"/><path d="m8 7 4-4 4 4"/></svg>
+          <h3>邀請賺免費月</h3>
+          <p>朋友每訂滿 3 個月，你的帳號自動延長 1 個月，沒有上限。也能加到手機主畫面，像 App 一樣打開使用。</p>
+          <div class="tag">推薦延月 · 加到主畫面</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 方案 ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-no">04 — 方案</div>
+      <h2>從免費開始，隨規模升級</h2>
+      <p class="sub">月繳／年繳（8 折），隨時可降可升、不綁約。全方案皆可綁自己的 Gemini 金鑰解鎖無限 AI。</p>
+      <div class="plans">
+        <div class="plan">
+          <div class="tier">Free 免費</div>
+          <div class="price">NT$0</div>
+          <div class="accts">1 個帳號</div>
+          <div class="feat">AI 生成 3 次／天 · 排程發文 · 基礎數據 · 競品分析 1 次／週</div>
+          <div class="exp">裝免費 Gemini 金鑰即可解鎖無限 AI</div>
+        </div>
+        <div class="plan">
+          <div class="tier">Starter</div>
+          <div class="price">NT$499<i> /月</i></div>
+          <div class="accts">2 個帳號</div>
+          <div class="feat">知識庫 50 條 · 業務話題桶 5 桶 + 鎖題 · 地域鎖定 · AI 三品質</div>
+          <div class="exp">年繳 NT$4,790（8 折）</div>
+        </div>
+        <div class="plan hot">
+          <div class="tier">⭐ Pro · 最受歡迎</div>
+          <div class="price">NT$1,990<i> /月</i></div>
+          <div class="accts">10 個帳號</div>
+          <div class="feat">知識庫 500 條（PDF、圖片辨識）· 話題桶 20 桶 · 多模態商品照分析 · 熱點聲納</div>
+          <div class="exp">年繳 NT$19,104（8 折）</div>
+        </div>
+        <div class="plan">
+          <div class="tier">Business</div>
+          <div class="price">NT$5,990<i> /月</i></div>
+          <div class="accts">50 個帳號</div>
+          <div class="feat">知識庫 5,000 條 · 話題桶無上限 · 私訊歸因 + ROI 報表 · 團隊 5 人共享額度池</div>
+          <div class="exp">年繳 NT$57,504（8 折）</div>
+        </div>
+      </div>
+      <p class="plans-note">💡 <b>綁自己的 Gemini 金鑰</b>即可讓 AI 生成無上限、不消耗平台額度；最高方案支援團隊共享額度池。</p>
+    </div>
+  </section>
+
+  <!-- ===== 底部 CTA ===== -->
+  <section class="final">
+    <div class="wrap">
+      <h2>每月省下 20+ 小時的 Threads 經營時間</h2>
+      <p>14 天全功能免費試用，不用信用卡、隨時取消。讓 AI 幫你把整個帳號矩陣跑起來。</p>
+      <a class="btn btn-gold" href="https://threadsboss.vercel.app/" target="_blank" rel="noopener">立即免費試用 ThreadsBoss
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img src="/images/logo-header.png" alt="日央水原 SUNWATER">
+          <p class="fd">整合搜尋聲量、品牌官網、Threads 自動發文與 AI 行業翻譯的數位成長夥伴。</p>
+        </div>
+        <div>
+          <h5>服務</h5>
+          <ul>
+            <li><a href="/#svc">SEO / GEO</a></li>
+            <li><a href="/#svc">官網製作</a></li>
+            <li><a href="/services/threads/">Threads 自動發文</a></li>
+            <li><a href="/services/translate/">AI 行業翻譯</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>公司</h5>
+          <ul>
+            <li><a href="/#why">關於日央水原</a></li>
+            <li><a href="/#flow">合作流程</a></li>
+            <li><a href="/game/">天堂遊戲交易網</a></li>
+            <li><a href="mailto:sunwater168168@gmail.com">sunwater168168@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 日央水原 sunwater · ThreadsBoss 為日央水原商行產品。</span>
+        <span>Crafted by 日央水原</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
