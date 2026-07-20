@@ -147,6 +147,13 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 服務：互動品牌官網製作・網頁設計案例 -->
+    <url>
+        <loc>https://sunwater.me/services/web-design/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <!-- 天幣報價總覽頁 -->
     <url>
         <loc>https://sunwater.me/game/pricing/</loc>
