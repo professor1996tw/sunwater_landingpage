@@ -147,4 +147,144 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 天幣報價總覽頁 -->
+    <url>
+        <loc>https://sunwater.me/game/pricing/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <!-- 伺服器：太陽神阿波羅天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/apollo/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：愛神邱比特天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/cupid/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：勝利女神雅典娜天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/athena/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：美神維納斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/venus/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：天神宙斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/zeus/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：天后海拉天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/hera/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：戰神馬爾斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/mars/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：月亮女神阿緹蜜斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/artemis/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：海神波塞頓天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/poseidon/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：水蛇許德拉天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/hydra/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：冥王黑帝斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/hades/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：火神赫發斯特斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/hephaestus/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：收獲女神蒂蜜特天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/demeter/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：蛇髮女墨杜沙天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/medusa/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：半人馬涅索斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/nessus/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：牛人彌諾陶洛斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/minotaur/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：泰坦女神瑞亞天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/rhea/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：地獄犬刻耳柏洛斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/cerberus/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!-- 伺服器：獨眼巨人庫克羅普斯天幣報價 -->
+    <url>
+        <loc>https://sunwater.me/game/cyclops/</loc>
+        <lastmod>2026-07-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
 </urlset>

@@ -555,7 +555,7 @@
     </a>
     <div class="nav-links">
         <a href="/game/dd373/">DD373代購</a>
-        <a href="./#prices">即時報價</a>
+        <a href="/game/pricing/">即時報價</a>
         <a href="./#why">關於我們</a>
         <a href="./#social">社群</a>
         <a href="./#news" class="active">最新消息</a>
@@ -571,7 +571,7 @@
 <div class="mobile-menu" id="mobileMenu">
     <button class="close-btn" id="mobileClose">&#10005;</button>
     <a href="/game/dd373/" onclick="closeMobile()">DD373代購</a>
-    <a href="./#prices" onclick="closeMobile()">即時報價</a>
+    <a href="/game/pricing/" onclick="closeMobile()">即時報價</a>
     <a href="./#why" onclick="closeMobile()">關於我們</a>
     <a href="./#social" onclick="closeMobile()">社群</a>
     <a href="./#news" onclick="closeMobile()">最新消息</a>
@@ -620,13 +620,19 @@
         <div class="price-sync"><span class="dot"></span> <span id="syncTime">同步中...</span></div>
     </div>
     <div class="price-grid" id="priceGrid"></div>
+    <div style="text-align:center;margin-top:30px;">
+        <a href="/game/pricing/" class="btn-secondary">查看各伺服器獨立報價與 5 日走勢 &rarr;</a>
+    </div>
+    <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:14px;">點任一伺服器卡片即可進入該伺服器的即時報價頁</p>
 </section>
 <!-- noscript: SEO fallback for search engines that don't execute JS -->
 <noscript>
 <div style="max-width:1200px;margin:0 auto;padding:40px 20px;color:#ccc;">
     <h2>天堂經典版天幣即時報價 — 日央水原 SUNWATER</h2>
-    <p>支援伺服器：太陽神阿波羅、愛神邱比特、勝利女神雅典娜、美神維納斯、天神宙斯、天后海拉、戰神馬爾斯、月亮女神阿緹蜜斯、海神波賽頓、水蛇乞德拉、冥王黑帝斯、火神赫發斯特斯、收穫女神蒂蜜特、蛇髮女墨杜莎、半人馬乞索斯、牛人彌諾陶洛斯、泰坦女神瑞亞。</p>
-    <p>每 15 分鐘自動更新幣價，提供 K 線走勢圖、天幣量資訊。加入 LINE 官方帳號 @321enghh 即可快速交易。</p>
+    <p><a href="/game/pricing/" style="color:#e8be6a;">前往各伺服器天幣報價總覽 →</a></p>
+    <p>支援伺服器（點各連結看即時售價比與走勢）：
+    <a href="/game/apollo/" style="color:#ccc;">太陽神阿波羅</a>、<a href="/game/cupid/" style="color:#ccc;">愛神邱比特</a>、<a href="/game/athena/" style="color:#ccc;">勝利女神雅典娜</a>、<a href="/game/venus/" style="color:#ccc;">美神維納斯</a>、<a href="/game/zeus/" style="color:#ccc;">天神宙斯</a>、<a href="/game/hera/" style="color:#ccc;">天后海拉</a>、<a href="/game/mars/" style="color:#ccc;">戰神馬爾斯</a>、<a href="/game/artemis/" style="color:#ccc;">月亮女神阿緹蜜斯</a>、<a href="/game/poseidon/" style="color:#ccc;">海神波塞頓</a>、<a href="/game/hydra/" style="color:#ccc;">水蛇許德拉</a>、<a href="/game/hades/" style="color:#ccc;">冥王黑帝斯</a>、<a href="/game/hephaestus/" style="color:#ccc;">火神赫發斯特斯</a>、<a href="/game/demeter/" style="color:#ccc;">收獲女神蒂蜜特</a>、<a href="/game/medusa/" style="color:#ccc;">蛇髮女墨杜沙</a>、<a href="/game/nessus/" style="color:#ccc;">半人馬涅索斯</a>、<a href="/game/minotaur/" style="color:#ccc;">牛人彌諾陶洛斯</a>、<a href="/game/rhea/" style="color:#ccc;">泰坦女神瑞亞</a>、<a href="/game/cerberus/" style="color:#ccc;">地獄犬刻耳柏洛斯</a>、<a href="/game/cyclops/" style="color:#ccc;">獨眼巨人庫克羅普斯</a>。</p>
+    <p>每 20 分鐘自動更新幣價，提供走勢圖、天幣量資訊。加入 LINE 官方帳號 @321enghh 即可快速交易。</p>
 </div>
 </noscript>
 <!-- Price Detail Modal -->
@@ -943,6 +949,8 @@ var historyDataMap = {};
 var miniCharts = {};
 var modalChart = null;
 var volumeMap = {}; // 儲存各伺服器天幣量
+// 伺服器 -> 獨立報價頁 slug（新增伺服器頁時同步更新，或重跑 _tools/gen_pricing.py）
+var GAME_SLUG = {'太陽神阿波羅':'apollo','愛神邱比特':'cupid','勝利女神雅典娜':'athena','美神維納斯':'venus','天神宙斯':'zeus','天后海拉':'hera','戰神馬爾斯':'mars','月亮女神阿緹蜜斯':'artemis','海神波塞頓':'poseidon','水蛇許德拉':'hydra','冥王黑帝斯':'hades','火神赫發斯特斯':'hephaestus','收獲女神蒂蜜特':'demeter','蛇髮女墨杜沙':'medusa','半人馬涅索斯':'nessus','牛人彌諾陶洛斯':'minotaur','泰坦女神瑞亞':'rhea','地獄犬刻耳柏洛斯':'cerberus','獨眼巨人庫克羅普斯':'cyclops'};
 // ===== Helper =====
 function stripPrefix(name) {
     return name.replace(/^\d+[\.\.\s]+/, '').trim();
@@ -1105,11 +1113,18 @@ function renderPriceCards(data) {
     var grid = document.getElementById('priceGrid');
     grid.innerHTML = '';
     data.forEach(function(item, i) {
-        var card = document.createElement('div');
+        var slug = GAME_SLUG[stripPrefix(item.name)];
+        var card = document.createElement(slug ? 'a' : 'div');
         card.className = 'price-card';
         card.setAttribute('data-server', item.name);
         card.setAttribute('data-rate', item.value);
-        card.onclick = function() { openPriceModal(item.name, item.value); };
+        if (slug) {
+            card.href = '/game/' + slug + '/';
+            card.style.textDecoration = 'none'; card.style.color = 'inherit'; card.style.display = 'block';
+        } else {
+            card.style.cursor = 'pointer';
+            card.onclick = function() { openPriceModal(item.name, item.value); };
+        }
         // 天幣量顯示
         var volText = '';
         if (item.volume && item.volume !== '') {
