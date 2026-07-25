@@ -1,0 +1,904 @@
+<title>SUNChatch — Meta 創作者自動回覆平台</title>
+<style>
+  :root{
+    --bg:#080A0F; --bg-2:#0B0E14; --panel:#10141D; --panel-2:#151A25; --panel-3:#1C2230; --panel-4:#232B3B;
+    --line:rgba(255,255,255,.07); --line-2:rgba(255,255,255,.12);
+    --ink:#EAF0F8; --ink-2:#AFBACB; --muted:#6B7688; --faint:#414B5C;
+    --acc:#FF7A18; --acc-2:#FFB020; --acc-soft:rgba(255,122,24,.13); --acc-line:rgba(255,122,24,.42);
+    --cy:#2FE0DA; --cy-soft:rgba(47,224,218,.12); --vi:#8B7BFF; --vi-soft:rgba(139,123,255,.13);
+    --ok:#2FE38A; --ok-soft:rgba(47,227,138,.13); --warn:#FFC24B; --warn-soft:rgba(255,194,75,.13);
+    --crit:#FF5C6C; --crit-soft:rgba(255,92,108,.13);
+    --sun:linear-gradient(135deg,#FFB020,#FF6A18);
+    --sh:0 8px 30px rgba(0,0,0,.5); --sh-s:0 2px 10px rgba(0,0,0,.4);
+    --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+    --r:12px; --r-l:16px;
+  }
+  :root[data-theme="light"]{
+    --bg:#EEF1F6; --bg-2:#F4F6FA; --panel:#FFFFFF; --panel-2:#F7F9FC; --panel-3:#EDF1F7; --panel-4:#E3E9F2;
+    --line:rgba(15,22,40,.09); --line-2:rgba(15,22,40,.15);
+    --ink:#0F1524; --ink-2:#3B4557; --muted:#78829A; --faint:#AEB6C4;
+    --acc:#EC5F0B; --acc-2:#E0870A; --acc-soft:rgba(236,95,11,.1); --acc-line:rgba(236,95,11,.32);
+    --cy:#0B9C96; --cy-soft:rgba(11,156,150,.1); --vi:#6A57E0; --vi-soft:rgba(106,87,224,.1);
+    --ok:#12A15E; --ok-soft:rgba(18,161,94,.12); --warn:#B87900; --warn-soft:rgba(184,121,0,.12);
+    --crit:#E23744; --crit-soft:rgba(226,55,68,.1);
+    --sh:0 10px 30px rgba(20,30,60,.1); --sh-s:0 2px 10px rgba(20,30,60,.07);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(1000px 560px at 84% -10%,rgba(255,122,24,.09),transparent 60%),radial-gradient(760px 520px at -6% 8%,rgba(47,224,218,.05),transparent 55%);
+    background-attachment:fixed;min-height:100vh}
+  h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.015em;text-wrap:balance}
+  button,input,textarea{font-family:inherit}
+  button{cursor:pointer}
+  a{color:inherit}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  ::selection{background:var(--acc);color:#0A0A0A}
+  :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:5px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700;font-family:var(--mono)}
+
+  .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+
+  /* sidebar */
+  .side{background:var(--bg-2);border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:18px 14px}
+  .brand{display:flex;align-items:center;gap:11px;padding:6px 8px 6px}
+  .logo{width:34px;height:34px;border-radius:10px;background:var(--sun);display:grid;place-items:center;box-shadow:0 0 20px rgba(255,122,24,.45);flex:0 0 auto}
+  .logo svg{width:21px;height:21px}
+  .wm{font-size:17px;font-weight:800;letter-spacing:-.02em}
+  .wm b{background:var(--sun);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .wm .tag{display:block;font-size:9.5px;color:var(--muted);font-weight:600;font-family:var(--mono);letter-spacing:.02em;margin-top:1px}
+  .nav{display:flex;flex-direction:column;gap:2px;margin-top:18px}
+  .nlbl{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:var(--faint);font-weight:700;font-family:var(--mono);padding:14px 10px 6px}
+  .ni{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;border:1px solid transparent;background:none;color:var(--ink-2);font-weight:600;font-size:13.5px;width:100%;text-align:left;transition:.14s}
+  .ni svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
+  .ni:hover{background:var(--panel);color:var(--ink)}
+  .ni.on{background:var(--acc-soft);color:var(--acc);border-color:var(--acc-line)}
+  .ni.on svg{opacity:1}
+  .ni .b{margin-left:auto;font-size:10.5px;background:var(--panel-3);color:var(--muted);padding:1px 7px;border-radius:20px;font-weight:700;font-family:var(--mono)}
+  .ni.on .b{background:var(--acc);color:#0A0A0A}
+  .side .sp{flex:1}
+  .upsell{background:linear-gradient(150deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:13px}
+  .upsell .t{font-size:12px;font-weight:800}.upsell .s{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .upsell .bar{height:6px;background:var(--panel-3);border-radius:20px;margin:10px 0 8px;overflow:hidden}
+  .upsell .bar i{display:block;height:100%;width:62%;background:var(--sun);border-radius:20px}
+  .upbtn{display:block;text-align:center;margin-top:8px;padding:7px;border-radius:9px;background:var(--acc);color:#0A0A0A;font-weight:800;font-size:12px}
+
+  .main{min-width:0;display:flex;flex-direction:column}
+  .top{position:sticky;top:0;z-index:30;height:62px;display:flex;align-items:center;gap:12px;padding:0 24px;
+    background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .acct{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line-2);border-radius:10px;padding:6px 11px 6px 7px;font-weight:600;font-size:13px;position:relative}
+  .acct:hover{border-color:var(--acc-line)}
+  .acct .ig{width:24px;height:24px;border-radius:7px;background:conic-gradient(from 210deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5,#FEDA75);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800}
+  .acct .cv{font-size:10px;color:var(--muted);font-family:var(--mono)}
+  .acct .hint{position:absolute;top:46px;left:0;background:var(--panel-3);border:1px solid var(--line-2);border-radius:9px;padding:8px 11px;font-size:11px;color:var(--ink-2);font-weight:500;white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;box-shadow:var(--sh);z-index:40}
+  .acct:hover .hint{opacity:1}
+  .search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 12px;height:38px;width:260px;color:var(--muted)}
+  .search svg{width:15px;height:15px}.search input{border:none;background:none;font-size:13px;color:var(--ink);outline:none;width:100%}
+  .sp{flex:1}
+  .tb{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink-2);display:grid;place-items:center;position:relative}
+  .tb:hover{color:var(--acc);border-color:var(--acc-line)}.tb svg{width:18px;height:18px}
+  .tb .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 6px var(--acc)}
+  .lang{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:3px}
+  .lang button{border:none;background:none;padding:5px 10px;border-radius:6px;font-weight:700;font-size:12px;color:var(--muted);font-family:var(--mono)}
+  .lang button.on{background:var(--acc);color:#0A0A0A}
+  .me{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#2FE0DA,#4F5BD5);color:#fff;display:grid;place-items:center;font-weight:800;border:none;font-size:13px}
+
+  .scroll{flex:1;overflow-y:auto;padding:26px 26px 70px}
+  .wrap{max-width:1240px;margin:0 auto}
+  .view{display:none;animation:fade .3s ease}.view.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+  .phead{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+  .phead h1{font-size:25px;letter-spacing:-.02em}
+  .phead .sub{color:var(--muted);font-size:13.5px;margin-top:5px}
+  .phead .r{margin-left:auto;display:flex;gap:10px}
+
+  .btn{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 16px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel);color:var(--ink);font-weight:700;font-size:13.5px;transition:.14s}
+  .btn:hover{background:var(--panel-3)}.btn:active{transform:translateY(1px)}.btn svg{width:16px;height:16px}
+  .btn.pri{background:var(--acc);border-color:transparent;color:#0A0A0A;box-shadow:0 0 20px rgba(255,122,24,.32)}
+  .btn.pri:hover{background:var(--acc-2)}
+  .btn.gho{background:none;border-color:transparent;color:var(--ink-2)}.btn.gho:hover{background:var(--panel)}
+  .btn.sm{height:34px;padding:0 12px;font-size:12.5px}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l)}
+  .pad{padding:18px}
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;font-family:var(--mono);letter-spacing:.02em}
+  .pill .pd{width:6px;height:6px;border-radius:50%}
+  .pill.live{background:var(--ok-soft);color:var(--ok)}.pill.live .pd{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+  .pill.pause{background:var(--panel-3);color:var(--muted)}.pill.pause .pd{background:var(--muted)}
+  .pill.ig{background:var(--acc-soft);color:var(--acc)}.pill.fb{background:var(--cy-soft);color:var(--cy)}
+  .pill.type{background:var(--panel-3);color:var(--ink-2);border:1px solid var(--line)}
+  .pill.warn{background:var(--warn-soft);color:var(--warn)}
+
+  .tog{width:44px;height:25px;border-radius:20px;background:var(--panel-3);border:1px solid var(--line-2);position:relative;flex:0 0 auto;transition:.2s}
+  .tog::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:var(--muted);transition:.2s}
+  .tog.on{background:var(--acc);border-color:transparent}.tog.on::after{left:21px;background:#0A0A0A}
+
+  /* metric */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;position:relative;overflow:hidden}
+  .metric .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700;font-family:var(--mono);display:flex;align-items:center;gap:6px}
+  .metric .k .dt{width:7px;height:7px;border-radius:2px}
+  .metric .v{font-size:27px;font-weight:800;margin-top:8px;font-family:var(--mono);letter-spacing:-.02em}
+  .metric .d{font-size:11.5px;font-weight:700;color:var(--ok);margin-top:2px;font-family:var(--mono)}
+  .metric .spark{position:absolute;right:0;bottom:0;width:96px;height:40px;opacity:.85}
+
+  .row2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:14px}
+  .row2b{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .sect .hd{display:flex;align-items:center;margin-bottom:16px}
+  .sect .hd h3{font-size:15px}.sect .hd .r{margin-left:auto;display:flex;gap:8px}
+
+  /* onboarding */
+  .onb{display:flex;gap:12px;flex-wrap:wrap}
+  .ostep{flex:1;min-width:200px;display:flex;gap:12px;align-items:flex-start;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .ostep .oc{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;font-weight:800;font-family:var(--mono)}
+  .ostep.done .oc{background:var(--ok-soft);color:var(--ok)}
+  .ostep.now .oc{background:var(--acc);color:#0A0A0A}
+  .ostep.todo .oc{background:var(--panel-3);color:var(--muted)}
+  .ostep .ot{font-weight:700;font-size:13.5px}.ostep .os{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .ostep .olink{font-size:12px;font-weight:700;color:var(--acc);margin-top:8px;display:inline-block}
+
+  /* chart */
+  .chart{width:100%;height:170px;display:block}
+  .clegend{display:flex;gap:16px;margin-bottom:12px}
+  .clegend .li{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);font-weight:600}
+  .clegend .li i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  .health{display:flex;flex-direction:column;gap:15px}
+  .hm .t{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:7px}.hm .t b{font-weight:800;font-family:var(--mono)}
+  .hbar{height:9px;background:var(--panel-3);border-radius:20px;overflow:hidden}.hbar i{display:block;height:100%;border-radius:20px}
+  .note{display:flex;gap:9px;padding:11px 12px;background:var(--warn-soft);border-radius:11px;font-size:12px;color:var(--ink-2);line-height:1.45}
+  .note svg{width:15px;height:15px;flex:0 0 auto;color:var(--warn);margin-top:1px}
+
+  .feed{display:flex;flex-direction:column}
+  .fi{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--line)}.fi:first-child{border-top:none}
+  .fi .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}.fi .ic svg{width:15px;height:15px}
+  .fi .tx{font-size:13px}.fi .tx b{font-weight:700}.fi .tm{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
+
+  /* automations list */
+  .rule{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:16px 18px;border-top:1px solid var(--line);transition:.14s;cursor:pointer}
+  .rule:first-child{border-top:none}.rule:hover{background:var(--panel-2)}
+  .rule .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;background:var(--panel-3);border:1px solid var(--line);color:var(--acc)}
+  .rule .ic svg{width:21px;height:21px}
+  .rule .nm{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+  .rule .meta{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+  .rule .tl{font-size:12.5px;color:var(--ink-2);margin-top:7px}.rule .tl b{color:var(--acc);font-family:var(--mono);font-weight:700}
+  .rule .kpi{display:flex;gap:22px;text-align:right}.rule .kpi .n{font-size:17px;font-weight:800;font-family:var(--mono)}
+  .rule .kpi .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-family:var(--mono)}
+
+  /* editor */
+  .edbar{display:flex;align-items:center;gap:13px;margin-bottom:20px;flex-wrap:wrap}
+  .back{width:40px;height:40px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);display:grid;place-items:center}
+  .back:hover{color:var(--acc);border-color:var(--acc-line)}
+  .edname{font-size:19px;font-weight:800}.edname .s{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:1px;font-family:var(--mono)}
+  .edgrid{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+  .blocks{display:flex;flex-direction:column;gap:13px}
+  .blk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);padding:17px}
+  .blk .bh{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+  .blk .bn{width:27px;height:27px;border-radius:8px;background:var(--acc-soft);color:var(--acc);border:1px solid var(--acc-line);display:grid;place-items:center;font-weight:800;font-size:13px;font-family:var(--mono);flex:0 0 auto}
+  .blk .bt{font-weight:800;font-size:14.5px}.blk .bs{font-size:12px;color:var(--muted);margin-top:1px}
+  .seg{display:inline-flex;background:var(--panel-3);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+  .seg button{border:none;background:none;color:var(--muted);font-weight:700;font-size:12.5px;padding:7px 13px;border-radius:7px;transition:.14s;display:flex;align-items:center;gap:6px}
+  .seg button svg{width:15px;height:15px}.seg button.on{background:var(--panel);color:var(--ink);box-shadow:var(--sh-s)}
+  .seg.acc button.on{background:var(--acc);color:#0A0A0A}
+  .frow{display:flex;gap:12px;flex-wrap:wrap}.ff{flex:1;min-width:0}
+  label.fl{font-size:11px;font-weight:700;color:var(--ink-2);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;font-family:var(--mono)}
+  .tf{width:100%;border:1px solid var(--line-2);background:var(--bg-2);border-radius:9px;padding:11px 13px;font-size:13.5px;color:var(--ink);resize:vertical;transition:.14s}
+  .tf:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}.tf::placeholder{color:var(--faint)}
+  .scope{display:flex;flex-direction:column;gap:8px;margin-bottom:13px}
+  .scopt{display:flex;align-items:center;gap:11px;text-align:left;width:100%;background:var(--bg-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 14px;color:var(--ink);transition:.14s}
+  .scopt:hover{border-color:var(--acc-line)}.scopt.on{border-color:var(--acc);background:var(--acc-soft);box-shadow:0 0 0 1px var(--acc) inset}
+  .scopt .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--faint);flex:0 0 auto;display:grid;place-items:center;transition:.14s}
+  .scopt.on .rd{border-color:var(--acc)}.scopt.on .rd::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
+  .scopt .st{font-weight:700;font-size:13.5px;display:block}.scopt .sc2{font-size:11.5px;color:var(--muted);margin-top:2px;display:block}
+  .scopt .tag2{margin-left:auto;font-size:9.5px;font-weight:800;font-family:var(--mono);padding:3px 7px;border-radius:5px;letter-spacing:.05em;flex:0 0 auto;background:var(--ok-soft);color:var(--ok)}
+  .fetchbar{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:9px}
+  .fetchbar .ig{width:16px;height:16px;border-radius:5px;background:conic-gradient(from 210deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5,#FEDA75)}
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .pg{position:relative;aspect-ratio:.82;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.12s}
+  .pg:hover{transform:translateY(-2px)}.pg .im{position:absolute;inset:0}
+  .pg.sel{border-color:var(--acc);box-shadow:0 0 14px rgba(255,122,24,.45)}
+  .pg.sel::after{content:"✓";position:absolute;top:5px;right:6px;width:18px;height:18px;background:var(--acc);color:#0A0A0A;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800}
+  .pg .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 7px 5px;font-size:9px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kwrow{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px}
+  .kw{display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);color:var(--acc);border:1px solid var(--acc-line);font-weight:700;font-size:12.5px;padding:6px 10px;border-radius:8px;font-family:var(--mono)}
+  .kw button{border:none;background:none;color:var(--acc);opacity:.6;font-size:14px;line-height:1;padding:0}.kw button:hover{opacity:1}
+  .kwadd{border:1px dashed var(--line-2);background:none;color:var(--muted);font-weight:700;font-size:12.5px;padding:6px 11px;border-radius:8px}
+  .switch{display:flex;align-items:center;gap:12px;justify-content:space-between;background:var(--bg-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+  .switch .l{font-weight:700;font-size:13px}.switch .c{font-size:11.5px;color:var(--muted);margin-top:2px;max-width:340px}
+  /* flow builder */
+  .mflow{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+  .mstep{background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;padding:12px;position:relative}
+  .mstep::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:2px;border-radius:2px}
+  .mstep[data-t="msg"]::before{background:var(--acc)}.mstep[data-t="gate"]::before{background:var(--warn)}.mstep[data-t="link"]::before{background:var(--ok)}
+  .mstep .msh{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+  .mstep .mnum{width:22px;height:22px;border-radius:7px;background:var(--panel-3);color:var(--ink-2);display:grid;place-items:center;font-weight:800;font-size:11px;font-family:var(--mono);flex:0 0 auto}
+  .mstep .mtag{font-size:10px;font-weight:800;font-family:var(--mono);padding:3px 8px;border-radius:6px;letter-spacing:.04em}
+  .mtag.msg{background:var(--acc-soft);color:var(--acc)}.mtag.gate{background:var(--warn-soft);color:var(--warn)}.mtag.link{background:var(--ok-soft);color:var(--ok)}
+  .mstep .mctl{margin-left:auto;display:flex;gap:4px}
+  .mstep .mctl button{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--muted);display:grid;place-items:center}
+  .mstep .mctl button:hover{color:var(--acc);border-color:var(--acc-line)}.mstep .mctl button svg{width:13px;height:13px}
+  .mtf{width:100%;border:1px solid var(--line-2);background:var(--panel);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);resize:vertical;font-family:inherit}
+  .mtf:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+  .brow{display:flex;gap:8px;margin-top:8px}.brow .bcol{flex:1;min-width:0}
+  .blab{font-size:10px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:block}
+  .gatehint{display:flex;gap:7px;align-items:flex-start;margin-top:9px;font-size:11px;color:var(--warn);font-family:var(--mono);line-height:1.4}
+  .gatehint svg{width:13px;height:13px;flex:0 0 auto;margin-top:1px}
+  .addstep{display:flex;gap:8px}
+  .addstep button{flex:1;border:1px dashed var(--line-2);background:none;color:var(--ink-2);font-weight:700;font-size:12px;padding:11px;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .addstep button:hover{border-color:var(--acc-line);color:var(--acc)}.addstep button svg{width:13px;height:13px}
+  /* phone */
+  .pv{position:sticky;top:80px}
+  .pvh{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+  .pvh .t{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+  .pvh .lv{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .pseg{display:flex;background:var(--panel-3);border-radius:9px;padding:3px;margin-left:auto;border:1px solid var(--line)}
+  .pseg button{border:none;background:none;color:var(--muted);font-weight:700;font-size:11px;padding:5px 10px;border-radius:6px;font-family:var(--mono)}
+  .pseg button.on{background:var(--acc);color:#0A0A0A}
+  .phone{background:linear-gradient(160deg,#1a1f2b,#0d0f15);border-radius:40px;padding:10px;width:326px;margin:0 auto;box-shadow:0 0 0 1px var(--line-2),0 20px 50px rgba(0,0,0,.6),0 0 40px rgba(255,122,24,.08)}
+  .screen{background:#0B0D12;border-radius:31px;overflow:hidden;height:566px;display:flex;flex-direction:column;color:#EAF0F7}
+  :root[data-theme="light"] .screen{background:#fff;color:#0F1524}
+  .igt{display:flex;align-items:center;gap:10px;padding:15px 15px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+  :root[data-theme="light"] .igt{border-color:rgba(0,0,0,.08)}
+  .igt .bk{font-size:18px;opacity:.7}
+  .igt .a{width:31px;height:31px;border-radius:50%;background:conic-gradient(from 210deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5,#FEDA75);display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px}
+  .igt .nm{font-weight:700;font-size:13.5px}.igt .st{font-size:11px;opacity:.5}
+  .igb{flex:1;overflow:hidden;padding:15px 13px;display:flex;flex-direction:column;gap:8px}
+  .day{text-align:center;font-size:10px;opacity:.45;margin-bottom:4px;font-family:var(--mono)}
+  .m{width:fit-content;max-width:82%;padding:9px 13px;border-radius:18px;font-size:12.5px;line-height:1.4;overflow-wrap:anywhere;word-break:break-word}
+  .m.them{background:rgba(255,255,255,.09);align-self:flex-start;border-bottom-left-radius:5px}
+  :root[data-theme="light"] .m.them{background:#EDF0F5}
+  .m.me{background:linear-gradient(135deg,#4F5BD5,#D62976);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+  .cmt{align-self:stretch;background:var(--cy-soft);border:1px solid rgba(47,224,218,.3);border-radius:10px;padding:8px 11px;font-size:11px;color:var(--cy);font-weight:600;display:flex;gap:7px;align-items:flex-start}
+  .cmt svg{width:13px;height:13px;flex:0 0 auto;margin-top:1px}
+  .m .ib{display:block;text-align:center;margin-top:8px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.13);font-weight:700;font-size:12px}
+  :root[data-theme="light"] .m.them .ib{background:rgba(0,0,0,.06)}
+  .m.them .ib.acc{background:var(--acc);color:#0A0A0A}
+  .igi{border-top:1px solid rgba(255,255,255,.08);padding:11px 14px;display:flex;align-items:center;gap:9px}
+  :root[data-theme="light"] .igi{border-color:rgba(0,0,0,.08)}
+  .igi .box{flex:1;background:rgba(255,255,255,.08);border-radius:18px;padding:8px 13px;font-size:12px;opacity:.5}
+  :root[data-theme="light"] .igi .box{background:#EDF0F5}
+  .pvcap{text-align:center;font-size:11px;color:var(--muted);margin-top:12px;font-family:var(--mono)}
+
+  /* contacts */
+  .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .chipf{height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:12.5px;color:var(--ink-2);font-family:var(--mono)}
+  .chipf.on{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc)}
+  .tblwrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;padding:0 15px 12px;font-family:var(--mono);white-space:nowrap}
+  tbody td{padding:13px 15px;border-top:1px solid var(--line);vertical-align:middle}
+  tbody tr:hover{background:var(--panel-2);cursor:pointer}
+  .u{display:flex;align-items:center;gap:10px}
+  .u .a{width:30px;height:30px;border-radius:9px;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto}
+  .u .nm{font-weight:700}.u .h2{font-size:11px;color:var(--muted)}
+  .kwc{display:inline-block;background:var(--panel-3);color:var(--ink-2);font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;font-family:var(--mono)}
+  .tag{display:inline-flex;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;margin:1px 2px;font-family:var(--mono)}
+  .tag.g{background:var(--ok-soft);color:var(--ok)}.tag.c{background:var(--cy-soft);color:var(--cy)}.tag.o{background:var(--acc-soft);color:var(--acc)}.tag.w{background:var(--warn-soft);color:var(--warn)}
+  .foll{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:12px;font-family:var(--mono)}
+  .foll.y{color:var(--ok)}.foll.n{color:var(--muted)}
+
+  /* integrations */
+  .igrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .intcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);padding:17px;display:flex;flex-direction:column;gap:14px}
+  .intcard .top{display:flex;align-items:center;gap:12px}
+  .intcard .big{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;font-weight:800;flex:0 0 auto;font-size:17px}
+  .intcard .st{display:flex;gap:26px}
+  .intcard .st .n{font-size:18px;font-weight:800;font-family:var(--mono)}.intcard .st .l{font-size:10px;color:var(--muted);text-transform:uppercase;font-family:var(--mono);letter-spacing:.05em}
+  .statrow{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+  .statrow:first-child{border-top:none}
+  .statrow .si{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto}.statrow .si svg{width:17px;height:17px}
+  .statrow .sn{font-weight:700;font-size:13px}.statrow .ss{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .statrow .sr{margin-left:auto}
+  .connlist{display:flex;flex-direction:column}
+  .conn{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line)}.conn:first-child{border-top:none}
+  .conn .ci{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:800;flex:0 0 auto}
+
+  /* settings */
+  .setgrid{max-width:620px;display:flex;flex-direction:column;gap:13px}
+
+  .proto{position:fixed;right:14px;bottom:14px;z-index:60;background:var(--panel-3);border:1px solid var(--acc-line);color:var(--acc);font-size:10.5px;font-weight:700;padding:6px 12px;border-radius:20px;font-family:var(--mono);letter-spacing:.05em;box-shadow:var(--sh)}
+
+  /* editor breadcrumb */
+  .bc{font-size:13px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px}
+  .bc a{color:var(--ink-2);cursor:pointer;font-weight:700}.bc a:hover{color:var(--acc)}
+  .bc .cur{color:var(--ink);font-weight:800;font-size:18px}
+  .bc .sep{opacity:.5}
+
+  /* ===== LANDING SITE ===== */
+  .site{min-height:100vh}
+  .snav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;gap:12px;padding:0 clamp(16px,4vw,52px);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .snav .brand{cursor:pointer}
+  .snav .links{display:flex;gap:6px;margin-left:18px}
+  .snav .links a{font-size:13.5px;font-weight:600;color:var(--ink-2);padding:8px 12px;border-radius:8px;cursor:pointer}
+  .snav .links a:hover{color:var(--ink);background:var(--panel)}
+  .snav .sp{flex:1}
+  @media(max-width:820px){.snav .links{display:none}}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;max-width:1200px;margin:0 auto;padding:clamp(44px,7vw,96px) clamp(16px,4vw,52px) 60px}
+  .hero h1{font-size:clamp(33px,5vw,54px);line-height:1.06;letter-spacing:-.03em;margin-top:18px}
+  .hero h1 b{background:var(--sun);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .lead{font-size:clamp(15px,1.5vw,18px);color:var(--ink-2);margin-top:20px;max-width:520px;line-height:1.6}
+  .hero .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .big{height:52px;padding:0 24px;font-size:15px;border-radius:12px}
+  .hero .trust{margin-top:22px;font-size:12.5px;color:var(--muted);font-family:var(--mono);display:flex;align-items:center;gap:8px}
+  .hero .trust::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+  .herovis{display:flex;justify-content:center}
+  .herovis .phone{transform:rotate(2deg)}
+  .herovis .screen{height:auto}
+  .herovis .igi{margin-top:2px}
+  @media(max-width:900px){.hero{grid-template-columns:1fr}.herovis{display:none}}
+  .sec{max-width:1200px;margin:0 auto;padding:clamp(46px,6vw,84px) clamp(16px,4vw,52px)}
+  .sec .sh{text-align:center;margin-bottom:44px}
+  .sec .sh h2{font-size:clamp(25px,3.2vw,37px);letter-spacing:-.02em}
+  .sec .sh p{color:var(--muted);margin-top:12px;font-size:15px}
+  .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .fcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;transition:.15s}
+  .fcard:hover{border-color:var(--acc-line);transform:translateY(-3px)}
+  .fcard .fi{width:44px;height:44px;border-radius:12px;background:var(--acc-soft);color:var(--acc);display:grid;place-items:center;margin-bottom:16px}
+  .fcard .fi svg{width:22px;height:22px}
+  .fcard h3{font-size:16px}.fcard p{color:var(--muted);font-size:13.5px;margin-top:8px;line-height:1.55}
+  .fcard .badge{display:inline-block;margin-top:12px;font-size:10px;font-weight:800;font-family:var(--mono);padding:3px 8px;border-radius:6px;background:var(--ok-soft);color:var(--ok);letter-spacing:.03em}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .st3{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative}
+  .st3 .n{font-size:34px;font-weight:800;font-family:var(--mono);background:var(--sun);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .st3 h3{font-size:16px;margin-top:12px}.st3 p{color:var(--muted);font-size:13.5px;margin-top:8px;line-height:1.55}
+  .pgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+  .price{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+  .price.feat{border-color:var(--acc-line);box-shadow:0 0 34px rgba(255,122,24,.15);position:relative}
+  .price .ptag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--acc);color:#0A0A0A;font-size:10.5px;font-weight:800;font-family:var(--mono);padding:4px 12px;border-radius:20px;letter-spacing:.04em}
+  .price .pn{font-size:14px;font-weight:800;color:var(--acc)}
+  .price .pp{font-size:30px;font-weight:800;font-family:var(--mono);margin:10px 0 2px;letter-spacing:-.02em}
+  .price .pp small{font-size:13px;color:var(--muted);font-weight:600}
+  .price ul{list-style:none;padding:0;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+  .price li{display:flex;gap:9px;font-size:13px;color:var(--ink-2);align-items:flex-start}
+  .price li svg{width:16px;height:16px;color:var(--ok);flex:0 0 auto;margin-top:1px}
+  .price .btn{margin-top:auto;justify-content:center}
+  .foot{border-top:1px solid var(--line);padding:36px clamp(16px,4vw,52px);text-align:center;color:var(--muted);font-size:12.5px}
+  @media(max-width:820px){.fgrid,.steps3,.pgrid3{grid-template-columns:1fr}}
+
+  @media(max-width:1080px){.app{grid-template-columns:1fr}.side{display:none}.grid4{grid-template-columns:repeat(2,1fr)}.row2,.row2b,.edgrid,.igrid{grid-template-columns:1fr}.pv{position:static}.search{display:none}}
+</style>
+
+<!-- ===================== LANDING（導覽頁 / 產品首頁） ===================== -->
+<div class="site" id="landing">
+  <nav class="snav">
+    <div class="brand" onclick="window.scrollTo({top:0})"><div class="logo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="#0A0A0A"/><g stroke="#0A0A0A" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></g></svg></div><div class="wm">SUN<b>Chatch</b></div></div>
+    <div class="links"><a onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})" data-i="ld.nfeat">功能</a><a onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})" data-i="ld.nhow">運作方式</a><a onclick="document.getElementById('price').scrollIntoView({behavior:'smooth'})" data-i="ld.nprice">價格</a></div>
+    <div class="sp"></div>
+    <div class="lang"><button id="zh2" class="on" onclick="setLang('zh')">中</button><button id="en2" onclick="setLang('en')">EN</button></div>
+    <button class="tb" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+    <button class="btn gho" onclick="enterApp()" data-i="ld.login">登入</button>
+    <button class="btn pri" onclick="enterApp()" data-i="ld.start">免費開始</button>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow" data-i="ld.eye">繁體中文・在地化・平價</div>
+      <h1><span data-i="ld.h1a">讓 IG 留言，</span><b data-i="ld.h1b">自動變成客戶</b></h1>
+      <p class="lead" data-i="ld.lead">SUNChatch 幫創作者把「留言關鍵字 → 自動私訊連結 → 驗證追蹤 → 導進你的名單」全自動化。比 ManyChat 更好上手、更便宜、全中文。</p>
+      <div class="cta"><button class="btn pri big" onclick="enterApp()" data-i="ld.cta1">免費開始，3 分鐘上線 →</button><a class="btn big" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})" data-i="ld.cta2">看它怎麼運作</a></div>
+      <div class="trust" data-i="ld.trust">支援 Instagram + Facebook・免費版就給 100 組名單（ManyChat 只給 25）</div>
+    </div>
+    <div class="herovis"><div class="phone"><div class="screen">
+      <div class="igt"><span class="bk">‹</span><div class="a">N</div><div><div class="nm">nova.studio</div><div class="st">通常幾秒內回覆</div></div></div>
+      <div class="igb">
+        <div class="day">今天</div>
+        <div class="cmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg><span>偵測到留言：電子書 🙌</span></div>
+        <div class="m them">嗨～謝謝留言！點下面按鈕領取你的免費電子書 👇<span class="ib">給我電子書</span></div>
+        <div class="m me">給我電子書</div>
+        <div class="m them">為了避免漏訊，請先追蹤我，再點下方 Following 即可取得<span class="ib">Following</span></div>
+        <div class="m me">Following</div>
+        <div class="m them">完成！點下方按鈕領取<span class="ib acc">電子書在這裡！</span></div>
+      </div>
+      <div class="igi"><div class="box">傳訊息…</div><span style="color:#4F5BD5;font-weight:800">➤</span></div>
+    </div></div></div>
+  </header>
+
+  <section class="sec" id="features">
+    <div class="sh"><h2 data-i="ld.fh">獲客要的，都在這裡</h2><p data-i="ld.fp">專為 Meta 創作者設計的自動回覆引擎</p></div>
+    <div class="fgrid">
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg></div><h3 data-i="ld.f1">留言關鍵字自動回覆</h3><p data-i="ld.f1s">粉絲在貼文留關鍵字，系統自動公開回覆並私訊連結，一則不漏。</p></div>
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg></div><h3 data-i="ld.f2">追蹤驗證</h3><p data-i="ld.f2s">只有追蹤你的人才拿得到連結，把讚數變成真粉絲。</p><span class="badge">IG</span></div>
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h16M4 12h10M4 18h13"/></svg></div><h3 data-i="ld.f3">多段訊息流程</h3><p data-i="ld.f3s">開場白 → 追蹤關卡 → 連結，一步步引導，未追蹤自動迴圈。</p></div>
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 5a3 3 0 0 1 0 6"/></svg></div><h3 data-i="ld.f4">多帳號・多品牌</h3><p data-i="ld.f4s">一個後台管理多個 IG／FB，接案、代操都適用。</p></div>
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></div><h3 data-i="ld.f5">名單記錄與匯出</h3><p data-i="ld.f5s">每個互動粉絲自動記錄、打標籤，一鍵匯出 CSV 進你的名單。</p></div>
+      <div class="fcard"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div><h3 data-i="ld.f6">中英雙語介面</h3><p data-i="ld.f6s">全中文上手，隨時切英文，符合 Meta 審查需求。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="sh"><h2 data-i="ld.hh">三步驟，今天就上線</h2></div>
+    <div class="steps3">
+      <div class="st3"><div class="n">01</div><h3 data-i="ld.h1t">連結你的帳號</h3><p data-i="ld.h1s">透過 Meta 官方 OAuth 安全授權，接上你的 IG／FB，30 秒完成。</p></div>
+      <div class="st3"><div class="n">02</div><h3 data-i="ld.h2t">設定關鍵字與訊息</h3><p data-i="ld.h2s">選貼文、填關鍵字、排訊息流程，右邊即時預覽粉絲會收到什麼。</p></div>
+      <div class="st3"><div class="n">03</div><h3 data-i="ld.h3t">上線，自動跑</h3><p data-i="ld.h3s">開啟後 24 小時自動回覆，系統內建節流防封，你只管看名單成長。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="price">
+    <div class="sh"><h2 data-i="ld.ph">平價，而且免費版更佛</h2><p data-i="ld.pp">對比 ManyChat 全英文、美金定價、免費版只給 25 名單</p></div>
+    <div class="pgrid3">
+      <div class="price"><div class="pn" data-i="ld.pr1">體驗版</div><div class="pp">NT$0<small> /<span data-i="ld.mo">月</span></small></div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr1a">每月 100 組名單（ManyChat 只 25）</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr1b">1 個帳號</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr1c">留言關鍵字自動回覆</span></li></ul>
+        <button class="btn" onclick="enterApp()" data-i="ld.prstart">免費開始</button></div>
+      <div class="price feat"><div class="ptag" data-i="ld.popular">最受歡迎</div><div class="pn" data-i="ld.pr2">成長版</div><div class="pp">NT$390<small> /<span data-i="ld.mo">月</span></small></div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr2a">每月 1,000 組名單</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr2b">追蹤驗證 + 多段流程</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr2c">所有／之後每支貼文自動套用</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr2d">3 個帳號</span></li></ul>
+        <button class="btn pri" onclick="enterApp()" data-i="ld.prtry">開始 14 天試用</button></div>
+      <div class="price"><div class="pn" data-i="ld.pr3">專業版</div><div class="pp">NT$990<small> /<span data-i="ld.mo">月</span></small></div>
+        <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr3a">名單無上限</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr3b">無限帳號・團隊協作</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="ld.pr3c">Webhook／API 串接</span></li></ul>
+        <button class="btn" onclick="enterApp()" data-i="ld.prcontact">聯絡我們</button></div>
+    </div>
+  </section>
+
+  <section class="sec" style="text-align:center;padding-top:20px">
+    <h2 data-i="ld.ch">準備好把留言變成生意了嗎？</h2>
+    <div style="margin-top:24px"><button class="btn pri big" onclick="enterApp()" data-i="ld.cfinal">免費開始，3 分鐘上線 →</button></div>
+  </section>
+
+  <footer class="foot"><span data-i="ld.foot">© 2026 SUNChatch · 為 Meta 創作者打造的自動回覆平台</span></footer>
+</div>
+
+<!-- ===================== APP（登入後控制台） ===================== -->
+<div class="app" id="appShell" style="display:none">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand" onclick="backToSite()" style="cursor:pointer">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" fill="#0A0A0A"/><g stroke="#0A0A0A" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></g></svg></div>
+      <div class="wm">SUN<b>Chatch</b><span class="tag" data-i="brand.tag">Meta 創作者自動回覆</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nlbl" data-i="nav.work">工作區</div>
+      <button class="ni on" data-view="over"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-i="nav.over">總覽</span></button>
+      <button class="ni" data-view="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/><path d="M8 8.5h8M8 12h5"/></svg><span data-i="nav.auto">自動化</span><span class="b">4</span></button>
+      <button class="ni" data-view="cont"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 5.2a3.2 3.2 0 0 1 0 5.6M17.5 19a5.5 5.5 0 0 0-2-4.3"/></svg><span data-i="nav.cont">互動名單</span></button>
+      <button class="ni" data-view="ana"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20V4M4 20h16M8 16l4-5 3 3 5-7"/></svg><span data-i="nav.ana">數據分析</span></button>
+      <div class="nlbl" data-i="nav.setup">串接與設定</div>
+      <button class="ni" data-view="int"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg><span data-i="nav.int">連動整合</span></button>
+      <button class="ni" data-view="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2 2M7.3 16.7l-2 2M18.7 18.7l-2-2M7.3 7.3l-2-2"/></svg><span data-i="nav.set">設定</span></button>
+    </nav>
+    <div class="sp"></div>
+    <div class="upsell">
+      <div class="t">☀️ <span data-i="plan.name">成長版</span></div>
+      <div class="s" data-i="plan.s">本月互動名單 620 / 1,000</div>
+      <div class="bar"><i></i></div>
+      <a class="upbtn" data-i="plan.up">升級解鎖無上限</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="top">
+      <button class="acct"><span class="ig">N</span><span>@nova.studio</span><span class="cv">IG · 商業</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        <span class="hint" data-i="acct.hint">切換你正在管理的 IG / FB 帳號（可綁多個）</span></button>
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input placeholder="搜尋規則、名單…" data-ip="top.search"></div>
+      <div class="sp"></div>
+      <button class="tb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot"></span></button>
+      <div class="lang"><button id="zh" class="on" onclick="setLang('zh')">中</button><button id="en" onclick="setLang('en')">EN</button></div>
+      <button class="tb" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="me">A</button>
+    </header>
+
+    <div class="scroll"><div class="wrap">
+
+      <!-- ===== OVERVIEW ===== -->
+      <section class="view on" id="v-over">
+        <div class="phead">
+          <div><div class="eyebrow" data-i="ov.eye">OVERVIEW</div><h1 style="margin-top:7px" data-i="ov.h">歡迎回來，Alex 👋</h1><div class="sub" data-i="ov.sub">你的 4 條自動回覆今天運作順暢。這是最近的狀況。</div></div>
+          <div class="r"><button class="btn" onclick="go('int')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7"/></svg><span data-i="ov.manage">管理帳號</span></button><button class="btn pri" onclick="openEditor()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="ov.new">建立自動回覆</span></button></div>
+        </div>
+
+        <div class="card pad" style="margin-bottom:18px">
+          <div class="hd"><h3 data-i="ov.start">開始使用 · 3 步上線</h3><span class="pill live" style="margin-left:auto"><span class="pd"></span>2/3</span></div>
+          <div class="onb">
+            <div class="ostep done"><div class="oc">✓</div><div><div class="ot" data-i="ov.s1">連結 IG / FB 帳號</div><div class="os" data-i="ov.s1s">已連結 @nova.studio 與 1 個粉專</div></div></div>
+            <div class="ostep done"><div class="oc">✓</div><div><div class="ot" data-i="ov.s2">建立自動回覆</div><div class="os" data-i="ov.s2s">已建立 4 條規則</div></div></div>
+            <div class="ostep now"><div class="oc">3</div><div><div class="ot" data-i="ov.s3">送出 Meta 審核 / 上線</div><div class="os" data-i="ov.s3s">通過後即可對所有粉絲生效</div><a class="olink" onclick="go('int')" data-i="ov.s3l">前往送審 →</a></div></div>
+          </div>
+        </div>
+
+        <div class="grid4">
+          <div class="metric"><div class="k"><span class="dt" style="background:var(--acc)"></span><span data-i="m.trig">留言觸發</span></div><div class="v">1,284</div><div class="d">▲ 18%</div>
+            <svg class="spark" viewBox="0 0 96 40" preserveAspectRatio="none"><polyline points="0,32 16,29 32,30 48,22 64,24 80,12 96,7" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="metric"><div class="k"><span class="dt" style="background:var(--cy)"></span><span data-i="m.dm">私訊成功</span></div><div class="v">1,147</div><div class="d">▲ 15%</div>
+            <svg class="spark" viewBox="0 0 96 40" preserveAspectRatio="none"><polyline points="0,34 16,30 32,31 48,24 64,22 80,16 96,10" fill="none" stroke="var(--cy)" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="metric"><div class="k"><span class="dt" style="background:var(--acc-2)"></span><span data-i="m.clk">連結點擊</span></div><div class="v">803</div><div class="d">▲ 22%</div>
+            <svg class="spark" viewBox="0 0 96 40" preserveAspectRatio="none"><polyline points="0,35 16,31 32,27 48,28 64,18 80,12 96,6" fill="none" stroke="var(--acc-2)" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="metric"><div class="k"><span class="dt" style="background:var(--ok)"></span><span data-i="m.cvr">轉換率</span></div><div class="v">62.5%</div><div class="d">▲ 3.1%</div>
+            <svg class="spark" viewBox="0 0 96 40" preserveAspectRatio="none"><polyline points="0,24 16,26 32,20 48,22 64,16 80,15 96,10" fill="none" stroke="var(--ok)" stroke-width="2" stroke-linecap="round"/></svg></div>
+        </div>
+
+        <div class="row2">
+          <div class="card pad sect">
+            <div class="hd"><h3 data-i="ov.trend">近 14 天走勢</h3><span class="pill ig" style="margin-left:auto">@nova.studio</span></div>
+            <div class="clegend"><span class="li"><i style="background:var(--acc)"></i><span data-i="m.trig">留言觸發</span></span><span class="li"><i style="background:var(--cy)"></i><span data-i="m.dm">私訊成功</span></span></div>
+            <svg class="chart" viewBox="0 0 600 170" preserveAspectRatio="none">
+              <g stroke="var(--line)" stroke-width="1"><line x1="0" y1="42" x2="600" y2="42"/><line x1="0" y1="85" x2="600" y2="85"/><line x1="0" y1="128" x2="600" y2="128"/></g>
+              <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".28"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0,140 46,132 92,136 138,120 184,124 230,110 276,116 322,96 368,102 414,80 460,86 506,58 552,64 600,40 600,170 0,170Z" fill="url(#ga)"/>
+              <polyline points="0,140 46,132 92,136 138,120 184,124 230,110 276,116 322,96 368,102 414,80 460,86 506,58 552,64 600,40" fill="none" stroke="var(--acc)" stroke-width="2.4"/>
+              <polyline points="0,150 46,145 92,147 138,134 184,138 230,126 276,130 322,114 368,120 414,100 460,106 506,82 552,88 600,66" fill="none" stroke="var(--cy)" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <div class="card pad sect">
+            <h3 style="margin-bottom:16px" data-i="ov.health">帳號健康度</h3>
+            <div class="health">
+              <div class="hm"><div class="t"><span data-i="ov.quota">今日私訊額度</span><b>47 / 200 /hr</b></div><div class="hbar"><i style="width:23.5%;background:var(--ok)"></i></div></div>
+              <div class="hm"><div class="t"><span data-i="ov.speed">送信速率</span><b>1.2 / 2.0 /s</b></div><div class="hbar"><i style="width:60%;background:var(--ok)"></i></div></div>
+              <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-i="ov.safe">系統自動節流，遠低於 Meta 上限，帳號安全。尖峰會自動排隊延後送出。</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="card pad sect">
+            <div class="hd"><h3 data-i="ov.active">進行中的自動回覆</h3><button class="btn gho sm" onclick="go('auto')"><span data-i="ov.all">全部</span> →</button></div>
+            <div class="feed">
+              <div class="fi" onclick="openEditor()"><div class="ic" style="background:var(--acc-soft);color:var(--acc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg></div><div style="flex:1"><div class="tx"><b data-i="c1.n">免費電子書漏斗</b> · <span data-i="c.kw">關鍵字</span> <span style="color:var(--acc);font-family:var(--mono)">電子書</span></div><div class="tm">Instagram · 342 <span data-i="ov.trg">觸發</span></div></div><span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+              <div class="fi"><div class="ic" style="background:var(--cy-soft);color:var(--cy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg></div><div style="flex:1"><div class="tx"><b data-i="c2.n">線上課程優惠</b> · <span data-i="c.kw">關鍵字</span> <span style="color:var(--acc);font-family:var(--mono)">課程</span></div><div class="tm">Instagram · 588 <span data-i="ov.trg">觸發</span></div></div><span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+              <div class="fi"><div class="ic" style="background:var(--vi-soft);color:var(--vi)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg></div><div style="flex:1"><div class="tx"><b data-i="c3.n">私訊「合作」自動回覆</b> · <span data-i="c.kw">關鍵字</span> <span style="color:var(--acc);font-family:var(--mono)">合作</span></div><div class="tm">Instagram · 129 <span data-i="ov.trg">觸發</span></div></div><span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+            </div>
+          </div>
+          <div class="card pad sect">
+            <div class="hd"><h3 data-i="ov.recent">即時動態</h3></div>
+            <div class="feed">
+              <div class="fi"><div class="ic" style="background:var(--ok-soft);color:var(--ok)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div class="tx"><b>@emma.makes</b> <span data-i="r.pass">通過追蹤驗證，已送出連結</span></div><div class="tm">2m</div></div></div>
+              <div class="fi"><div class="ic" style="background:var(--acc-soft);color:var(--acc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg></div><div style="flex:1"><div class="tx"><b>@leo.design</b> <span data-i="r.kw">留言觸發「電子書」</span></div><div class="tm">4m</div></div></div>
+              <div class="fi"><div class="ic" style="background:var(--warn-soft);color:var(--warn)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg></div><div style="flex:1"><div class="tx"><b>@sam.codes</b> <span data-i="r.loop">尚未追蹤，已請對方追蹤（迴圈）</span></div><div class="tm">7m</div></div></div>
+              <div class="fi"><div class="ic" style="background:var(--cy-soft);color:var(--cy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></div><div style="flex:1"><div class="tx"><b>@mia.writes</b> <span data-i="r.click">點擊了你的網站連結</span></div><div class="tm">9m</div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== AUTOMATIONS LIST ===== -->
+      <section class="view" id="v-auto">
+        <div class="phead">
+          <div><div class="eyebrow">AUTO-REPLY</div><h1 style="margin-top:7px" data-i="au.h">自動回覆</h1><div class="sub" data-i="au.sub">留言或私訊出現關鍵字就自動回覆。點任一條編輯。</div></div>
+          <div class="r"><button class="btn pri" onclick="openEditor()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="au.new">建立規則</span></button></div>
+        </div>
+        <div class="card">
+          <div class="rule" onclick="openEditor()">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 19.5V6a2 2 0 0 1 2-2h11l3 3v12.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M8 8h6M8 12h8M8 16h5"/></svg></div>
+            <div><div class="nm"><span data-i="c1.n">免費電子書漏斗</span> <span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+              <div class="meta"><span class="pill ig">Instagram</span><span class="pill type" data-i="tp.comment">留言觸發</span><span class="pill" style="background:var(--ok-soft);color:var(--ok)">✓ <span data-i="tp.gate">追蹤驗證</span></span></div>
+              <div class="tl"><span data-i="rl.when">當留言含</span> <b>電子書</b> <b>ebook</b> <b>免費</b> → <span data-i="rl.then">公開回覆 + 私訊連結</span></div></div>
+            <div style="display:flex;align-items:center;gap:18px"><div class="kpi"><div><div class="n">342</div><div class="l" data-i="k.trig">觸發</div></div><div><div class="n">64%</div><div class="l" data-i="k.cvr">轉換</div></div></div><button class="tog on" onclick="event.stopPropagation();this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="rule" onclick="openEditor()">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
+            <div><div class="nm"><span data-i="c2.n">線上課程優惠</span> <span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+              <div class="meta"><span class="pill ig">Instagram</span><span class="pill type" data-i="tp.comment">留言觸發</span><span class="pill" style="background:var(--ok-soft);color:var(--ok)">✓ <span data-i="tp.gate">追蹤驗證</span></span></div>
+              <div class="tl"><span data-i="rl.when">當留言含</span> <b>課程</b> <b>course</b> <b>優惠</b> → <span data-i="rl.then">公開回覆 + 私訊連結</span></div></div>
+            <div style="display:flex;align-items:center;gap:18px"><div class="kpi"><div><div class="n">588</div><div class="l" data-i="k.trig">觸發</div></div><div><div class="n">71%</div><div class="l" data-i="k.cvr">轉換</div></div></div><button class="tog on" onclick="event.stopPropagation();this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="rule" onclick="openEditor()">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg></div>
+            <div><div class="nm"><span data-i="c3.n">私訊「合作」自動回覆</span> <span class="pill live"><span class="pd"></span><span data-i="st.live">運作中</span></span></div>
+              <div class="meta"><span class="pill ig">Instagram</span><span class="pill type" data-i="tp.dm">私訊觸發</span></div>
+              <div class="tl"><span data-i="rl.whendm">當私訊含</span> <b>合作</b> <b>報價</b> → <span data-i="rl.thendm">回覆合作資料連結</span></div></div>
+            <div style="display:flex;align-items:center;gap:18px"><div class="kpi"><div><div class="n">129</div><div class="l" data-i="k.trig">觸發</div></div><div><div class="n">83%</div><div class="l" data-i="k.reply">回覆</div></div></div><button class="tog on" onclick="event.stopPropagation();this.classList.toggle('on')"></button></div>
+          </div>
+          <div class="rule" onclick="openEditor()">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 7h-9L9 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"/></svg></div>
+            <div><div class="nm"><span data-i="c4.n">新品連結發送</span> <span class="pill pause"><span class="pd"></span><span data-i="st.pause">已暫停</span></span></div>
+              <div class="meta"><span class="pill fb">Facebook</span><span class="pill type" data-i="tp.comment">留言觸發</span></div>
+              <div class="tl"><span data-i="rl.when">當留言含</span> <b>連結</b> <b>+1</b> → <span data-i="rl.thenfb">公開回覆 + 私訊（FB 不驗追蹤）</span></div></div>
+            <div style="display:flex;align-items:center;gap:18px"><div class="kpi"><div><div class="n">354</div><div class="l" data-i="k.trig">觸發</div></div><div><div class="n">58%</div><div class="l" data-i="k.cvr">轉換</div></div></div><button class="tog" onclick="event.stopPropagation();this.classList.toggle('on')"></button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EDITOR ===== -->
+      <section class="view" id="v-edit">
+        <div class="edbar">
+          <button class="back" onclick="go('auto')"><svg viewBox="0 0 24 24" width="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <div>
+            <div class="bc"><a onclick="go('auto')" data-i="au.h">自動化</a><span class="sep">/</span><span class="cur" data-i="c1.n">免費電子書漏斗</span></div>
+            <div class="s" style="font-size:11px;color:var(--muted);font-weight:600;font-family:var(--mono);margin-top:2px" data-i="ed.saved">● 自動儲存 · 剛剛</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
+            <div class="switch" style="padding:8px 10px 8px 14px"><span class="l" data-i="ed.on">啟用</span><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            <button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5L20 7"/></svg><span data-i="ed.save">儲存並發佈</span></button>
+          </div>
+        </div>
+        <div class="edgrid">
+          <div class="blocks">
+            <div class="blk">
+              <div class="bh"><div class="bn">1</div><div><div class="bt" data-i="ed.b1">觸發條件</div><div class="bs" data-i="ed.b1s">什麼情況下啟動自動回覆</div></div></div>
+              <div class="frow" style="margin-bottom:12px">
+                <div class="ff"><label class="fl" data-i="ed.platform">平台</label><div class="seg"><button class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>Instagram</button><button>Facebook</button></div></div>
+                <div class="ff"><label class="fl" data-i="ed.trigtype">觸發來源</label><div class="seg acc"><button class="on" onclick="setTrig('comment',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg><span data-i="ed.tcom">留言</span></button><button onclick="setTrig('dm',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4z"/></svg><span data-i="ed.tdm">私訊</span></button></div></div>
+              </div>
+              <div id="postBlk">
+                <label class="fl" data-i="ed.scope">觸發範圍</label>
+                <div class="scope">
+                  <button class="scopt on" onclick="setScope('one',this)"><span class="rd"></span><span><span class="st" data-i="ed.sc1">特定一支貼文／Reel</span><span class="sc2" data-i="ed.sc1s">只有這支的留言會觸發</span></span><span class="tag2" data-i="ed.incl">內建</span></button>
+                  <button class="scopt" onclick="setScope('all',this)"><span class="rd"></span><span><span class="st" data-i="ed.sc2">所有現有貼文</span><span class="sc2" data-i="ed.sc2s">目前全部貼文一起套用</span></span><span class="tag2" data-i="ed.incl">內建</span></button>
+                  <button class="scopt" onclick="setScope('next',this)"><span class="rd"></span><span><span class="st" data-i="ed.sc3">之後每一支新貼文</span><span class="sc2" data-i="ed.sc3s">未來發的貼文自動開啟自動回覆</span></span><span class="tag2" data-i="ed.incl">內建</span></button>
+                </div>
+                <div id="postGrid">
+                  <div class="fetchbar"><span class="ig"></span><span data-i="ed.fetched">已從 @nova.studio 讀取 24 支貼文／Reel · 點選要監聽的</span></div>
+                  <div class="pgrid">
+                    <div class="pg sel" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#FF6A18,#B3005E)"></div><div class="cap" data-i="pgc.1">免費電子書</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#7C5CFF,#C86DD7)"></div><div class="cap" data-i="pgc.2">幕後花絮</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#2BB3C0,#3B6FE0)"></div><div class="cap" data-i="pgc.3">教學短片</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#0F1524,#3C4557)"></div><div class="cap" data-i="pgc.4">客戶回饋</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#F5A623,#E85D04)"></div><div class="cap" data-i="pgc.5">新品預告</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#D62976,#4F5BD5)"></div><div class="cap" data-i="pgc.6">限時優惠</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#12A150,#2FE0DA)"></div><div class="cap" data-i="pgc.7">問答整理</div></div>
+                    <div class="pg" onclick="this.classList.toggle('sel')"><div class="im" style="background:linear-gradient(135deg,#8E42C4,#FF6A18)"></div><div class="cap" data-i="pgc.8">直播回顧</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="blk">
+              <div class="bh"><div class="bn">2</div><div><div class="bt" data-i="ed.b2">關鍵字</div><div class="bs" id="kwSub" data-i="ed.b2s">留言含這些字就命中</div></div></div>
+              <div class="kwrow"><span class="kw">電子書 <button>×</button></span><span class="kw">ebook <button>×</button></span><span class="kw">免費 <button>×</button></span><button class="kwadd">+ <span data-i="ed.addkw">新增</span></button></div>
+              <div class="switch"><div><div class="l" data-i="ed.fuzzy">錯字容忍</div><div class="c" data-i="ed.fuzzys">「電子暑」「免費🥺」也算命中，避免漏接。</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div>
+            </div>
+
+            <div class="blk">
+              <div class="bh"><div class="bn">3</div><div><div class="bt" data-i="ed.b3">訊息流程</div><div class="bs" data-i="ed.b3s">多段訊息依序送出，中間可卡「追蹤關卡」再放連結</div></div></div>
+              <div id="pubBlk" style="margin-bottom:14px"><label class="fl" data-i="ed.pub">公開留言回覆</label><input class="tf" id="pubText" value="已經私訊你囉，記得收信箱 💌" oninput="sync()"></div>
+              <label class="fl" data-i="ed.dmflow">私訊流程（由上到下依序送）</label>
+              <div class="mflow" id="mflow"></div>
+              <div class="addstep">
+                <button onclick="addStep('msg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="ed.addmsg">訊息</span></button>
+                <button onclick="addStep('gate')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="ed.addgate">追蹤關卡</span></button>
+                <button onclick="addStep('link')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="ed.addlink">連結</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pv">
+            <div class="pvh"><span class="lv"></span><span class="t" data-i="pv.t">LIVE PREVIEW</span>
+              <div class="pseg"><button id="segA" class="on" onclick="setPv('a')" data-i="pv.f">追蹤者</button><button id="segB" onclick="setPv('b')" data-i="pv.nf">未追蹤者</button></div></div>
+            <div class="phone"><div class="screen">
+              <div class="igt"><span class="bk">‹</span><div class="a">N</div><div><div class="nm">nova.studio</div><div class="st" data-i="pv.sec">通常幾秒內回覆</div></div></div>
+              <div class="igb" id="igb"></div>
+              <div class="igi"><div class="box" data-i="pv.msg">傳訊息…</div><span style="color:#4F5BD5;font-weight:800">➤</span></div>
+            </div></div>
+            <div class="pvcap" data-i="pv.cap">切換身分看不同流程 →</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTACTS ===== -->
+      <section class="view" id="v-cont">
+        <div class="phead"><div><div class="eyebrow">CONTACTS</div><h1 style="margin-top:7px" data-i="ct.h">互動名單</h1><div class="sub" data-i="ct.sub">被自動回覆觸發過的粉絲，可打標籤、匯出 CSV。</div></div><div class="r"><button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span data-i="ct.exp">匯出 CSV</span></button></div></div>
+        <div class="toolbar"><button class="chipf on">ALL · 620</button><button class="chipf" data-i="ct.follow">追蹤 458</button><button class="chipf">VIP</button><button class="chipf" data-i="ct.loop">迴圈中 12</button></div>
+        <div class="card"><div class="tblwrap"><table>
+          <thead><tr><th data-i="th.u">帳號</th><th data-i="th.k">關鍵字</th><th data-i="th.r">規則</th><th data-i="th.f">追蹤</th><th data-i="th.t">標籤</th><th data-i="th.tm">時間</th></tr></thead>
+          <tbody>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#FF6A18,#D62976)">em</span><div><div class="nm">@emma.makes</div><div class="h2">Emma</div></div></div></td><td><span class="kwc">電子書</span></td><td data-i="c1.n">免費電子書漏斗</td><td><span class="foll y">✓ <span data-i="f.y">已追蹤</span></span></td><td><span class="tag o" data-i="tg.new">新客</span><span class="tag g" data-i="tg.clk">已點擊</span></td><td class="mono" style="color:var(--muted)">2m</td></tr>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#7C5CFF,#3B6FE0)">le</span><div><div class="nm">@leo.design</div><div class="h2">Leo</div></div></div></td><td><span class="kwc">電子書</span></td><td data-i="c1.n">免費電子書漏斗</td><td><span class="foll y">✓ <span data-i="f.y">已追蹤</span></span></td><td><span class="tag c" data-i="tg.vip">VIP</span></td><td class="mono" style="color:var(--muted)">4m</td></tr>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#F5A623,#E85D04)">sa</span><div><div class="nm">@sam.codes</div><div class="h2">Sam</div></div></div></td><td><span class="kwc">課程</span></td><td data-i="c2.n">線上課程優惠</td><td><span class="foll n">○ <span data-i="f.n">未追蹤</span></span></td><td><span class="tag w" data-i="tg.loop">迴圈中</span></td><td class="mono" style="color:var(--muted)">7m</td></tr>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#2BB3C0,#4F5BD5)">mi</span><div><div class="nm">@mia.writes</div><div class="h2">Mia</div></div></div></td><td><span class="kwc">合作</span></td><td data-i="c3.n">私訊「合作」自動回覆</td><td><span class="foll y">✓ <span data-i="f.y">已追蹤</span></span></td><td><span class="tag g" data-i="tg.clk">已點擊</span></td><td class="mono" style="color:var(--muted)">9m</td></tr>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#12A150,#2FE0DA)">jo</span><div><div class="nm">@joy.shop</div><div class="h2">Joy</div></div></div></td><td><span class="kwc">連結</span></td><td data-i="c4.n">新品連結發送</td><td><span class="foll n">— <span data-i="f.na">FB 不驗</span></span></td><td><span class="tag o" data-i="tg.new">新客</span></td><td class="mono" style="color:var(--muted)">14m</td></tr>
+            <tr><td><div class="u"><span class="a" style="background:linear-gradient(135deg,#8E42C4,#FF6A18)">ka</span><div><div class="nm">@kai.studio</div><div class="h2">Kai</div></div></div></td><td><span class="kwc">課程</span></td><td data-i="c2.n">線上課程優惠</td><td><span class="foll y">✓ <span data-i="f.y">已追蹤</span></span></td><td><span class="tag g" data-i="tg.clk">已點擊</span><span class="tag c" data-i="tg.vip">VIP</span></td><td class="mono" style="color:var(--muted)">22m</td></tr>
+          </tbody>
+        </table></div></div>
+      </section>
+
+      <!-- ===== ANALYTICS ===== -->
+      <section class="view" id="v-ana">
+        <div class="phead"><div><div class="eyebrow">ANALYTICS</div><h1 style="margin-top:7px" data-i="an.h">數據分析</h1><div class="sub" data-i="an.sub">觸發、私訊、追蹤驗證、點擊、轉換的完整走向。</div></div></div>
+        <div class="grid4" style="margin-bottom:14px">
+          <div class="metric"><div class="k" data-i="m.trig">留言觸發</div><div class="v">5,142</div><div class="d">▲ 18%</div></div>
+          <div class="metric"><div class="k" data-i="m.dm">私訊成功</div><div class="v">4,588</div><div class="d">▲ 15%</div></div>
+          <div class="metric"><div class="k" data-i="m.clk">連結點擊</div><div class="v">3,211</div><div class="d">▲ 22%</div></div>
+          <div class="metric"><div class="k" data-i="m.cvr">轉換率</div><div class="v">62.5%</div><div class="d">▲ 3.1%</div></div>
+        </div>
+        <div class="row2b">
+          <div class="card pad sect"><div class="hd"><h3 data-i="an.funnel">獲客漏斗</h3></div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:96px;font-size:12px;color:var(--ink-2);font-weight:600" data-i="fn.c">留言關鍵字</div><div style="flex:1;height:32px;background:var(--panel-3);border-radius:9px;overflow:hidden;position:relative"><i style="position:absolute;inset:0;background:var(--sun);width:100%;display:flex;align-items:center;padding-left:12px;color:#0A0A0A;font-weight:800;font-size:12px;font-family:var(--mono)">5,142</i></div><div style="width:42px;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono)">100%</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:96px;font-size:12px;color:var(--ink-2);font-weight:600" data-i="fn.r">公開回覆</div><div style="flex:1;height:32px;background:var(--panel-3);border-radius:9px;overflow:hidden;position:relative"><i style="position:absolute;inset:0;background:var(--sun);width:96%;display:flex;align-items:center;padding-left:12px;color:#0A0A0A;font-weight:800;font-size:12px;font-family:var(--mono)">4,936</i></div><div style="width:42px;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono)">96%</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:96px;font-size:12px;color:var(--ink-2);font-weight:600" data-i="fn.d">私訊送達</div><div style="flex:1;height:32px;background:var(--panel-3);border-radius:9px;overflow:hidden;position:relative"><i style="position:absolute;inset:0;background:var(--sun);width:89%;display:flex;align-items:center;padding-left:12px;color:#0A0A0A;font-weight:800;font-size:12px;font-family:var(--mono)">4,588</i></div><div style="width:42px;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono)">89%</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:96px;font-size:12px;color:var(--ink-2);font-weight:600" data-i="fn.g">通過追蹤</div><div style="flex:1;height:32px;background:var(--panel-3);border-radius:9px;overflow:hidden;position:relative"><i style="position:absolute;inset:0;background:linear-gradient(135deg,#FFC97A,#FF9A73);width:74%;display:flex;align-items:center;padding-left:12px;color:#0A0A0A;font-weight:800;font-size:12px;font-family:var(--mono)">3,812</i></div><div style="width:42px;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono)">74%</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:96px;font-size:12px;color:var(--ink-2);font-weight:600" data-i="fn.k">點擊連結</div><div style="flex:1;height:32px;background:var(--panel-3);border-radius:9px;overflow:hidden;position:relative"><i style="position:absolute;inset:0;background:var(--sun);width:62%;display:flex;align-items:center;padding-left:12px;color:#0A0A0A;font-weight:800;font-size:12px;font-family:var(--mono)">3,211</i></div><div style="width:42px;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono)">62%</div></div>
+            </div>
+          </div>
+          <div class="card pad sect"><div class="hd"><h3 data-i="an.by">各規則轉換</h3></div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><span data-i="c1.n">免費電子書漏斗</span><b class="mono">64%</b></div><div class="hbar"><i style="width:64%;background:var(--acc)"></i></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><span data-i="c2.n">線上課程優惠</span><b class="mono">71%</b></div><div class="hbar"><i style="width:71%;background:var(--cy)"></i></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><span data-i="c3.n">私訊「合作」自動回覆</span><b class="mono">83%</b></div><div class="hbar"><i style="width:83%;background:var(--ok)"></i></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><span data-i="c4.n">新品連結發送</span><b class="mono">58%</b></div><div class="hbar"><i style="width:58%;background:var(--vi)"></i></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== INTEGRATIONS ===== -->
+      <section class="view" id="v-int">
+        <div class="phead"><div><div class="eyebrow">CONNECTIONS</div><h1 style="margin-top:7px" data-i="in.h">連動整合</h1><div class="sub" data-i="in.sub">連結你的 IG／FB、查看 Meta 串接狀態、把名單導到你的網站。</div></div><div class="r"><button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg><span data-i="in.add">連結新帳號</span></button></div></div>
+
+        <div class="card pad sect" style="margin-bottom:14px">
+          <div class="hd"><h3 data-i="in.acc">已連結的帳號</h3></div>
+          <div class="connlist">
+            <div class="conn"><div class="ci" style="background:conic-gradient(from 210deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5,#FEDA75)">N</div><div style="flex:1"><div style="font-weight:800">@nova.studio</div><div style="font-size:11.5px;color:var(--muted);font-family:var(--mono)">Instagram · <span data-i="in.pro">商業帳號</span> · 12.4K <span data-i="in.foll">粉絲</span></div></div><span class="pill live"><span class="pd"></span><span data-i="in.ok">已連結</span></span><button class="btn gho sm" data-i="in.manage">管理</button></div>
+            <div class="conn"><div class="ci" style="background:linear-gradient(135deg,#1877F2,#2FE0DA)">f</div><div style="flex:1"><div style="font-weight:800">Nova Studio</div><div style="font-size:11.5px;color:var(--muted);font-family:var(--mono)">Facebook <span data-i="in.page">粉專</span> · 3.8K <span data-i="in.foll">粉絲</span></div></div><span class="pill live"><span class="pd"></span><span data-i="in.ok">已連結</span></span><button class="btn gho sm" data-i="in.manage">管理</button></div>
+            <div class="conn" style="cursor:pointer" onclick="alert('OAuth 連結流程（原型）')"><div class="ci" style="background:var(--panel-3);color:var(--acc)">＋</div><div style="flex:1"><div style="font-weight:800;color:var(--acc)" data-i="in.new">連結新的 IG / FB</div><div style="font-size:11.5px;color:var(--muted);font-family:var(--mono)" data-i="in.oauth">透過 Meta OAuth 安全授權</div></div></div>
+          </div>
+        </div>
+
+        <div class="row2b">
+          <div class="card pad sect"><div class="hd"><h3 data-i="in.meta">Meta 串接狀態</h3></div>
+            <div>
+              <div class="statrow"><div class="si" style="background:var(--ok-soft);color:var(--ok)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div class="sn" data-i="in.webhook">Webhook 連線</div><div class="ss" data-i="in.webhooks">即時接收留言／私訊事件 · 最後事件 12 秒前</div></div><span class="pill live sr"><span class="pd"></span>ONLINE</span></div>
+              <div class="statrow"><div class="si" style="background:var(--ok-soft);color:var(--ok)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div class="sn" data-i="in.bv">商家驗證</div><div class="ss" data-i="in.bvs">Meta Business 驗證已通過</div></div><span class="pill live sr"><span class="pd"></span><span data-i="in.done">已完成</span></span></div>
+              <div class="statrow"><div class="si" style="background:var(--warn-soft);color:var(--warn)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 8v4l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/></svg></div><div style="flex:1"><div class="sn" data-i="in.review">App Review（進階權限）</div><div class="ss" data-i="in.reviews">instagram_manage_messages 審核中 · 預計 3–5 天</div></div><span class="pill warn sr" data-i="in.pending">審核中</span></div>
+              <div class="statrow"><div class="si" style="background:var(--ok-soft);color:var(--ok)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div class="sn" data-i="in.token">存取權杖</div><div class="ss" data-i="in.tokens">長效權杖有效 · 58 天後自動續期</div></div><span class="pill live sr"><span class="pd"></span><span data-i="in.valid">有效</span></span></div>
+            </div>
+          </div>
+          <div class="card pad sect"><div class="hd"><h3 data-i="in.flow">名單導流（連動）</h3></div>
+            <div class="connlist">
+              <div class="conn"><div class="ci" style="background:var(--acc-soft);color:var(--acc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /><circle cx="12" cy="12" r="9"/></svg></div><div style="flex:1"><div style="font-weight:700" data-i="in.site">你的網站 / 落地頁</div><div style="font-size:11px;color:var(--muted);font-family:var(--mono)">nova.studio/ebook</div></div><span class="pill live"><span class="pd"></span><span data-i="in.linked">已連動</span></span></div>
+              <div class="conn"><div class="ci" style="background:var(--cy-soft);color:var(--cy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><div style="flex:1"><div style="font-weight:700">Google Sheet</div><div style="font-size:11px;color:var(--muted);font-family:var(--mono)" data-i="in.sheets">名單即時同步一份表單</div></div><button class="btn gho sm" data-i="in.conn">連動</button></div>
+              <div class="conn"><div class="ci" style="background:var(--vi-soft);color:var(--vi)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 3 4 14h7l-2 7 9-11h-7l2-7z"/></svg></div><div style="flex:1"><div style="font-weight:700">Webhook / Zapier</div><div style="font-size:11px;color:var(--muted);font-family:var(--mono)" data-i="in.hooksoon">串接你自己的系統（即將推出）</div></div><span class="pill pause" data-i="in.soon">即將推出</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SETTINGS ===== -->
+      <section class="view" id="v-set">
+        <div class="phead"><div><div class="eyebrow">SETTINGS</div><h1 style="margin-top:7px" data-i="se.h">設定</h1><div class="sub" data-i="se.sub">個人資料、團隊、語言與方案。</div></div></div>
+        <div class="setgrid">
+          <div class="card pad"><div class="switch" style="background:none;border:none;padding:0"><div><div class="l" data-i="se.lang">介面語言</div><div class="c" data-i="se.langs">中文 / English，右上角也能快速切換（Meta 審查看英文）。</div></div><div class="lang" style="border-color:var(--line-2)"><button class="on">中</button><button>EN</button></div></div></div>
+          <div class="card pad"><div class="switch" style="background:none;border:none;padding:0"><div><div class="l" data-i="se.team">團隊成員</div><div class="c" data-i="se.teams">邀請小編或合作夥伴一起管理帳號。</div></div><button class="btn sm" data-i="se.invite">＋ 邀請</button></div></div>
+          <div class="card pad"><div class="switch" style="background:none;border:none;padding:0"><div><div class="l" data-i="se.notif">通知</div><div class="c" data-i="se.notifs">規則被觸發、額度接近上限時通知我。</div></div><button class="tog on" onclick="this.classList.toggle('on')"></button></div></div>
+          <div class="card pad"><div class="switch" style="background:none;border:none;padding:0"><div><div class="l" data-i="se.theme">深色模式</div><div class="c" data-i="se.themes">跟隨系統，或手動切換。</div></div><button class="tog" onclick="this.classList.toggle('on');toggleTheme()"></button></div></div>
+          <div class="card pad"><div class="switch" style="background:none;border:none;padding:0"><div><div class="l" data-i="se.plan">方案</div><div class="c" data-i="se.plans">成長版 · 每月互動名單上限 1,000。</div></div><button class="btn pri sm" data-i="se.up">升級</button></div></div>
+        </div>
+      </section>
+
+    </div></div>
+  </div>
+</div>
+<div class="proto">☀ SUNCHATCH · PROTOTYPE</div>
+
+<script>
+  const V={over:'v-over',auto:'v-auto',edit:'v-edit',cont:'v-cont',ana:'v-ana',int:'v-int',set:'v-set'};
+  function go(v){Object.values(V).forEach(id=>document.getElementById(id).classList.remove('on'));document.getElementById(V[v]).classList.add('on');
+    document.querySelectorAll('.ni[data-view]').forEach(n=>n.classList.toggle('on',n.dataset.view===v));document.querySelector('.scroll').scrollTop=0;}
+  document.querySelectorAll('.ni[data-view]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.view)));
+  function openEditor(){go('edit');document.querySelector('.ni[data-view="auto"]').classList.add('on');sync();}
+  function toggleTheme(){const r=document.documentElement;const cur=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');r.setAttribute('data-theme',cur==='dark'?'light':'dark');}
+  function enterApp(){document.getElementById('landing').style.display='none';document.getElementById('appShell').style.display='grid';go('over');window.scrollTo(0,0);}
+  function backToSite(){document.getElementById('appShell').style.display='none';document.getElementById('landing').style.display='block';window.scrollTo(0,0);}
+
+  let trig='comment';
+  function setTrig(t,el){trig=t;el.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('on'));el.classList.add('on');
+    document.getElementById('postBlk').style.display=t==='comment'?'':'none';
+    document.getElementById('pubBlk').style.display=t==='comment'?'':'none';
+    document.getElementById('kwSub').textContent=DICT[lang][t==='comment'?'ed.b2s':'ed.b2sdm'];sync();}
+  function setScope(m,el){el.parentElement.querySelectorAll('.scopt').forEach(b=>b.classList.remove('on'));el.classList.add('on');
+    document.getElementById('postGrid').style.display=m==='one'?'':'none';}
+
+  function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  let steps=[
+    {type:'msg', text:'嗨～謝謝留言！點下面按鈕領取你的免費電子書 👇', btn:'給我電子書'},
+    {type:'gate', text:'為了避免漏訊，請先追蹤我，再點下方 Following 即可取得', btn:'Following'},
+    {type:'link', text:'完成！點下方按鈕領取', btn:'電子書在這裡！', url:'nova.studio/ebook'}
+  ];
+  const STAG={msg:'ed.tgmsg',gate:'ed.tggate',link:'ed.tglink'};
+  function renderSteps(){
+    const box=document.getElementById('mflow');if(!box)return;const L=DICT[lang];
+    box.innerHTML=steps.map((s,i)=>{
+      const up=i===0?' disabled style="opacity:.25"':'', dn=i===steps.length-1?' disabled style="opacity:.25"':'';
+      const ctl=`<span class="mctl"><button onclick="moveStep(${i},-1)"${up}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg></button><button onclick="moveStep(${i},1)"${dn}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button><button onclick="delStep(${i})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>`;
+      let body=`<textarea class="mtf" rows="2" oninput="steps[${i}].text=this.value;sync()">${esc(s.text)}</textarea>`;
+      if(s.type==='link'){body+=`<div class="brow"><div class="bcol"><span class="blab">${L['ed.btn']}</span><input class="mtf" value="${esc(s.btn)}" oninput="steps[${i}].btn=this.value;sync()"></div><div class="bcol"><span class="blab">${L['ed.url']}</span><input class="mtf" value="${esc(s.url||'')}" oninput="steps[${i}].url=this.value;sync()"></div></div>`;}
+      else{body+=`<div class="brow"><div class="bcol"><span class="blab">${L['ed.btn']}</span><input class="mtf" value="${esc(s.btn)}" oninput="steps[${i}].btn=this.value;sync()"></div></div>`;}
+      if(s.type==='gate')body+=`<div class="gatehint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg><span>${L['ed.gatehint']}</span></div>`;
+      return `<div class="mstep" data-t="${s.type}"><div class="msh"><span class="mnum">${i+1}</span><span class="mtag ${s.type}">${L[STAG[s.type]]}</span>${ctl}</div>${body}</div>`;
+    }).join('');
+  }
+  function addStep(t){const L=DICT[lang];const def={msg:{type:'msg',text:'',btn:L['ed.dfbtn']},gate:{type:'gate',text:L['ed.dfgate'],btn:'Following'},link:{type:'link',text:'',btn:L['ed.dflink'],url:'yoursite.com'}};steps.push(def[t]);renderSteps();sync();}
+  function delStep(i){if(steps.length<=1)return;steps.splice(i,1);renderSteps();sync();}
+  function moveStep(i,d){const j=i+d;if(j<0||j>=steps.length)return;[steps[i],steps[j]]=[steps[j],steps[i]];renderSteps();sync();}
+
+  let pv='a';
+  function setPv(m){pv=m;document.getElementById('segA').classList.toggle('on',m==='a');document.getElementById('segB').classList.toggle('on',m==='b');sync();}
+  function bubble(text,btn,acc){return `<div class="m them">${esc(text)}${btn?`<span class="ib${acc?' acc':''}">${esc(btn)}</span>`:''}</div>`;}
+  function tap(label){return `<div class="m me">${esc(label||'')}</div>`;}
+  function sync(){
+    const b=document.getElementById('igb');if(!b)return;const L=DICT[lang];
+    let h=`<div class="day">${L['pv.today']}</div>`;
+    if(trig==='comment'){h+=`<div class="cmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg><span>${L['pv.cmt']}</span></div>`;}
+    else{h+=tap(L['pv.udm']);}
+    steps.forEach(s=>{
+      if(s.type==='gate'){const times=pv==='b'?2:1;for(let t=0;t<times;t++){h+=bubble(s.text,s.btn);h+=tap(s.btn);}if(pv==='b')h+=`<div class="m them" style="opacity:.85">${L['pv.re']}</div>`;}
+      else if(s.type==='link'){h+=bubble(s.text,s.btn,true);}
+      else{h+=bubble(s.text,s.btn);if(s.btn)h+=tap(s.btn);}
+    });
+    b.innerHTML=h;b.scrollTop=b.scrollHeight;
+  }
+
+  let lang='zh';
+  const DICT={
+    zh:{'brand.tag':'Meta 創作者自動回覆','nav.work':'工作區','nav.over':'總覽','nav.auto':'自動化','nav.cont':'互動名單','nav.ana':'數據分析','nav.setup':'串接與設定','nav.int':'連動整合','nav.set':'設定',
+      'plan.name':'成長版','plan.s':'本月互動名單 620 / 1,000','plan.up':'升級解鎖無上限','acct.hint':'切換你正在管理的 IG / FB 帳號（可綁多個）','top.search':'搜尋規則、名單…',
+      'ov.eye':'OVERVIEW','ov.h':'歡迎回來，Alex 👋','ov.sub':'你的 4 條自動回覆今天運作順暢。這是最近的狀況。','ov.manage':'管理帳號','ov.new':'建立自動回覆',
+      'ov.start':'開始使用 · 3 步上線','ov.s1':'連結 IG / FB 帳號','ov.s1s':'已連結 @nova.studio 與 1 個粉專','ov.s2':'建立自動回覆','ov.s2s':'已建立 4 條規則','ov.s3':'送出 Meta 審核 / 上線','ov.s3s':'通過後即可對所有粉絲生效','ov.s3l':'前往送審 →',
+      'm.trig':'留言觸發','m.dm':'私訊成功','m.clk':'連結點擊','m.cvr':'轉換率',
+      'ov.trend':'近 14 天走勢','ov.health':'帳號健康度','ov.quota':'今日私訊額度','ov.speed':'送信速率','ov.safe':'系統自動節流，遠低於 Meta 上限，帳號安全。尖峰會自動排隊延後送出。',
+      'ov.active':'進行中的自動回覆','ov.all':'全部','ov.trg':'觸發','ov.recent':'即時動態','c.kw':'關鍵字',
+      'st.live':'運作中','st.pause':'已暫停','r.pass':'通過追蹤驗證，已送出連結','r.kw':'留言觸發「電子書」','r.loop':'尚未追蹤，已請對方追蹤（迴圈）','r.click':'點擊了你的網站連結',
+      'c1.n':'免費電子書漏斗','c2.n':'線上課程優惠','c3.n':'私訊「合作」自動回覆','c4.n':'新品連結發送',
+      'au.h':'自動回覆','au.sub':'留言或私訊出現關鍵字就自動回覆。點任一條編輯。','au.new':'建立規則',
+      'tp.comment':'留言觸發','tp.dm':'私訊觸發','tp.gate':'追蹤驗證','rl.when':'當留言含','rl.whendm':'當私訊含','rl.then':'公開回覆 + 私訊連結','rl.thendm':'回覆合作資料連結','rl.thenfb':'公開回覆 + 私訊（FB 不驗追蹤）','k.trig':'觸發','k.cvr':'轉換','k.reply':'回覆',
+      'ed.saved':'● 自動儲存 · 剛剛','ed.on':'啟用','ed.save':'儲存並發佈','ed.b1':'觸發條件','ed.b1s':'什麼情況下啟動自動回覆','ed.platform':'平台','ed.trigtype':'觸發來源','ed.tcom':'留言','ed.tdm':'私訊',
+      'ed.scope':'觸發範圍','ed.sc1':'特定一支貼文／Reel','ed.sc1s':'只有這支的留言會觸發','ed.sc2':'所有現有貼文','ed.sc2s':'目前全部貼文一起套用','ed.sc3':'之後每一支新貼文','ed.sc3s':'未來發的貼文自動開啟自動回覆','ed.incl':'內建','ed.fetched':'已從 @nova.studio 讀取 24 支貼文／Reel · 點選要監聽的',
+      'pgc.1':'免費電子書','pgc.2':'幕後花絮','pgc.3':'教學短片','pgc.4':'客戶回饋','pgc.5':'新品預告','pgc.6':'限時優惠','pgc.7':'問答整理','pgc.8':'直播回顧',
+      'ed.b2':'關鍵字','ed.b2s':'留言含這些字就命中','ed.b2sdm':'私訊含這些字就命中','ed.addkw':'新增','ed.fuzzy':'錯字容忍','ed.fuzzys':'「電子暑」「免費🥺」也算命中，避免漏接。',
+      'ed.b3':'訊息流程','ed.b3s':'多段訊息依序送出，中間可卡「追蹤關卡」再放連結','ed.pub':'公開留言回覆','ed.dmflow':'私訊流程（由上到下依序送）','ed.btn':'按鈕文字','ed.url':'連結網址',
+      'ed.addmsg':'訊息','ed.addgate':'追蹤關卡','ed.addlink':'連結','ed.tgmsg':'訊息','ed.tggate':'追蹤關卡','ed.tglink':'連結','ed.gatehint':'未追蹤者會停在這一關，追蹤後自動放行送出後續訊息','ed.dfbtn':'點我','ed.dfgate':'請先追蹤我，再點下方按鈕','ed.dflink':'連結在這裡！',
+      'pv.t':'LIVE PREVIEW','pv.f':'追蹤者','pv.nf':'未追蹤者','pv.sec':'通常幾秒內回覆','pv.msg':'傳訊息…','pv.cap':'切換身分看不同流程 →','pv.today':'今天','pv.cmt':'偵測到留言：電子書 🙌','pv.udm':'請問有提供合作嗎？','pv.re':'確認你追蹤了！',
+      'ct.h':'互動名單','ct.sub':'被自動回覆觸發過的粉絲，可打標籤、匯出 CSV。','ct.exp':'匯出 CSV','ct.follow':'追蹤 458','ct.loop':'迴圈中 12',
+      'th.u':'帳號','th.k':'關鍵字','th.r':'規則','th.f':'追蹤','th.t':'標籤','th.tm':'時間','f.y':'已追蹤','f.n':'未追蹤','f.na':'FB 不驗','tg.new':'新客','tg.clk':'已點擊','tg.vip':'VIP','tg.loop':'迴圈中',
+      'an.h':'數據分析','an.sub':'觸發、私訊、追蹤驗證、點擊、轉換的完整走向。','an.funnel':'獲客漏斗','an.by':'各規則轉換','fn.c':'留言關鍵字','fn.r':'公開回覆','fn.d':'私訊送達','fn.g':'通過追蹤','fn.k':'點擊連結',
+      'in.h':'連動整合','in.sub':'連結你的 IG／FB、查看 Meta 串接狀態、把名單導到你的網站。','in.add':'連結新帳號','in.acc':'已連結的帳號','in.pro':'商業帳號','in.foll':'粉絲','in.ok':'已連結','in.manage':'管理','in.page':'粉專','in.new':'連結新的 IG / FB','in.oauth':'透過 Meta OAuth 安全授權',
+      'in.meta':'Meta 串接狀態','in.webhook':'Webhook 連線','in.webhooks':'即時接收留言／私訊事件 · 最後事件 12 秒前','in.bv':'商家驗證','in.bvs':'Meta Business 驗證已通過','in.done':'已完成','in.review':'App Review（進階權限）','in.reviews':'instagram_manage_messages 審核中 · 預計 3–5 天','in.pending':'審核中','in.token':'存取權杖','in.tokens':'長效權杖有效 · 58 天後自動續期','in.valid':'有效',
+      'in.flow':'名單導流（連動）','in.site':'你的網站 / 落地頁','in.linked':'已連動','in.sheets':'名單即時同步一份表單','in.conn':'連動','in.hooksoon':'串接你自己的系統（即將推出）','in.soon':'即將推出',
+      'se.h':'設定','se.sub':'個人資料、團隊、語言與方案。','se.lang':'介面語言','se.langs':'中文 / English，右上角也能快速切換（Meta 審查看英文）。','se.team':'團隊成員','se.teams':'邀請小編或合作夥伴一起管理帳號。','se.invite':'＋ 邀請','se.notif':'通知','se.notifs':'規則被觸發、額度接近上限時通知我。','se.theme':'深色模式','se.themes':'跟隨系統，或手動切換。','se.plan':'方案','se.plans':'成長版 · 每月互動名單上限 1,000。','se.up':'升級',
+      'ld.nfeat':'功能','ld.nhow':'運作方式','ld.nprice':'價格','ld.login':'登入','ld.start':'免費開始',
+      'ld.eye':'繁體中文・在地化・平價','ld.h1a':'讓 IG 留言，','ld.h1b':'自動變成客戶','ld.lead':'SUNChatch 幫創作者把「留言關鍵字 → 自動私訊連結 → 驗證追蹤 → 導進你的名單」全自動化。比 ManyChat 更好上手、更便宜、全中文。','ld.cta1':'免費開始，3 分鐘上線 →','ld.cta2':'看它怎麼運作','ld.trust':'支援 Instagram + Facebook・免費版就給 100 組名單（ManyChat 只給 25）',
+      'ld.fh':'獲客要的，都在這裡','ld.fp':'專為 Meta 創作者設計的自動回覆引擎',
+      'ld.f1':'留言關鍵字自動回覆','ld.f1s':'粉絲在貼文留關鍵字，系統自動公開回覆並私訊連結，一則不漏。','ld.f2':'追蹤驗證','ld.f2s':'只有追蹤你的人才拿得到連結，把讚數變成真粉絲。','ld.f3':'多段訊息流程','ld.f3s':'開場白 → 追蹤關卡 → 連結，一步步引導，未追蹤自動迴圈。','ld.f4':'多帳號・多品牌','ld.f4s':'一個後台管理多個 IG／FB，接案、代操都適用。','ld.f5':'名單記錄與匯出','ld.f5s':'每個互動粉絲自動記錄、打標籤，一鍵匯出 CSV 進你的名單。','ld.f6':'中英雙語介面','ld.f6s':'全中文上手，隨時切英文，符合 Meta 審查需求。',
+      'ld.hh':'三步驟，今天就上線','ld.h1t':'連結你的帳號','ld.h1s':'透過 Meta 官方 OAuth 安全授權，接上你的 IG／FB，30 秒完成。','ld.h2t':'設定關鍵字與訊息','ld.h2s':'選貼文、填關鍵字、排訊息流程，右邊即時預覽粉絲會收到什麼。','ld.h3t':'上線，自動跑','ld.h3s':'開啟後 24 小時自動回覆，系統內建節流防封，你只管看名單成長。',
+      'ld.ph':'平價，而且免費版更佛','ld.pp':'對比 ManyChat 全英文、美金定價、免費版只給 25 名單','ld.mo':'月','ld.popular':'最受歡迎',
+      'ld.pr1':'體驗版','ld.pr1a':'每月 100 組名單（ManyChat 只 25）','ld.pr1b':'1 個帳號','ld.pr1c':'留言關鍵字自動回覆','ld.prstart':'免費開始',
+      'ld.pr2':'成長版','ld.pr2a':'每月 1,000 組名單','ld.pr2b':'追蹤驗證 + 多段流程','ld.pr2c':'所有／之後每支貼文自動套用','ld.pr2d':'3 個帳號','ld.prtry':'開始 14 天試用',
+      'ld.pr3':'專業版','ld.pr3a':'名單無上限','ld.pr3b':'無限帳號・團隊協作','ld.pr3c':'Webhook／API 串接','ld.prcontact':'聯絡我們',
+      'ld.ch':'準備好把留言變成生意了嗎？','ld.cfinal':'免費開始，3 分鐘上線 →','ld.foot':'© 2026 SUNChatch · 為 Meta 創作者打造的自動回覆平台'},
+    en:{'brand.tag':'Auto-reply for Meta creators','nav.work':'WORKSPACE','nav.over':'Overview','nav.auto':'Automations','nav.cont':'Contacts','nav.ana':'Analytics','nav.setup':'CONNECT & SETUP','nav.int':'Integrations','nav.set':'Settings',
+      'plan.name':'Growth','plan.s':'Contacts this month 620 / 1,000','plan.up':'Upgrade for unlimited','acct.hint':'Switch which IG / FB account you manage (bind many)','top.search':'Search rules, contacts…',
+      'ov.eye':'OVERVIEW','ov.h':'Welcome back, Alex 👋','ov.sub':'Your 4 auto-replies are running smoothly today. Here is the latest.','ov.manage':'Manage accounts','ov.new':'New auto-reply',
+      'ov.start':'Get started · live in 3 steps','ov.s1':'Connect IG / FB account','ov.s1s':'Connected @nova.studio and 1 Page','ov.s2':'Create an auto-reply','ov.s2s':'4 rules created','ov.s3':'Submit for Meta review / go live','ov.s3s':'Once approved it applies to all fans','ov.s3l':'Go submit →',
+      'm.trig':'Comment triggers','m.dm':'DMs delivered','m.clk':'Link clicks','m.cvr':'Conversion',
+      'ov.trend':'Last 14 days','ov.health':'Account health','ov.quota':"Today's DM quota",'ov.speed':'Send rate','ov.safe':'Auto-throttled well below Meta limits — your account is safe. Peaks are queued and delayed automatically.',
+      'ov.active':'Active auto-replies','ov.all':'All','ov.trg':'triggers','ov.recent':'Live activity','c.kw':'keyword',
+      'st.live':'Live','st.pause':'Paused','r.pass':'passed follow check, link sent','r.kw':'triggered "ebook"','r.loop':'not following yet — asked to follow (loop)','r.click':'clicked your website link',
+      'c1.n':'Free ebook funnel','c2.n':'Online course offer','c3.n':'DM "collab" auto-reply','c4.n':'New product link',
+      'au.h':'Auto-reply','au.sub':'Reply automatically when a keyword appears in a comment or DM. Click a rule to edit.','au.new':'New rule',
+      'tp.comment':'Comment','tp.dm':'DM','tp.gate':'Follow gate','rl.when':'When comment has','rl.whendm':'When DM has','rl.then':'public reply + DM link','rl.thendm':'reply with collab info link','rl.thenfb':'public reply + DM (FB no follow check)','k.trig':'triggers','k.cvr':'conv.','k.reply':'replied',
+      'ed.saved':'● Autosaved · just now','ed.on':'On','ed.save':'Save & publish','ed.b1':'Trigger','ed.b1s':'When the auto-reply fires','ed.platform':'Platform','ed.trigtype':'Source','ed.tcom':'Comment','ed.tdm':'DM',
+      'ed.scope':'Trigger scope','ed.sc1':'A specific post / Reel','ed.sc1s':'Only comments on this one trigger','ed.sc2':'All existing posts','ed.sc2s':'Apply across every current post','ed.sc3':'Every future post','ed.sc3s':'New posts auto-enable this reply','ed.incl':'INCLUDED','ed.fetched':'Fetched 24 posts / Reels from @nova.studio · pick which to watch',
+      'pgc.1':'Free ebook','pgc.2':'Behind scenes','pgc.3':'Tutorial','pgc.4':'Testimonial','pgc.5':'Sneak peek','pgc.6':'Flash sale','pgc.7':'Q&A recap','pgc.8':'Live recap',
+      'ed.b2':'Keywords','ed.b2s':'Comments with these words match','ed.b2sdm':'DMs with these words match','ed.addkw':'Add','ed.fuzzy':'Typo tolerance','ed.fuzzys':'"ebok", "free🥺" still match — never miss a lead.',
+      'ed.b3':'Message flow','ed.b3s':'Multiple messages in order — insert a follow-gate before the link','ed.pub':'Public comment reply','ed.dmflow':'DM flow (sent top to bottom)','ed.btn':'Button label','ed.url':'Link URL',
+      'ed.addmsg':'Message','ed.addgate':'Follow gate','ed.addlink':'Link','ed.tgmsg':'MESSAGE','ed.tggate':'FOLLOW GATE','ed.tglink':'LINK','ed.gatehint':'Non-followers stop here; once they follow, the rest sends automatically','ed.dfbtn':'Tap me','ed.dfgate':'Follow me first, then tap below','ed.dflink':'Here is your link!',
+      'pv.t':'LIVE PREVIEW','pv.f':'Follower','pv.nf':'Non-follower','pv.sec':'Usually replies in seconds','pv.msg':'Message…','pv.cap':'Switch identity for each flow →','pv.today':'Today','pv.cmt':'Comment detected: ebook 🙌','pv.udm':'Do you offer collaborations?','pv.re':'Confirmed you are following!',
+      'ct.h':'Contacts','ct.sub':'Fans triggered by an auto-reply. Tag them, export CSV.','ct.exp':'Export CSV','ct.follow':'Following 458','ct.loop':'In loop 12',
+      'th.u':'Handle','th.k':'Keyword','th.r':'Rule','th.f':'Follow','th.t':'Tags','th.tm':'Time','f.y':'Following','f.n':'Not yet','f.na':'FB n/a','tg.new':'New','tg.clk':'Clicked','tg.vip':'VIP','tg.loop':'In loop',
+      'an.h':'Analytics','an.sub':'The full path of triggers, DMs, follow-checks, clicks and conversions.','an.funnel':'Acquisition funnel','an.by':'Conversion by rule','fn.c':'Keyword comment','fn.r':'Public reply','fn.d':'DM delivered','fn.g':'Follow passed','fn.k':'Link clicked',
+      'in.h':'Integrations','in.sub':'Connect your IG/FB, check Meta status, pipe contacts to your site.','in.add':'Connect account','in.acc':'Connected accounts','in.pro':'Professional','in.foll':'followers','in.ok':'Connected','in.manage':'Manage','in.page':'Page','in.new':'Connect a new IG / FB','in.oauth':'Secure Meta OAuth',
+      'in.meta':'Meta connection status','in.webhook':'Webhook connection','in.webhooks':'Live comment/DM events · last event 12s ago','in.bv':'Business verification','in.bvs':'Meta Business verification passed','in.done':'Done','in.review':'App Review (advanced access)','in.reviews':'instagram_manage_messages under review · ~3–5 days','in.pending':'In review','in.token':'Access token','in.tokens':'Long-lived token valid · auto-renews in 58 days','in.valid':'Valid',
+      'in.flow':'Contact routing','in.site':'Your website / landing page','in.linked':'Linked','in.sheets':'Sync contacts to a live sheet','in.conn':'Connect','in.hooksoon':'Wire up your own system (coming soon)','in.soon':'Coming soon',
+      'se.h':'Settings','se.sub':'Profile, team, language and plan.','se.lang':'Interface language','se.langs':'中文 / English — also switchable top-right (Meta review reads English).','se.team':'Team members','se.teams':'Invite editors or partners to co-manage.','se.invite':'＋ Invite','se.notif':'Notifications','se.notifs':'Notify me on triggers and low quota.','se.theme':'Dark mode','se.themes':'Follow system, or switch manually.','se.plan':'Plan','se.plans':'Growth · 1,000 contacts / month.','se.up':'Upgrade',
+      'ld.nfeat':'Features','ld.nhow':'How it works','ld.nprice':'Pricing','ld.login':'Log in','ld.start':'Start free',
+      'ld.eye':'Traditional Chinese · Localized · Affordable','ld.h1a':'Turn IG comments into ','ld.h1b':'customers, automatically','ld.lead':'SUNChatch automates the whole flow for creators: comment keyword → auto-DM link → verify follow → into your list. Easier, cheaper, and fully localized vs ManyChat.','ld.cta1':'Start free — live in 3 min →','ld.cta2':'See how it works','ld.trust':'Instagram + Facebook · Free plan gives 100 contacts (ManyChat gives 25)',
+      'ld.fh':'Everything you need to convert','ld.fp':'An auto-reply engine built for Meta creators',
+      'ld.f1':'Keyword auto-reply','ld.f1s':'Fans comment a keyword; we auto public-reply and DM the link — never miss one.','ld.f2':'Follow verification','ld.f2s':'Only followers get the link — turn likes into real followers.','ld.f3':'Multi-step flow','ld.f3s':'Opener → follow-gate → link, step by step; non-followers auto-loop.','ld.f4':'Multi-account','ld.f4s':'Manage many IG/FB from one dashboard — perfect for agencies.','ld.f5':'Contacts & export','ld.f5s':'Every fan logged and tagged; one-click CSV export to your list.','ld.f6':'Bilingual UI','ld.f6s':'Onboard in Chinese, switch to English anytime — Meta-review ready.',
+      'ld.hh':'Live in three steps','ld.h1t':'Connect your account','ld.h1s':'Secure Meta OAuth links your IG/FB in 30 seconds.','ld.h2t':'Set keywords & messages','ld.h2s':'Pick a post, add keywords, arrange the flow — preview it live.','ld.h3t':'Go live, it runs itself','ld.h3s':'24h auto-reply with built-in throttling; just watch your list grow.',
+      'ld.ph':'Affordable — and a kinder free plan','ld.pp':'vs ManyChat: English-only, USD pricing, 25-contact free tier','ld.mo':'mo','ld.popular':'MOST POPULAR',
+      'ld.pr1':'Starter','ld.pr1a':'100 contacts / month (ManyChat: 25)','ld.pr1b':'1 account','ld.pr1c':'Keyword auto-reply','ld.prstart':'Start free',
+      'ld.pr2':'Growth','ld.pr2a':'1,000 contacts / month','ld.pr2b':'Follow gate + multi-step flow','ld.pr2c':'All / every future post','ld.pr2d':'3 accounts','ld.prtry':'Start 14-day trial',
+      'ld.pr3':'Pro','ld.pr3a':'Unlimited contacts','ld.pr3b':'Unlimited accounts · team','ld.pr3c':'Webhook / API','ld.prcontact':'Contact us',
+      'ld.ch':'Ready to turn comments into business?','ld.cfinal':'Start free — live in 3 min →','ld.foot':'© 2026 SUNChatch · Auto-reply platform for Meta creators'}
+  };
+  function setLang(l){lang=l;document.getElementById('zh').classList.toggle('on',l==='zh');document.getElementById('en').classList.toggle('on',l==='en');
+    const z2=document.getElementById('zh2'),e2=document.getElementById('en2');if(z2){z2.classList.toggle('on',l==='zh');e2.classList.toggle('on',l==='en');}
+    const D=DICT[l];document.querySelectorAll('[data-i]').forEach(e=>{const k=e.getAttribute('data-i');if(D[k]!=null)e.textContent=D[k];});
+    document.querySelectorAll('[data-ip]').forEach(e=>{const k=e.getAttribute('data-ip');if(D[k]!=null)e.setAttribute('placeholder',D[k]);});
+    document.documentElement.lang=(l==='zh'?'zh-Hant':'en');renderSteps();sync();}
+  renderSteps();sync();
+</script>

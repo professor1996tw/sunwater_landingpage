@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-X6099N611V');</script>
+<title>SUNChatch · IG／FB 留言自動回覆平台｜日央水原 SUNWATER</title>
+<meta name="description" content="SUNChatch 是日央水原推出的 Meta（Instagram／Facebook）留言自動回覆平台：留言關鍵字自動回覆、自動私訊連結、追蹤驗證、名單記錄與匯出。比 ManyChat 更好上手、更便宜、全中文。">
+<link rel="canonical" href="https://sunwater.me/services/sunchatch/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SUNChatch · IG／FB 留言自動回覆平台｜日央水原 SUNWATER">
+<meta property="og:description" content="讓 IG 留言自動變成客戶——留言關鍵字自動回覆、自動私訊、追蹤驗證、名單匯出，全中文、平價。">
+<meta property="og:url" content="https://sunwater.me/services/sunchatch/">
+<meta property="og:image" content="https://sunwater.me/images/og-home.jpg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#faf7f1; --paper-2:#f2ede3; --ink:#20242a; --ink-2:#5c5f66; --ink-3:#8a8d94;
+    --navy:#15385c; --navy-2:#0f2942; --gold:#c78f3c; --gold-soft:#f0e2c8; --rule:#e2dccf;
+    --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.85; letter-spacing:.02em; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ width:100%; max-width:1080px; margin:0 auto; padding:0 40px; }
+  @media(max-width:600px){ .wrap{ padding:0 22px; } }
+
+  /* NAV（透明疊在 banner 上） */
+  .nav{ position:absolute; top:0; left:0; right:0; z-index:20; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:24px 40px; }
+  @media(max-width:600px){ .nav{ padding:18px 22px; } }
+  .nav .brand img{ height:40px; width:auto; }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:15px; color:rgba(255,255,255,.9); text-decoration:none; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a.cta{ color:#fff; background:transparent; border:1px solid rgba(255,255,255,.55); padding:11px 22px; border-radius:2px; letter-spacing:.04em; }
+  .nav-links a.cta:hover{ background:rgba(255,255,255,.14); }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:42px; height:42px; background:none; border:none; cursor:pointer; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:.25s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{ display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:rgba(9,17,31,.97); border-top:1px solid rgba(255,255,255,.1); box-shadow:0 18px 30px rgba(0,0,0,.4); padding:6px 22px 18px; z-index:60; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ color:#fff; padding:15px 2px; border-bottom:1px solid rgba(255,255,255,.12); font-size:16px; }
+    .nav-links a.cta{ border:none; background:var(--navy); margin-top:14px; text-align:center; padding:14px; }
+  }
+
+  /* HERO 滿版 banner */
+  .hero{ position:relative; min-height:100vh; min-height:100dvh; display:flex; align-items:center; overflow:hidden; background:#0a1424; }
+  .hero-bg{ position:absolute; inset:0; z-index:0; background:radial-gradient(circle at 74% 34%, rgba(43,111,214,.2), transparent 58%), radial-gradient(circle at 10% 92%, rgba(199,143,60,.12), transparent 55%), linear-gradient(135deg,#12325a 0%, #0e2440 46%, #0a1424 100%); }
+  .hero-bg img, .hero-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(6,11,20,.72) 0%, rgba(6,11,20,.4) 48%, rgba(6,11,20,.16) 100%); }
+  .hero .wrap{ position:relative; z-index:2; }
+  .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+  @media(max-width:860px){ .hero-grid{ grid-template-columns:1fr; gap:38px; } .hero .wrap{ padding-top:94px; padding-bottom:52px; } }
+  .kick{ font-family:var(--serif); font-style:italic; font-size:16px; color:var(--gold); margin-bottom:14px; }
+  .hero h1{ font-weight:700; font-size:clamp(32px,4.6vw,50px); line-height:1.2; margin:0; color:#fff; }
+  .hero h1 em{ font-style:normal; color:var(--gold); }
+  .hero .lead{ margin-top:22px; max-width:500px; font-size:clamp(15px,1.6vw,17px); color:rgba(255,255,255,.9); line-height:1.9; }
+  .hero-actions{ margin-top:34px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-size:15px; letter-spacing:.04em; padding:15px 30px; border-radius:2px; cursor:pointer; border:none; }
+  .btn-gold{ background:var(--gold); color:var(--navy-2); font-weight:600; }
+  .btn-gold:hover{ filter:brightness(1.04); }
+  .btn-line{ color:#fff; border-bottom:2px solid var(--gold); padding:0 0 3px; border-radius:0; background:none; }
+  .hero .trust{ margin-top:24px; font-size:13px; color:rgba(255,255,255,.72); }
+
+  /* PHONE mockup */
+  .phone{ width:290px; max-width:100%; margin:0 auto; background:#fff; border-radius:26px; box-shadow:0 34px 70px -30px rgba(21,56,92,.5); border:1px solid var(--rule); overflow:hidden; }
+  .ph-top{ display:flex; align-items:center; gap:10px; padding:14px 16px; border-bottom:1px solid #eef1f6; }
+  .ph-top .bk{ color:#9aa3b0; font-size:18px; }
+  .ph-top .av{ width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+  .ph-top .nm{ font-size:13.5px; font-weight:700; color:#20242a; }
+  .ph-top .st{ font-size:11px; color:#9aa3b0; }
+  .ph-body{ padding:14px 14px 6px; background:#fbfbfd; display:flex; flex-direction:column; gap:9px; min-height:300px; }
+  .ph-day{ text-align:center; font-size:11px; color:#b3bac6; margin:2px 0; }
+  .ph-detect{ align-self:center; display:inline-flex; align-items:center; gap:6px; background:var(--gold-soft); color:#8a6320; font-size:11.5px; padding:5px 12px; border-radius:100px; }
+  .ph-detect svg{ width:13px; height:13px; }
+  .m{ max-width:78%; font-size:12.5px; line-height:1.5; padding:9px 12px; border-radius:15px; }
+  .m.them{ align-self:flex-start; background:#eef1f6; color:#2c3340; border-bottom-left-radius:5px; }
+  .m.me{ align-self:flex-end; background:#3b6cf6; color:#fff; border-bottom-right-radius:5px; }
+  .m .ib{ display:block; margin-top:8px; text-align:center; background:#fff; color:#3b6cf6; font-weight:700; padding:7px; border-radius:9px; font-size:12px; }
+  .m .ib.acc{ background:var(--gold); color:#241a08; }
+  .ph-input{ display:flex; align-items:center; gap:8px; padding:12px 14px; border-top:1px solid #eef1f6; background:#fff; }
+  .ph-input .box{ flex:1; background:#f1f3f7; color:#9aa3b0; border-radius:100px; padding:8px 14px; font-size:12px; }
+
+  /* SECTIONS */
+  section{ padding:70px 0; }
+  .sh{ text-align:center; margin-bottom:46px; }
+  .sh .lbl{ font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+  .sh h2{ font-weight:700; font-size:clamp(26px,3.6vw,38px); margin:0; color:var(--ink); }
+  .sh p{ margin:14px auto 0; max-width:560px; color:var(--ink-2); font-size:15px; }
+
+  .fgrid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); }
+  @media(max-width:820px){ .fgrid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:560px){ .fgrid{ grid-template-columns:1fr; } }
+  .fcard{ background:var(--paper); padding:32px 30px; }
+  .fcard .fi{ width:30px; height:30px; color:var(--navy); margin-bottom:14px; }
+  .fcard h3{ font-size:18px; margin:0 0 9px; color:var(--ink); }
+  .fcard p{ margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.75; }
+
+  .steps{ background:var(--paper-2); }
+  .steps3{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:8px; }
+  @media(max-width:760px){ .steps3{ grid-template-columns:1fr; } }
+  .st3{ background:#fff; border:1px solid var(--rule); border-radius:8px; padding:30px 26px; }
+  .st3 .n{ font-family:var(--serif); font-size:30px; color:var(--gold); line-height:1; }
+  .st3 h3{ margin:14px 0 8px; font-size:19px; color:var(--ink); }
+  .st3 p{ margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.75; }
+
+  .pgrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media(max-width:760px){ .pgrid{ grid-template-columns:1fr; } }
+  .price{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:30px 28px; display:flex; flex-direction:column; }
+  .price.feat{ border-color:var(--gold); box-shadow:0 12px 34px rgba(199,143,60,.14); }
+  .price .ptag{ align-self:flex-start; font-size:12px; color:var(--gold); border:1px solid var(--gold-soft); border-radius:100px; padding:3px 12px; margin-bottom:10px; }
+  .price .pn{ font-size:15px; color:var(--ink-3); letter-spacing:.06em; }
+  .price .pp{ font-family:var(--serif); font-size:38px; color:var(--navy); line-height:1.1; margin:6px 0 16px; }
+  .price .pp small{ font-size:15px; color:var(--ink-3); }
+  .price ul{ list-style:none; margin:0 0 22px; padding:0; display:grid; gap:11px; flex:1; }
+  .price li{ display:flex; gap:9px; align-items:flex-start; font-size:14px; color:var(--ink-2); }
+  .price li svg{ width:16px; height:16px; color:var(--gold); flex:none; margin-top:3px; }
+  .price .btn{ justify-content:center; }
+  .price .btn.out{ background:var(--paper-2); color:var(--navy); border:1px solid var(--rule); }
+  .price .btn.out:hover{ background:#eae4d7; }
+
+  /* FINAL CTA */
+  .final{ background:var(--navy); color:var(--paper); text-align:center; padding:76px 0; }
+  .final h2{ color:#fff; font-weight:700; font-size:clamp(24px,3.4vw,36px); margin:0; }
+  .final p{ color:rgba(255,255,255,.8); margin-top:14px; }
+  .final .btn-gold{ margin-top:30px; font-size:17px; padding:18px 40px; }
+
+  /* FOOTER */
+  footer{ background:var(--paper-2); padding:56px 0 34px; border-top:1px solid var(--rule); }
+  .foot{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+  @media(max-width:700px){ .foot{ grid-template-columns:1fr; gap:26px; } }
+  .foot img{ height:40px; margin-bottom:14px; }
+  .foot .fd{ font-size:14px; color:var(--ink-2); max-width:320px; }
+  .foot h5{ font-size:14px; color:var(--navy); margin:0 0 12px; letter-spacing:.06em; }
+  .foot ul{ list-style:none; margin:0; padding:0; }
+  .foot li{ margin-bottom:9px; }
+  .foot a{ font-size:14px; color:var(--ink-2); text-decoration:none; }
+  .foot a:hover{ color:var(--navy); }
+  .copy{ margin-top:40px; padding-top:20px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="brand" href="/"><img src="/images/logo-white.png" alt="日央水原 SUNWATER"></a>
+    <button class="nav-toggle" aria-label="選單" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open');"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navlinks" onclick="if(event.target.closest('a')){this.classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');}">
+      <a href="/#svc">服務</a>
+      <a href="/#flow">合作流程</a>
+      <a href="/#trade">天堂交易網</a>
+      <a href="/#why">關於我們</a>
+      <a class="cta" href="/#contact">免費諮詢</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO 滿版 BANNER（之後放 banner 影片/圖到 .hero-bg 內即可） ===== -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-scrim"></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="kick">日央水原 · 系統工具</div>
+          <h1>讓 IG 留言，<em>自動變成客戶</em></h1>
+          <p class="lead">SUNChatch 幫創作者把「留言關鍵字 → 自動私訊連結 → 追蹤驗證 → 導進你的名單」全自動化。比 ManyChat 更好上手、更便宜、全中文。</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="/#contact">免費諮詢／試用
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn-line" href="#how">看它怎麼運作 ↓</a>
+          </div>
+          <div class="trust">支援 Instagram + Facebook・免費版就給 100 組名單（ManyChat 只給 25）</div>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="ph-top"><span class="bk">‹</span><span class="av">N</span><div><div class="nm">nova.studio</div><div class="st">通常幾秒內回覆</div></div></div>
+            <div class="ph-body">
+              <div class="ph-day">今天</div>
+              <div class="ph-detect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg>偵測到留言：電子書 🙌</div>
+              <div class="m them">嗨～謝謝留言！點下面按鈕領取你的免費電子書 👇<span class="ib">給我電子書</span></div>
+              <div class="m me">給我電子書</div>
+              <div class="m them">為了避免漏訊，請先追蹤我，再點下方 Following 即可取得<span class="ib">Following</span></div>
+              <div class="m me">Following</div>
+              <div class="m them">完成！點下方按鈕領取<span class="ib acc">電子書在這裡！</span></div>
+            </div>
+            <div class="ph-input"><span class="box">傳訊息…</span><span style="color:#3b6cf6;font-weight:800">➤</span></div>
+          </div>
+          <p style="text-align:center;margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.6)">＊介面示意，實際以 SUNChatch 平台為準</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 功能 ===== -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sh"><div class="lbl">Features</div><h2>獲客要的，都在這裡</h2><p>專為 Meta 創作者設計的自動回覆引擎，把公海留言變成你的私訊名單。</p></div>
+      <div class="fgrid">
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9A1.5 1.5 0 0 1 18.5 16H9l-4 4z"/></svg><h3>留言關鍵字自動回覆</h3><p>粉絲在貼文留關鍵字，系統自動公開回覆並私訊連結，一則不漏。</p></div>
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg><h3>追蹤驗證</h3><p>只有追蹤你的人才拿得到連結，把讚數變成真粉絲。</p></div>
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg><h3>多段訊息流程</h3><p>開場白 → 追蹤關卡 → 連結，一步步引導，未追蹤自動迴圈。</p></div>
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 5a3 3 0 0 1 0 6"/></svg><h3>多帳號・多品牌</h3><p>一個後台管理多個 IG／FB，接案、代操都適用。</p></div>
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><h3>名單記錄與匯出</h3><p>每個互動粉絲自動記錄、打標籤，一鍵匯出 CSV 進你的名單。</p></div>
+        <div class="fcard"><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg><h3>中英雙語介面</h3><p>全中文上手，隨時切英文，符合 Meta 審查需求。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 三步驟 ===== -->
+  <section id="how" class="steps">
+    <div class="wrap">
+      <div class="sh"><div class="lbl">How it works</div><h2>三步驟，今天就上線</h2></div>
+      <div class="steps3">
+        <div class="st3"><div class="n">01</div><h3>連結你的帳號</h3><p>透過 Meta 官方 OAuth 安全授權，接上你的 IG／FB，30 秒完成。</p></div>
+        <div class="st3"><div class="n">02</div><h3>設定關鍵字與訊息</h3><p>選貼文、填關鍵字、排訊息流程，即時預覽粉絲會收到什麼。</p></div>
+        <div class="st3"><div class="n">03</div><h3>上線，自動跑</h3><p>開啟後 24 小時自動回覆，系統內建節流防封，你只管看名單成長。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 方案 ===== -->
+  <section id="price">
+    <div class="wrap">
+      <div class="sh"><div class="lbl">Pricing</div><h2>平價，而且免費版更佛</h2><p>對比 ManyChat 全英文、美金定價、免費版只給 25 名單。</p></div>
+      <div class="pgrid">
+        <div class="price">
+          <div class="pn">體驗版</div>
+          <div class="pp">NT$0<small> /月</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 100 組名單（ManyChat 只 25）</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>1 個帳號</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>留言關鍵字自動回覆</li>
+          </ul>
+          <a class="btn out" href="/#contact">免費開始</a>
+        </div>
+        <div class="price feat">
+          <div class="ptag">最受歡迎</div>
+          <div class="pn">成長版</div>
+          <div class="pp">NT$390<small> /月</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 1,000 組名單</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>追蹤驗證 + 多段流程</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每支貼文自動套用</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>3 個帳號</li>
+          </ul>
+          <a class="btn btn-gold" href="/#contact">開始 14 天試用</a>
+        </div>
+        <div class="price">
+          <div class="pn">專業版</div>
+          <div class="pp">NT$990<small> /月</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>名單無上限</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>無限帳號・團隊協作</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Webhook／API 串接</li>
+          </ul>
+          <a class="btn out" href="/#contact">聯絡我們</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 底部 CTA ===== -->
+  <section class="final">
+    <div class="wrap">
+      <h2>準備好把留言變成生意了嗎？</h2>
+      <p>留言關鍵字自動回覆、自動私訊、追蹤驗證、名單匯出——全中文、平價、3 分鐘上線。</p>
+      <a class="btn btn-gold" href="/#contact">免費諮詢／預約試用
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img src="/images/logo-header.png" alt="日央水原 SUNWATER">
+          <p class="fd">整合搜尋聲量、品牌官網、社群自動化與 AI 工具的數位成長夥伴。</p>
+        </div>
+        <div>
+          <h5>系統工具</h5>
+          <ul>
+            <li><a href="/services/threads/">Threads 自動發文</a></li>
+            <li><a href="/services/translate/">AI 翻譯工具</a></li>
+            <li><a href="/services/sunchatch/">SUNChatch 自動回覆</a></li>
+            <li><a href="/services/web-design/">網頁設計案例</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>公司</h5>
+          <ul>
+            <li><a href="/#why">關於日央水原</a></li>
+            <li><a href="/#flow">合作流程</a></li>
+            <li><a href="/game/">天堂遊戲交易網</a></li>
+            <li><a href="mailto:sunwater168168@gmail.com">sunwater168168@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 日央水原 sunwater · SUNChatch 為日央水原自研之 Meta 自動回覆平台。</span>
+        <span>Crafted by 日央水原</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
