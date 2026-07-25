@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-X6099N611V');</script>
+<title>AI 圖片提示詞庫｜日央水原 SUNWATER</title>
+<meta name="description" content="日央水原 AI 圖片提示詞庫：每支影片教的完整 AI 生圖提示詞都在這，附使用模型、關鍵字與調整技巧，點一下即可複製使用。">
+<link rel="canonical" href="https://sunwater.me/prompts/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 圖片提示詞庫｜日央水原 SUNWATER">
+<meta property="og:description" content="每支影片教的完整 AI 生圖提示詞都在這，點一下即可複製使用。">
+<meta property="og:url" content="https://sunwater.me/prompts/">
+<meta property="og:image" content="https://sunwater.me/images/og-home.jpg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#faf7f1; --paper-2:#f2ede3; --ink:#20242a; --ink-2:#5c5f66; --ink-3:#8a8d94;
+    --navy:#15385c; --navy-2:#0f2942; --deep:#0a1424; --gold:#c78f3c; --gold-soft:#f0e2c8; --rule:#e2dccf;
+    --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Consolas,monospace;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.85; letter-spacing:.02em; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ width:100%; max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:600px){ .wrap{ padding:0 22px; } }
+
+  /* NAV（透明疊在 banner 上） */
+  .nav{ position:absolute; top:0; left:0; right:0; z-index:20; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:24px 40px; }
+  @media(max-width:600px){ .nav{ padding:18px 22px; } }
+  .nav .brand img{ height:40px; width:auto; }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:15px; color:rgba(255,255,255,.9); text-decoration:none; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-links a.cta{ color:#fff; background:transparent; border:1px solid rgba(255,255,255,.55); padding:11px 22px; border-radius:2px; letter-spacing:.04em; }
+  .nav-links a.cta:hover{ background:rgba(255,255,255,.14); }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:42px; height:42px; background:none; border:none; cursor:pointer; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:.25s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{ display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:rgba(9,17,31,.97); border-top:1px solid rgba(255,255,255,.1); box-shadow:0 18px 30px rgba(0,0,0,.4); padding:6px 22px 18px; z-index:60; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ color:#fff; padding:15px 2px; border-bottom:1px solid rgba(255,255,255,.12); font-size:16px; }
+    .nav-links a.cta{ border:none; background:var(--navy); margin-top:14px; text-align:center; padding:14px; }
+  }
+
+  /* HERO 滿版 banner（之後可放圖/影片到 .hero-bg） */
+  .hero{ position:relative; overflow:hidden; background:var(--deep); }
+  .hero-bg{ position:absolute; inset:0; z-index:0; background:radial-gradient(circle at 72% 30%, rgba(43,111,214,.2), transparent 58%), radial-gradient(circle at 12% 96%, rgba(199,143,60,.12), transparent 55%), linear-gradient(160deg,#15385c 0%, #0d2440 52%, #0a1424 100%); }
+  .hero-bg img, .hero-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.42) 42%, rgba(0,0,0,.68) 100%); }
+  .hero-inner{ position:relative; z-index:2; text-align:center; padding:clamp(128px,20vh,176px) 0 clamp(64px,11vh,100px); }
+  .hero .kick{ font-family:var(--serif); font-style:italic; font-size:15px; color:var(--gold); margin-bottom:16px; letter-spacing:.04em; }
+  .hero h1{ font-family:var(--sans); font-weight:800; font-size:clamp(34px,6.2vw,62px); line-height:1.22; letter-spacing:.03em; color:#fff; margin:0; }
+  .hero h1 .g{ color:var(--gold); }
+  .hero .lead{ margin:22px auto 0; max-width:620px; font-size:clamp(15px,1.6vw,17px); color:rgba(255,255,255,.86); line-height:1.95; }
+
+  /* 提示詞卡片 */
+  .list{ padding:56px 0 40px; }
+  .list-note{ text-align:center; color:var(--ink-3); font-size:13px; margin-bottom:34px; }
+  .pc{ display:grid; grid-template-columns:.82fr 1.18fr; gap:34px; align-items:center; background:#fff; border:1px solid var(--rule); border-radius:14px; padding:30px; margin-bottom:30px; scroll-margin-top:26px; transition:box-shadow .3s ease; }
+  @media(max-width:760px){ .pc{ grid-template-columns:1fr; gap:22px; padding:20px; } }
+  .pc-img{ aspect-ratio:3/4; border-radius:10px; overflow:hidden; background:var(--paper-2); border:1px solid var(--rule); }
+  .pc-img img{ width:100%; height:100%; object-fit:cover; }
+  .pc-body{ min-width:0; }
+  .pc-body h2{ font-size:clamp(19px,2.3vw,25px); font-weight:700; color:var(--ink); margin:0; line-height:1.35; }
+  .pc-tags{ display:flex; gap:8px; flex-wrap:wrap; margin:13px 0 16px; }
+  .pc-tags .tag{ font-size:12.5px; padding:5px 13px; border-radius:100px; letter-spacing:.02em; }
+  .pc-tags .model{ background:var(--navy); color:#fff; }
+  .pc-tags .kw{ background:var(--gold-soft); color:#8a6320; }
+  .pc-prompt{ position:relative; background:#f1ede4; border:1px solid var(--rule); border-radius:10px; padding:18px 18px 46px; }
+  .pc-prompt pre{ margin:0; font-family:var(--mono); font-size:12.5px; line-height:1.75; color:#353a42; white-space:pre-wrap; word-break:break-word; max-height:230px; overflow-y:auto; padding-right:10px; overscroll-behavior:contain; }
+  .pc-prompt pre::-webkit-scrollbar{ width:7px; }
+  .pc-prompt pre::-webkit-scrollbar-thumb{ background:#cfc7b6; border-radius:4px; }
+  .pc-prompt pre::-webkit-scrollbar-track{ background:transparent; }
+  .pc-copy{ position:absolute; right:12px; bottom:12px; display:inline-flex; align-items:center; gap:6px; background:#2b2f36; color:#fff; border:none; border-radius:8px; padding:8px 15px; font-size:12.5px; font-weight:600; letter-spacing:.02em; cursor:pointer; font-family:var(--sans); box-shadow:0 2px 6px rgba(0,0,0,.16); transition:background .2s, transform .1s; }
+  .pc-copy svg{ color:#fff; opacity:.85; }
+  .pc-copy:hover{ background:#3c4149; }
+  .pc-copy:active{ transform:translateY(1px); }
+  .pc-copy.done{ background:#2f9d55; color:#fff; }
+  .pc-copy svg{ width:14px; height:14px; }
+  .pc-tip{ margin:15px 0 0; font-size:13.5px; color:var(--ink-2); line-height:1.7; }
+  .pc-tip b{ color:var(--gold); }
+  .pc-tip code{ font-family:var(--mono); font-size:.9em; background:var(--gold-soft); color:#8a6320; padding:1px 6px; border-radius:4px; }
+  /* 錨點落地高亮：金色外框閃兩下 */
+  @keyframes pcFlash{ 0%,100%{ box-shadow:0 0 0 0 rgba(199,143,60,0); border-color:var(--rule); } 30%,70%{ box-shadow:0 0 0 4px rgba(199,143,60,.45); border-color:var(--gold); } }
+  .pc.flash{ animation:pcFlash 1.5s ease 2; }
+
+  /* CTA 回官網 */
+  .backcta{ background:var(--navy); color:var(--paper); text-align:center; padding:64px 0; }
+  .backcta h2{ color:#fff; font-weight:700; font-size:clamp(22px,3vw,32px); margin:0; }
+  .backcta p{ color:rgba(255,255,255,.8); margin-top:12px; font-size:15px; }
+  .backcta a{ margin-top:26px; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--navy-2); text-decoration:none; font-weight:600; font-size:16px; padding:16px 36px; border-radius:2px; }
+  .backcta a:hover{ filter:brightness(1.04); }
+
+  /* FOOTER */
+  footer{ background:var(--paper-2); padding:40px 0; border-top:1px solid var(--rule); text-align:center; }
+  footer .fl{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:14px; }
+  footer .fl a{ font-size:13.5px; color:var(--ink-2); text-decoration:none; }
+  footer .fl a:hover{ color:var(--navy); }
+  footer .cp{ font-size:12.5px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="brand" href="/"><img src="/images/logo-white.png" alt="日央水原 SUNWATER"></a>
+    <button class="nav-toggle" aria-label="選單" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open');"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navlinks" onclick="if(event.target.closest('a')){this.classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');}">
+      <a href="/#svc">服務</a>
+      <a href="/services/">系統工具</a>
+      <a href="/#trade">天堂交易網</a>
+      <a class="cta" href="/#contact">免費諮詢</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO 滿版 BANNER ===== -->
+  <div class="hero">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline preload="auto" poster="/videos/translate-poster.jpg">
+        <source src="/videos/translate-bg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <div class="kick">日央水原 · AI 生圖教學</div>
+        <h1>AI 生圖<span class="g">提示詞庫</span></h1>
+        <p class="lead">我們在 IG／Threads 教的每一支 AI 生圖影片，完整提示詞都收在這一頁。挑一張喜歡的，點「複製」拿走提示詞、再放上自己的照片當參考圖，就能生出同款質感的作品。收藏起來，持續更新中——記得回來看看有沒有新招 ✦</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 提示詞卡片列表（新的加在最上面）===== -->
+  <div class="list">
+    <div class="wrap">
+      <p class="list-note">＊點右下角「複製」取得完整提示詞　·　生成時記得放入<b style="color:var(--gold)">自己的照片當參考圖（Reference）</b>，成品才會是你本人 📸</p>
+
+      <!-- ↓↓↓ 新卡貼在這行下面（複製下方任一張整段，換 id／圖／標題／標籤／prompt／怎麼調）↓↓↓ -->
+
+      <!-- 遊艇泳裝 -->
+      <article class="pc" id="yacht">
+        <div class="pc-img"><img src="/images/prompts/yacht.jpg" alt="遊艇泳裝名媛自拍 AI 提示詞成品圖" loading="lazy"></div>
+        <div class="pc-body">
+          <h2>遊艇泳裝・名媛自拍</h2>
+          <div class="pc-tags"><span class="tag model">GPT-4o</span><span class="tag kw">關鍵字：泳裝</span></div>
+          <div class="pc-prompt">
+            <pre>Hyperrealistic, detailed selfie photo. Use the person from the uploaded face photo — preserve their exact facial features and identity, keep the same face. Do NOT beautify or reshape the face; keep natural realistic skin texture with real detail.
+
+SUBJECT & STYLING: dark wet slicked-back hair, sun-tanned skin, dark eye makeup, defined eyelashes, full lips, large silver hoop earrings. Wearing a black shiny cut-out one-piece swimsuit and a silver reflective visor. The visor has a SMALL, subtle "BALENCIAGA" wordmark centered on the front band — thin, refined black uppercase lettering, small logo size, NOT oversized and NOT spanning the whole band. Glossy white nail polish on her nails.
+
+SHOT: close-up selfie, wide-angle hand-held phone, eye level, selfie perspective. Foreground: her face and upper body, one arm raised holding a polished metal yacht ladder, white-painted nails clearly visible.
+
+SCENE: on a luxury yacht in open water, sparkling blue sea, a distant shore/pier softly blurred behind. Bright natural sunlight, high contrast, glare on the water. Shallow depth of field — subject in sharp focus, background in soft blur.
+
+LOOK: realistic and true-to-life, glossy reflections on the wet swimsuit fabric, polished metal and reflective visor. Natural skin with subtle imperfections, not over-retouched, not plastic.</pre>
+            <button class="pc-copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg>複製</button>
+          </div>
+          <p class="pc-tip"><b>怎麼調：</b>先放<code>自己的照片</code>當參考圖（臉才會是你本人）；想換品牌把 <code>BALENCIAGA</code> 改字，換場景把 <code>luxury yacht</code> 改成泳池、海灘都行。</p>
+        </div>
+      </article>
+
+      <!-- 雪山街拍 -->
+      <article class="pc" id="street">
+        <div class="pc-img"><img src="/images/prompts/street.jpg" alt="雪山街拍型男名車 AI 提示詞成品圖" loading="lazy"></div>
+        <div class="pc-body">
+          <h2>雪山街拍・型男名車</h2>
+          <div class="pc-tags"><span class="tag model">NANO BANANA</span><span class="tag kw">關鍵字：街拍</span></div>
+          <div class="pc-prompt">
+            <pre>A casual candid photo, shot on a smartphone, natural everyday lighting.
+
+- FACE: use the person from the uploaded face photo. Keep their exact face and real facial features — do NOT beautify, do NOT smooth the skin, do NOT make the face more symmetrical. Keep natural skin texture with visible pores and real imperfections.
+- CAR: use the car from the uploaded car photo. Preserve its exact model, color and details.
+- OUTFIT: a black zip-up jacket (leather-look) worn open over a plain white t-shirt, dark washed wide-leg baggy jeans, a black belt, and white sneakers. Korean street-style look.
+- ACCESSORY: a pair of sunglasses perched on top of the head (not on the face).
+- HAIRSTYLE: the person's own hair, neatly styled.
+
+POSE & FRAMING: the person stands naturally beside the car, one hand relaxed. Full-body shot from EYE LEVEL, natural perspective, no low angle, no wide-angle distortion. Natural realistic body proportions, correct head-to-body ratio.
+
+SCENE: parked on a wet street in an alpine village, snowy mountain in the background, chalet houses on both sides, overcast soft daylight.
+
+LOOK: realistic, natural, slightly imperfect, subtle film grain, true-to-life colors. NOT glossy, NOT over-retouched, NOT a glamorous magazine look.</pre>
+            <button class="pc-copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg>複製</button>
+          </div>
+          <p class="pc-tip"><b>怎麼調：</b>這張要放<code>兩張參考圖</code>——<code>自己的照片</code>（臉）＋<code>車子的照片</code>（成品才會換成你圖上那台車）；想換場景把 <code>alpine village</code> 改成你要的地點，<code>subtle film grain</code> 給底片顆粒感。</p>
+        </div>
+      </article>
+
+      <!-- 逆光窗邊 -->
+      <article class="pc" id="sunlight">
+        <div class="pc-img"><img src="/images/prompts/sunlight.jpg" alt="逆光窗邊夢幻人像 AI 提示詞成品圖" loading="lazy"></div>
+        <div class="pc-body">
+          <h2>逆光窗邊・夢幻人像</h2>
+          <div class="pc-tags"><span class="tag model">GPT-4o</span><span class="tag kw">關鍵字：逆光</span></div>
+          <div class="pc-prompt">
+            <pre>Hyperrealistic portrait of a young woman standing near an open window, strong wind blowing through her hair and curtains. Bright sunlight streaming in, creating sun flares, rays, and reflections all around. She squints slightly and looks toward the camera, head turned over the shoulder. Ultra-detailed skin and hair textures, photorealistic, cinematic lighting, dramatic highlights and lens flares, vibrant and glowing atmosphere.</pre>
+            <button class="pc-copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg>複製</button>
+          </div>
+          <p class="pc-tip"><b>怎麼調：</b>記得放<code>自己的照片</code>當參考圖；想更夢幻就強調 <code>sun flares</code>、<code>glowing atmosphere</code>，想乾淨就拿掉。</p>
+        </div>
+      </article>
+
+      <!-- 荒原時尚 -->
+      <article class="pc" id="editorial">
+        <div class="pc-img"><img src="/images/prompts/steppe.jpg" alt="荒原時尚 Vogue 大片 AI 提示詞成品圖" loading="lazy"></div>
+        <div class="pc-body">
+          <h2>荒原時尚・Vogue 大片</h2>
+          <div class="pc-tags"><span class="tag model">GPT-4o</span><span class="tag kw">關鍵字：時尚</span></div>
+          <div class="pc-prompt">
+            <pre>A high-luxury fashion editorial shot in a desolate steppe landscape, echoing the style of image_1.png. A Chinese model wears a voluminous, textured wool and silk cape, standing atop a large dark boulder. Below her, a herd of wild horses grazes around the rock. The horizon is vast with distant mountains under a cloudy, diffused sky. Muted earth tones, raw textures, dramatic atmosphere, Vogue China aesthetic. --ar 4:5 --style raw --stylize 150</pre>
+            <button class="pc-copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg>複製</button>
+          </div>
+          <p class="pc-tip"><b>怎麼調：</b>先放<code>自己的照片</code>當參考圖（prompt 裡的 <code>image_1.png</code> 就換成你的照片）；<code>--ar 4:5</code> 是直式雜誌比例，<code>--stylize 150</code> 控制風格化強度。</p>
+        </div>
+      </article>
+
+      <!-- ↑↑↑ 卡片結束 ↑↑↑ -->
+    </div>
+  </div>
+
+  <!-- ===== 回官網 CTA ===== -->
+  <section class="backcta">
+    <div class="wrap">
+      <h2>想讓 AI 幫你的品牌做內容？</h2>
+      <p>日央水原提供社群代操、AI 工具與網頁製作——把你的內容與流量一次做起來。</p>
+      <a href="/#svc">看我們的服務
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="fl">
+        <a href="/">日央水原官網</a>
+        <a href="/#svc">服務</a>
+        <a href="/services/">系統工具</a>
+        <a href="/#contact">免費諮詢</a>
+      </div>
+      <div class="cp">© 2026 日央水原 sunwater · AI 圖片提示詞庫</div>
+    </div>
+  </footer>
+
+  <script>
+    // 一鍵複製
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest('.pc-copy'); if(!btn) return;
+      var pre = btn.closest('.pc-prompt').querySelector('pre');
+      var txt = pre ? pre.textContent.trim() : '';
+      function done(){ var o=btn.innerHTML; btn.classList.add('done'); btn.textContent='已複製 ✓'; setTimeout(function(){ btn.classList.remove('done'); btn.innerHTML=o; },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(fallback); } else { fallback(); }
+      function fallback(){ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(_){} document.body.removeChild(ta); done(); }
+    });
+    // 錨點落地高亮
+    function flashTarget(){
+      var id = decodeURIComponent(location.hash.slice(1)); if(!id) return;
+      var el = document.getElementById(id); if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    }
+    window.addEventListener('load', function(){ setTimeout(flashTarget, 200); });
+    window.addEventListener('hashchange', flashTarget);
+  </script>
+
+</body>
+</html>
