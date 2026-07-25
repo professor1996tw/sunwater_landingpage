@@ -154,6 +154,20 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 系統工具：SUNChatch Meta 自動回覆平台 -->
+    <url>
+        <loc>https://sunwater.me/services/sunchatch/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- AI 圖片提示詞庫 -->
+    <url>
+        <loc>https://sunwater.me/prompts/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
     <!-- 天幣報價總覽頁 -->
     <url>
         <loc>https://sunwater.me/game/pricing/</loc>
