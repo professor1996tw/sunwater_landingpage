@@ -232,7 +232,8 @@
             display: flex; align-items: center; justify-content: center;
             animation: logoEntry 1s var(--anim-ease) 0.2s both;
         }
-        .logo-container svg { width: 85%; height: 85%; }
+        .logo-container svg,
+        .logo-container img { width: 88%; height: 88%; object-fit: contain; }
 
         /* Mobile-first: simple fade animations */
         @keyframes logoEntry {
@@ -535,40 +536,12 @@
             <div class="logo-pulse"></div>
             <div class="logo-ring"></div>
             <div class="logo-container">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <clipPath id="circleClip"><circle cx="100" cy="100" r="96"/></clipPath>
-                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d4a84b"/><stop offset="50%" stop-color="#c8963e"/><stop offset="100%" stop-color="#b07e2a"/></linearGradient>
-                    <linearGradient id="navyGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1B3A5C"/><stop offset="100%" stop-color="#0f2340"/></linearGradient>
-                  </defs>
-                  <g clip-path="url(#circleClip)">
-                    <rect x="0" y="0" width="200" height="110" fill="url(#goldGrad)"/>
-                    <g transform="translate(100, 108)">
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-56)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-42)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-28)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(-14)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(0)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(14)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(28)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(42)"/>
-                      <line x1="0" y1="0" x2="0" y2="-110" stroke="rgba(5,5,16,0.3)" stroke-width="5" transform="rotate(56)"/>
-                      <path d="M-32,0 A32,32 0 0,1 32,0 Z" fill="rgba(5,5,16,0.25)"/>
-                    </g>
-                    <path d="M-5,108 C20,88 45,104 70,96 S120,84 150,96 S190,108 210,95 L210,210 L-5,210 Z" fill="url(#navyGrad)"/>
-                    <path d="M-5,125 C25,108 50,122 80,114 S130,102 160,116 S195,126 210,118 L210,210 L-5,210 Z" fill="#0f2340"/>
-                    <path d="M-5,148 C30,133 55,145 90,138 S140,128 170,140 S200,150 210,142 L210,210 L-5,210 Z" fill="#091a30"/>
-                    <path d="M-5,110 C20,90 45,106 70,98 S120,86 150,98 S190,110 210,97" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2.8" stroke-linecap="round"/>
-                    <path d="M-5,127 C25,110 50,124 80,116 S130,104 160,118 S195,128 210,120" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2.2" stroke-linecap="round"/>
-                    <path d="M-5,150 C30,135 55,147 90,140 S140,130 170,142 S200,152 210,144" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" stroke-linecap="round"/>
-                  </g>
-                  <circle cx="100" cy="100" r="96" fill="none" stroke="rgba(200,150,62,0.25)" stroke-width="1.5"/>
-                </svg>
+                <img src="/images/sun-emblem.png" alt="SUNWATER 日央水原 品牌 logo">
             </div>
             <div class="brand-text">
                 <div class="brand-en">SUNWATER</div>
                 <div class="brand-cn">日 央 水 原</div>
-                <div class="brand-badge"><span class="badge-dot"></span>遊戲交易服務商</div>
+                <div class="brand-badge"><span class="badge-dot"></span>品牌行銷</div>
             </div>
         </div>
 
@@ -592,7 +565,7 @@
             </a>
             <a href="https://line.me/R/ti/p/@321enghh" class="link-card" target="_blank" rel="noopener">
                 <div class="link-icon icon-line"><svg viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></div>
-                <div class="link-content"><div class="link-title">LINE 官方帳號</div><div class="link-desc">即時客服・報價查詢</div></div>
+                <div class="link-content"><div class="link-title">Line 遊戲官方客服</div><div class="link-desc">即時客服・報價查詢</div></div>
                 <div class="link-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
             </a>
             <a href="https://sunwater.me/game/kyc/" class="link-card" target="_blank" rel="noopener">
