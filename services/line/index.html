@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6099N611V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X6099N611V');
+</script>
+<title>LINE 機器人｜客製化官方帳號自動化｜日央水原 SUNWATER</title>
+<meta name="description" content="客製化 LINE 官方帳號機器人：自動回覆、關鍵字觸發、圖文選單、名單收集。把客服與導購自動化，用一套完整的系統架構管理客戶互動與銷售漏斗。">
+<link rel="canonical" href="https://sunwater.me/services/line/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LINE 機器人｜客製化官方帳號自動化｜日央水原 SUNWATER">
+<meta property="og:description" content="客製化 LINE 官方帳號機器人：自動回覆、關鍵字觸發、圖文選單、名單收集，把客服與導購自動化。">
+<meta property="og:url" content="https://sunwater.me/services/line/">
+<meta property="og:image" content="https://sunwater.me/images/og-home.jpg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#faf7f1; --paper-2:#f2ede3; --ink:#20242a; --ink-2:#5c5f66; --ink-3:#8a8d94;
+    --navy:#15385c; --navy-2:#0f2942; --gold:#c78f3c; --gold-soft:#f0e2c8; --rule:#e2dccf;
+    --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.85; letter-spacing:.02em; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ width:100%; max-width:1080px; margin:0 auto; padding:0 40px; }
+  @media(max-width:600px){ .wrap{ padding:0 22px; } }
+
+  /* NAV */
+  .nav{ position:relative; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:24px 40px; }
+  @media(max-width:600px){ .nav{ padding:18px 22px; } }
+  .nav .brand img{ height:42px; width:auto; }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:15px; color:var(--ink-2); text-decoration:none; }
+  .nav-links a:hover{ color:var(--navy); }
+  .nav-links a.cta{ color:var(--paper); background:var(--navy); padding:11px 22px; border-radius:2px; letter-spacing:.04em; }
+  .nav-links a.cta:hover{ background:var(--navy-2); }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:42px; height:42px; background:none; border:none; cursor:pointer; }
+  .nav-toggle span{ display:block; width:24px; height:2px; background:var(--navy); border-radius:2px; transition:.25s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{ display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 14px 26px rgba(0,0,0,.09); padding:6px 22px 18px; z-index:60; }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ padding:15px 2px; border-bottom:1px solid var(--rule); font-size:16px; }
+    .nav-links a.cta{ border-bottom:none; margin-top:14px; text-align:center; padding:14px; }
+  }
+
+  /* HERO */
+  .hero{ padding:64px 0 76px; border-bottom:1px solid var(--rule); }
+  .kick{ font-family:var(--serif); font-style:italic; font-size:16px; color:var(--gold); margin-bottom:16px; }
+  .hero h1{ font-weight:700; font-size:clamp(34px,5.4vw,60px); line-height:1.18; margin:0; color:var(--ink); }
+  .hero .lead{ margin-top:26px; max-width:680px; font-size:clamp(16px,1.6vw,18px); color:var(--ink-2); line-height:1.95; }
+  .hero-actions{ margin-top:36px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-size:15px; letter-spacing:.04em; padding:15px 30px; border-radius:2px; }
+  .btn-solid{ background:var(--navy); color:var(--paper); }
+  .btn-solid:hover{ background:var(--navy-2); }
+  .btn-gold{ background:var(--gold); color:var(--navy-2); font-weight:600; }
+  .btn-gold:hover{ filter:brightness(1.04); }
+
+  /* SECTIONS */
+  section{ padding:70px 0; }
+  .sec-no{ font-family:var(--serif); font-size:14px; color:var(--ink-3); letter-spacing:.16em; margin-bottom:10px; }
+  h2{ font-weight:700; font-size:clamp(26px,3.4vw,38px); line-height:1.3; margin:0; color:var(--ink); }
+  .sub{ margin-top:14px; max-width:660px; color:var(--ink-2); }
+
+  /* 功能模組網格 */
+  .modules{ margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:820px){ .modules{ grid-template-columns:repeat(2,1fr); gap:16px; } }
+  @media(max-width:560px){ .modules{ grid-template-columns:1fr; } }
+  .module{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:28px 26px; }
+  .module .ic{ width:28px; height:28px; color:var(--navy); margin-bottom:12px; }
+  .module h3{ font-size:18px; margin:0 0 10px; color:var(--ink); font-weight:600; }
+  .module p{ margin:0; font-size:14px; color:var(--ink-2); line-height:1.7; }
+
+  /* FINAL CTA */
+  .final{ background:var(--navy); color:var(--paper); text-align:center; padding:70px 0; }
+  .final h2{ color:#fff; }
+  .final p{ color:rgba(255,255,255,.8); margin-top:14px; }
+  .final .btn-gold{ margin-top:32px; font-size:17px; padding:18px 40px; }
+
+  /* FOOTER */
+  footer{ background:var(--paper-2); padding:56px 0 34px; border-top:1px solid var(--rule); }
+  .foot{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px; }
+  @media(max-width:700px){ .foot{ grid-template-columns:1fr; gap:26px; } }
+  .foot img{ height:40px; margin-bottom:14px; }
+  .foot .fd{ font-size:14px; color:var(--ink-2); max-width:320px; }
+  .foot h5{ font-size:14px; color:var(--navy); margin:0 0 12px; letter-spacing:.06em; }
+  .foot ul{ list-style:none; margin:0; padding:0; }
+  .foot li{ margin-bottom:9px; }
+  .foot a{ font-size:14px; color:var(--ink-2); text-decoration:none; }
+  .foot a:hover{ color:var(--navy); }
+  .copy{ margin-top:40px; padding-top:20px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="brand" href="/"><img src="/images/logo-header.png" alt="日央水原 SUNWATER"></a>
+    <button class="nav-toggle" aria-label="選單" onclick="this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open');"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navlinks" onclick="if(event.target.closest('a')){this.classList.remove('open');document.querySelector('.nav-toggle').classList.remove('open');}">
+      <a href="/#svc">服務</a>
+      <a href="/#flow">合作流程</a>
+      <a href="/#trade">天堂交易網</a>
+      <a href="/#why">關於我們</a>
+      <a class="cta" href="/#contact">免費諮詢</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="kick">系統工具</div>
+      <h1>LINE 機器人（客製化）</h1>
+      <p class="lead">把客服與導購自動化。客製化 LINE 官方帳號機器人，以完整的系統架構管理客戶互動、自動銷售漏斗、集中名單經營——讓你的 LINE 帳號成為真正的銷售助手。</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="/#contact">免費諮詢
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 核心模組 ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-no">01 — 系統架構</div>
+      <h2>9 大功能模組，搞定客服與銷售</h2>
+      <p class="sub">客製化 LINE 機器人透過完整的系統架構，將自動化與人工智能整合在一起，幫你管理客戶互動的每一個環節。</p>
+      <div class="modules">
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.3 5.4C4 4.7 4.6 4 5.3 4.1c4.2.1 8.5 0 12.7.1 1.3 0 2.3 1 2.2 2.3-.1 2.3.2 4.7-.2 7-.2 1-1.3 1.5-2.3 1.4-2.7-.1-5.4 0-8.1 0-1.2 1.2-2.4 2.5-3.8 3.5-.6.4-1.4 0-1.3-.7.1-.9.1-1.9 0-2.8-.7-.2-1.4-.6-1.6-1.4C4.1 10.8 4.4 8 4.3 5.4Z"/></svg>
+          <h3>群組開閉模擬器</h3>
+          <p>依據客戶互動狀態，自動開啟或關閉專屬群組。智能判斷客戶需求，分類管理對話流。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6.2"/><path d="M17.5 14.4a5.5 5.5 0 0 1 3 5.6"/></svg>
+          <h3>名單區隔</h3>
+          <p>自動按客戶屬性、購買階段、互動頻率分類，精準投放不同話術與內容。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3.3C7.1 3 3.1 7.2 3.3 12.1c.2 4.7 4.2 8.6 9 8.4 4.8-.2 8.6-4.4 8.3-9.2C20.4 6.7 16.6 3.4 12 3.3Z"/><path d="M3.6 12.3c5.6.2 11.2.1 16.8 0"/><path d="M12 3.5c2.6 2.6 3.9 5.6 3.9 8.6 0 3.1-1.3 6.1-3.9 8.5-2.6-2.4-3.9-5.4-3.9-8.5 0-3 1.3-6 3.9-8.6Z"/></svg>
+          <h3>記憶節點</h3>
+          <p>機器人記住每個客戶的溝通歷史與偏好，持續優化回覆與推薦內容。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="11" rx="2.5"/><path d="M12 8V4.6"/><circle cx="12" cy="3.6" r="1.1"/><path d="M9 13h.01M15 13h.01"/><path d="M9.5 16h5"/></svg>
+          <h3>自動回覆</h3>
+          <p>關鍵字觸發、時間觸發、事件觸發——客戶訊息自動回應，24 小時無間斷服務。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L4 21l1.1-3.8A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+          <h3>圖文選單</h3>
+          <p>打造互動式選單，讓客戶一鍵選擇服務。視覺化引導提升使用體驗與轉換率。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l3-4 3 2 4-6"/><path d="M18 7h2v2"/></svg>
+          <h3>名單收集</h3>
+          <p>透過自動化問卷、表單、點擊追蹤，系統地蒐集與分析客戶資料。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.6 4.1C7 3.8 4 6.8 4.2 10.4c.1 3.4 3 6.1 6.4 5.9 3.5-.2 6-3.1 5.8-6.6-.2-3.1-2.8-5.5-5.8-5.6Z"/><path d="M15.4 15.1c1.8 1.6 3.6 3.7 5.3 5.5"/></svg>
+          <h3>導購轉換</h3>
+          <p>客戶詢問時自動推薦商品、提供優惠代碼、處理訂單——完整銷售閉環。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.4 3.3c-.2 5.9-.2 11.7-.1 17.5 5.8.2 11.6.1 17.4.1"/><path d="M6.9 15.1c1.2-1.4 2.4-2.8 3.7-4.1 1 .9 2 1.8 3.1 2.6 2.4-2.2 4.6-4.6 7-6.9"/></svg>
+          <h3>數據監控</h3>
+          <p>實時追蹤回應率、轉換率、客戶滿意度等核心指標，持續優化機器人表現。</p>
+        </div>
+
+        <div class="module">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>行業訓練集</h3>
+          <p>根據你的行業屬性與商業流程，客製化調整機器人的對話邏輯與推薦策略。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 底部 CTA ===== -->
+  <section class="final">
+    <div class="wrap">
+      <h2>準備自動化你的 LINE 客服了嗎？</h2>
+      <p>告訴我們你的業務流程，我們幫你客製化一套完整的機器人系統。</p>
+      <a class="btn btn-gold" href="/#contact">預約免費諮詢
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img src="/images/logo-header.png" alt="日央水原 SUNWATER">
+          <p class="fd">整合搜尋聲量、品牌官網、Threads 自動發文與 AI 行業翻譯的數位成長夥伴。</p>
+        </div>
+        <div>
+          <h5>服務</h5>
+          <ul>
+            <li><a href="/#svc">SEO / GEO</a></li>
+            <li><a href="/#svc">官網製作</a></li>
+            <li><a href="/services/threads/">Threads 自動發文</a></li>
+            <li><a href="/services/translate/">AI 行業翻譯</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>公司</h5>
+          <ul>
+            <li><a href="/#why">關於日央水原</a></li>
+            <li><a href="/#flow">合作流程</a></li>
+            <li><a href="/#trade">天堂遊戲交易網</a></li>
+            <li><a href="mailto:sunwater168168@gmail.com">sunwater168168@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 日央水原 sunwater · 數位成長夥伴。</span>
+        <span>Crafted by 日央水原</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
