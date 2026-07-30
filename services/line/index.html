@@ -135,6 +135,58 @@
     .jstep:not(:last-child)::after{ content:"↓"; right:auto; left:50%; transform:translateX(-50%); top:auto; bottom:-28px; }
   }
 
+  /* 主力功能左右交錯 */
+  .feature-row{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; margin-top:60px; }
+  .feature-row.rev .fviz{ order:-1; }
+  @media(max-width:820px){
+    .feature-row{ grid-template-columns:1fr; gap:24px; margin-top:48px; }
+    .feature-row .ftext, .feature-row.rev .ftext{ order:1; }
+    .feature-row .fviz, .feature-row.rev .fviz{ order:2; }
+  }
+  .ftext .tag{ display:inline-block; font-size:12.5px; letter-spacing:.08em; color:var(--gold); border:1px solid var(--gold); border-radius:14px; padding:3px 12px; margin-bottom:14px; }
+  .ftext h3{ font-size:clamp(22px,2.6vw,28px); margin:0 0 14px; color:var(--ink); font-weight:700; }
+  .ftext p{ margin:0; color:var(--ink-2); font-size:15.5px; }
+  .ftext ul{ margin:18px 0 0; padding:0; list-style:none; }
+  .ftext li{ position:relative; padding-left:24px; margin-bottom:10px; font-size:14.5px; color:var(--ink-2); }
+  .ftext li:before{ content:"✓"; position:absolute; left:0; color:var(--gold); font-weight:700; }
+  .fviz{ background:#fff; border:1px solid var(--rule); border-radius:10px; padding:26px; box-shadow:0 14px 34px rgba(21,56,92,.07); }
+  /* 示意圖：迷你聊天 */
+  .mini-chat{ display:flex; flex-direction:column; gap:10px; }
+  .mini-bubble{ max-width:85%; font-size:13.5px; line-height:1.6; padding:9px 13px; border-radius:14px; }
+  .mb-user{ margin-left:auto; background:#9ee66e; color:#173607; border-top-right-radius:4px; }
+  .mb-bot{ background:var(--paper); border:1px solid var(--rule); color:var(--ink); border-top-left-radius:4px; }
+  .mini-time{ font-size:11px; color:var(--ink-3); text-align:right; }
+  .badge-gold{ align-self:flex-start; background:var(--gold-soft); color:#8a5c14; font-size:12px; padding:4px 10px; border-radius:12px; font-weight:600; }
+  .chip-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .chip{ font-size:12px; background:var(--paper); border:1px solid var(--rule); color:var(--ink-2); border-radius:12px; padding:4px 10px; }
+  /* 示意圖：導購 */
+  .mini-shop{ display:flex; flex-direction:column; gap:12px; }
+  .prod{ display:flex; gap:12px; align-items:center; border:1px solid var(--rule); border-radius:8px; padding:12px; }
+  .prod .pimg{ width:52px; height:52px; border-radius:6px; background:linear-gradient(135deg,var(--gold-soft),#e8d5ae); display:flex; align-items:center; justify-content:center; font-size:22px; flex:none; }
+  .prod .pname{ font-size:14px; font-weight:600; color:var(--ink); }
+  .prod .pprice{ font-size:13px; color:var(--gold); font-weight:700; }
+  .coupon{ border:1.5px dashed var(--gold); background:#fdf8ee; color:#8a5c14; border-radius:8px; padding:10px 14px; font-size:13.5px; text-align:center; font-weight:600; }
+  .buy-btn{ background:var(--navy); color:#fff; border-radius:6px; text-align:center; padding:12px; font-size:14.5px; letter-spacing:.05em; }
+  /* 示意圖：名單分眾 */
+  .mini-list{ display:flex; flex-direction:column; gap:10px; }
+  .mrow{ display:flex; align-items:center; gap:10px; border:1px solid var(--rule); border-radius:8px; padding:10px 12px; }
+  .avatar{ width:34px; height:34px; border-radius:50%; background:var(--navy); color:#fff; font-size:13px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mname{ font-size:13.5px; color:var(--ink); flex:1; }
+  .tagchip{ font-size:11.5px; padding:3px 9px; border-radius:10px; font-weight:600; }
+  .t-vip{ background:#fdf3e0; color:#a06a12; }
+  .t-new{ background:#e8f0fb; color:#2b5ea7; }
+  .t-sleep{ background:#ececec; color:#777; }
+  .push-note{ margin-top:4px; background:#eef7ee; border:1px solid #cfe6cf; color:#2f6b2f; border-radius:8px; padding:10px 14px; font-size:13px; text-align:center; }
+  /* 示意圖：儀表板 */
+  .mini-dash{ display:flex; flex-direction:column; gap:14px; }
+  .dash-title{ font-size:13px; color:var(--ink-3); letter-spacing:.08em; }
+  .dash-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .dstat{ background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:12px 8px; text-align:center; }
+  .dstat b{ display:block; font-size:20px; color:var(--navy); font-family:var(--serif); }
+  .dstat span{ font-size:12px; color:var(--ink-2); }
+  .bars{ display:flex; align-items:flex-end; gap:8px; height:90px; padding:4px 6px 0; }
+  .bars i{ flex:1; background:linear-gradient(180deg,#2c5a8c,var(--navy)); border-radius:4px 4px 0 0; }
+
   /* FINAL CTA */
   .final{ background:var(--navy); color:var(--paper); text-align:center; padding:70px 0; }
   .final h2{ color:#fff; }
@@ -338,6 +390,113 @@
           <p>售後關懷與回購提醒，養出長期客戶價值</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== 主力功能 ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-no">04 — 主力功能</div>
+      <h2>四個最有感的能力，深入看</h2>
+      <p class="sub">每個功能都對應一個真實的營運痛點。看看機器人實際上怎麼幫你做事。</p>
+
+      <!-- 客服自動化：文字左、圖右 -->
+      <div class="feature-row">
+        <div class="ftext">
+          <span class="tag">24/7 全天候</span>
+          <h3>客服自動化，半夜也秒回</h3>
+          <p>八成的客服問題其實都在重複。把運費、退換貨、營業時間這些常見問題交給機器人，客戶隨時發問、秒速得到答案，你的團隊只處理真正需要人的事。</p>
+          <ul>
+            <li>常見問題自動應答，回覆從小時變秒</li>
+            <li>判斷不了的問題自動轉真人客服</li>
+            <li>客服人力成本降 30–50%</li>
+          </ul>
+        </div>
+        <div class="fviz">
+          <div class="mini-chat">
+            <div class="mini-time">凌晨 03:12</div>
+            <div class="mini-bubble mb-user">請問可以退貨嗎？</div>
+            <div class="mini-bubble mb-bot">可以的！收到商品 7 天內、未使用即可退貨，點下方連結一鍵申請 👇</div>
+            <div class="badge-gold">⚡ 0.8 秒自動回覆</div>
+            <div class="chip-row"><span class="chip">全年無休</span><span class="chip">常見問題全覆蓋</span><span class="chip">可轉真人</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 導購轉換：圖左、文字右 -->
+      <div class="feature-row rev">
+        <div class="ftext">
+          <span class="tag">銷售漏斗</span>
+          <h3>導購轉換，把聊天變訂單</h3>
+          <p>客戶表達興趣的那一刻就是成交時機。機器人依偏好推薦商品、即時發送專屬優惠券、引導一鍵下單，整條購買路徑不需要人工介入。</p>
+          <ul>
+            <li>依標籤與偏好推薦對的商品</li>
+            <li>優惠券自動發放，製造立即下單誘因</li>
+            <li>平均客單價提升約 20%</li>
+          </ul>
+        </div>
+        <div class="fviz">
+          <div class="mini-shop">
+            <div class="prod">
+              <div class="pimg">🧴</div>
+              <div>
+                <div class="pname">保濕精華液 30ml</div>
+                <div class="pprice">NT$ 1,280</div>
+              </div>
+            </div>
+            <div class="coupon">🎟️ 您的專屬 9 折券已入袋</div>
+            <div class="buy-btn">一鍵下單 →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 名單分眾：文字左、圖右 -->
+      <div class="feature-row">
+        <div class="ftext">
+          <span class="tag">精準行銷</span>
+          <h3>名單自動分眾，對的人說對的話</h3>
+          <p>每個加入的好友都會被自動貼上標籤：新客、VIP、沉睡客戶。推播時只發給對的人，不再全名單亂槍打鳥，封鎖率降低、轉換率翻倍。</p>
+          <ul>
+            <li>互動行為自動貼標，不用人工整理</li>
+            <li>分眾推播，訊息精準不擾人</li>
+            <li>沉睡客戶自動喚醒，挖出回購</li>
+          </ul>
+        </div>
+        <div class="fviz">
+          <div class="mini-list">
+            <div class="mrow"><div class="avatar">陳</div><div class="mname">陳小姐</div><span class="tagchip t-vip">VIP・月購 3 次</span></div>
+            <div class="mrow"><div class="avatar">林</div><div class="mname">林先生</div><span class="tagchip t-new">新客・7 天內加入</span></div>
+            <div class="mrow"><div class="avatar">王</div><div class="mname">王小姐</div><span class="tagchip t-sleep">沉睡・90 天未互動</span></div>
+            <div class="push-note">✓ VIP 專屬優惠已推播給 128 位符合的客戶</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 數據監控：圖左、文字右 -->
+      <div class="feature-row rev">
+        <div class="ftext">
+          <span class="tag">數據儀表板</span>
+          <h3>成效看得見，決策有依據</h3>
+          <p>回應率、新名單數、轉換率，全部即時進儀表板。哪一檔活動有效、哪種訊息被已讀不回，數據直接告訴你，下一步怎麼調整不用猜。</p>
+          <ul>
+            <li>推播成效即時追蹤</li>
+            <li>名單成長與轉換一目了然</li>
+            <li>用數據優化每一次行銷活動</li>
+          </ul>
+        </div>
+        <div class="fviz">
+          <div class="mini-dash">
+            <div class="dash-title">本週成效總覽</div>
+            <div class="dash-stats">
+              <div class="dstat"><b>98%</b><span>回應率</span></div>
+              <div class="dstat"><b>+214</b><span>新名單</span></div>
+              <div class="dstat"><b>32%</b><span>轉換率</span></div>
+            </div>
+            <div class="bars"><i style="height:38%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:66%"></i><i style="height:58%"></i><i style="height:80%"></i><i style="height:92%"></i></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
