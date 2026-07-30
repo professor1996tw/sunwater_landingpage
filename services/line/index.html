@@ -567,7 +567,10 @@
       {t:'bot',  h:'完成！已記住您的偏好，下次直接推薦您喜歡的 ❤️'}
     ];
     var i = 0, typingEl = null;
-    function scrollDown(){ body.scrollTo({ top: body.scrollHeight, behavior:'smooth' }); }
+    function scrollDown(){
+      body.scrollTo({ top: body.scrollHeight, behavior:'smooth' });
+      setTimeout(function(){ body.scrollTop = body.scrollHeight; }, 600);
+    }
     function next(){
       if(typingEl){ typingEl.remove(); typingEl = null; }
       if(i >= script.length){
