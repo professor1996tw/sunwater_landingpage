@@ -81,7 +81,8 @@
   .phone-screen{ border-radius:26px; overflow:hidden; display:flex; flex-direction:column; height:500px; background:#8cabd8; }
   .chat-head{ background:#273246; color:#fff; padding:14px 16px 12px; font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px; }
   .chat-head .dot{ width:8px; height:8px; border-radius:50%; background:#4ade80; flex:none; }
-  .chat-body{ flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:10px; overflow:hidden; }
+  .chat-body{ flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; scrollbar-width:none; }
+  .chat-body::-webkit-scrollbar{ display:none; }
   .msg{ max-width:80%; padding:9px 13px; border-radius:16px; font-size:13px; line-height:1.55; opacity:0; }
   .msg.bot{ background:#fff; color:#23262c; align-self:flex-start; border-top-left-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,.08); }
   .msg.user{ background:#9ee66e; color:#173607; align-self:flex-end; border-top-right-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,.08); }
@@ -93,14 +94,8 @@
   .typing-msg i:nth-child(3){ animation-delay:.36s; }
   @keyframes blink{ 0%,60%,100%{ opacity:.3; } 30%{ opacity:1; } }
   @keyframes pop{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
-  @keyframes typeshow{ 0%{ opacity:0; transform:translateY(8px);} 12%{ opacity:1; transform:none;} 88%{ opacity:1; } 100%{ opacity:0; } }
-  .chat-body.play .m1{ animation:pop .4s .4s forwards; }
-  .chat-body.play .m2{ animation:pop .4s 1.4s forwards; }
-  .chat-body.play .tp{ animation:typeshow 1.5s 2.3s forwards; }
-  .chat-body.play .m3{ animation:pop .4s 3.8s forwards; }
-  .chat-body.play .m4{ animation:pop .4s 4.6s forwards; }
-  .chat-body.play .m5{ animation:pop .4s 5.8s forwards; }
-  .chat-body.play .m6{ animation:pop .4s 7.0s forwards; }
+  .msg.show, .quick.show, .typing-msg.show{ animation:pop .35s forwards; }
+  .msg, .quick, .typing-msg{ flex:none; }
 
   /* SECTIONS */
   section{ padding:70px 0; }
@@ -195,15 +190,7 @@
           <div class="phone">
             <div class="phone-screen">
               <div class="chat-head"><span class="dot"></span>日央水原 智能小幫手</div>
-              <div class="chat-body play" id="chatbody">
-                <div class="msg bot m1">歡迎光臨！我是 24 小時線上小幫手 👋 請問需要什麼服務？</div>
-                <div class="msg user m2">我想詢問商品</div>
-                <div class="typing-msg tp"><i></i><i></i><i></i></div>
-                <div class="msg bot m3">好的！依您的偏好，為您找到 3 件熱銷商品 🛍️</div>
-                <div class="quick m4"><span>🛍️ 看商品</span><span>🎟️ 領優惠券</span><span>👤 真人客服</span></div>
-                <div class="msg user m5">領優惠券</div>
-                <div class="msg bot m6">已發送 9 折優惠券，並將您加入 VIP 名單 🎉</div>
-              </div>
+              <div class="chat-body" id="chatbody"></div>
             </div>
           </div>
         </div>
@@ -400,14 +387,50 @@
   </footer>
 
 <script>
-  // 聊天動畫每 9.5 秒重播一次
-  setInterval(function(){
-    var b = document.getElementById('chatbody');
-    if(!b) return;
-    b.classList.remove('play');
-    void b.offsetWidth;
-    b.classList.add('play');
-  }, 9500);
+  // 聊天動畫：逐句播放、自動下滑、循環
+  (function(){
+    var body = document.getElementById('chatbody');
+    if(!body) return;
+    var script = [
+      {t:'bot',  h:'歡迎光臨！我是 24 小時線上小幫手 👋 請問需要什麼服務？'},
+      {t:'user', h:'我想詢問商品'},
+      {t:'typing'},
+      {t:'bot',  h:'好的！依您的偏好，為您找到 3 件熱銷商品 🛍️'},
+      {t:'quick', h:'<span>🛍️ 看商品</span><span>🎟️ 領優惠券</span><span>👤 真人客服</span>'},
+      {t:'user', h:'領優惠券'},
+      {t:'bot',  h:'已發送 9 折優惠券，並將您加入 VIP 名單 🎉'},
+      {t:'user', h:'運費怎麼算？'},
+      {t:'typing'},
+      {t:'bot',  h:'滿 $1,000 免運，未滿一律 $60 🚚 半夜提問也秒回！'},
+      {t:'bot',  h:'花 10 秒填個小問卷，之後推薦會更準哦 📋'},
+      {t:'quick', h:'<span>✍️ 開始問卷</span><span>⏰ 下次再說</span>'},
+      {t:'user', h:'開始問卷'},
+      {t:'bot',  h:'完成！已記住您的偏好，下次直接推薦您喜歡的 ❤️'}
+    ];
+    var i = 0, typingEl = null;
+    function scrollDown(){ body.scrollTo({ top: body.scrollHeight, behavior:'smooth' }); }
+    function next(){
+      if(typingEl){ typingEl.remove(); typingEl = null; }
+      if(i >= script.length){
+        setTimeout(function(){ body.innerHTML = ''; i = 0; next(); }, 3000);
+        return;
+      }
+      var s = script[i++], el = document.createElement('div');
+      if(s.t === 'typing'){
+        el.className = 'typing-msg show';
+        el.innerHTML = '<i></i><i></i><i></i>';
+        typingEl = el;
+        body.appendChild(el); scrollDown();
+        setTimeout(next, 1100);
+        return;
+      }
+      el.className = (s.t === 'quick' ? 'quick' : 'msg ' + s.t) + ' show';
+      el.innerHTML = s.h;
+      body.appendChild(el); scrollDown();
+      setTimeout(next, s.t === 'user' ? 900 : 1400);
+    }
+    next();
+  })();
 </script>
 </body>
 </html>
