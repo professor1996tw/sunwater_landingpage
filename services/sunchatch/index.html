@@ -99,17 +99,19 @@
   .scene.on{ opacity:1; }
   @keyframes pop{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
   /* 場景1：IG Reels */
-  .sc-reel{ background:linear-gradient(160deg,#101725 0%,#0b0f18 60%,#141019 100%); color:#fff; }
-  .reel-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px 0; font-size:16px; font-weight:800; letter-spacing:-.01em; }
-  .reel-top svg{ width:22px; height:22px; }
-  .reel-mid{ flex:1; display:flex; align-items:center; justify-content:center; }
-  .reel-book{ width:96px; height:128px; border-radius:8px; background:linear-gradient(145deg,#c78f3c,#8a5c14); display:flex; align-items:center; justify-content:center; font-size:42px; box-shadow:0 16px 34px rgba(0,0,0,.5); }
-  .reel-rail{ position:absolute; right:10px; bottom:96px; display:flex; flex-direction:column; align-items:center; gap:15px; }
+  .sc-reel{ background:#0b0f18; color:#fff; }
+  .reel-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .reel-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.4) 0%, transparent 22%, transparent 52%, rgba(0,0,0,.62) 100%); }
+  .reel-top{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:14px 16px 0; font-size:16px; font-weight:800; letter-spacing:-.01em; text-shadow:0 1px 6px rgba(0,0,0,.5); }
+  .reel-top svg{ width:22px; height:22px; filter:drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
+  .reel-mid{ flex:1; }
+  .reel-rail{ position:absolute; right:10px; bottom:96px; z-index:2; display:flex; flex-direction:column; align-items:center; gap:15px; }
+  .reel-rail svg, .ric span{ filter:drop-shadow(0 1px 4px rgba(0,0,0,.55)); }
   .ric{ text-align:center; }
   .ric svg{ width:25px; height:25px; display:block; margin:0 auto; }
   .ric span{ display:block; font-size:10.5px; margin-top:3px; color:rgba(255,255,255,.9); font-weight:600; }
   .audio-sq{ width:22px; height:22px; border-radius:6px; border:2px solid rgba(255,255,255,.85); background:linear-gradient(145deg,#c78f3c,#8a5c14); display:flex; align-items:center; justify-content:center; font-size:9px; }
-  .reel-meta{ position:absolute; left:12px; right:64px; bottom:16px; display:flex; flex-direction:column; gap:8px; }
+  .reel-meta{ position:absolute; left:12px; right:64px; bottom:16px; z-index:2; display:flex; flex-direction:column; gap:8px; text-shadow:0 1px 5px rgba(0,0,0,.55); }
   .reel-user{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:700; }
   .ruav{ width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; border:2px solid #fff; flex:none; }
   .follow-btn{ border:1px solid rgba(255,255,255,.75); border-radius:7px; padding:2px 10px; font-size:11.5px; font-weight:600; }
@@ -311,8 +313,10 @@
           <div class="phone demo-phone">
             <!-- 場景1：IG Reels 留言 -->
             <div class="scene sc-reel on" id="scReel">
+              <img class="reel-bg" src="/images/reel-frame.jpg" alt="">
+              <div class="reel-scrim"></div>
               <div class="reel-top"><span>Reels</span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-              <div class="reel-mid"><div class="reel-book">📘</div></div>
+              <div class="reel-mid"></div>
               <div class="reel-rail">
                 <div class="ric"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span>2.4萬</span></div>
                 <div class="ric"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.7 8.7 0 0 1-3.7-.8L3 20l1.1-5.5a8 8 0 0 1-.9-3.7A8.4 8.4 0 0 1 11.7 2.5h.5A8.4 8.4 0 0 1 21 10.9z"/></svg><span>863</span></div>
