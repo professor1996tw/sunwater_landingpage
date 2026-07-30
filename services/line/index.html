@@ -75,8 +75,32 @@
   .btn-solid:hover{ background:var(--navy-2); }
   .btn-line{ color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:3px; font-weight:600; }
   .btn-line:hover{ color:var(--navy-2); }
-  .phone-mockup{ position:relative; width:100%; max-width:320px; margin:0 auto; }
-  .phone-mockup img{ width:100%; display:block; }
+  /* 手機聊天動畫 */
+  .phone-mockup{ position:relative; width:100%; max-width:300px; margin:0 auto; }
+  .phone{ background:#111; border-radius:36px; padding:12px 10px; box-shadow:0 24px 60px rgba(21,56,92,.28); }
+  .phone-screen{ border-radius:26px; overflow:hidden; display:flex; flex-direction:column; height:500px; background:#8cabd8; }
+  .chat-head{ background:#273246; color:#fff; padding:14px 16px 12px; font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .chat-head .dot{ width:8px; height:8px; border-radius:50%; background:#4ade80; flex:none; }
+  .chat-body{ flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:10px; overflow:hidden; }
+  .msg{ max-width:80%; padding:9px 13px; border-radius:16px; font-size:13px; line-height:1.55; opacity:0; }
+  .msg.bot{ background:#fff; color:#23262c; align-self:flex-start; border-top-left-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .msg.user{ background:#9ee66e; color:#173607; align-self:flex-end; border-top-right-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .quick{ display:flex; gap:8px; align-self:flex-start; flex-wrap:wrap; opacity:0; }
+  .quick span{ background:#fff; border:1px solid #cfd9e8; color:#15385c; font-size:12px; padding:7px 12px; border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .typing-msg{ background:#fff; align-self:flex-start; border-radius:16px; border-top-left-radius:4px; padding:12px 14px; display:inline-flex; gap:5px; opacity:0; }
+  .typing-msg i{ width:6px; height:6px; border-radius:50%; background:#b9bec7; animation:blink 1s infinite; }
+  .typing-msg i:nth-child(2){ animation-delay:.18s; }
+  .typing-msg i:nth-child(3){ animation-delay:.36s; }
+  @keyframes blink{ 0%,60%,100%{ opacity:.3; } 30%{ opacity:1; } }
+  @keyframes pop{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  @keyframes typeshow{ 0%{ opacity:0; transform:translateY(8px);} 12%{ opacity:1; transform:none;} 88%{ opacity:1; } 100%{ opacity:0; } }
+  .chat-body.play .m1{ animation:pop .4s .4s forwards; }
+  .chat-body.play .m2{ animation:pop .4s 1.4s forwards; }
+  .chat-body.play .tp{ animation:typeshow 1.5s 2.3s forwards; }
+  .chat-body.play .m3{ animation:pop .4s 3.8s forwards; }
+  .chat-body.play .m4{ animation:pop .4s 4.6s forwards; }
+  .chat-body.play .m5{ animation:pop .4s 5.8s forwards; }
+  .chat-body.play .m6{ animation:pop .4s 7.0s forwards; }
 
   /* SECTIONS */
   section{ padding:70px 0; }
@@ -104,9 +128,17 @@
   .module h4{ font-size:16px; margin:0 0 8px; color:var(--ink); font-weight:600; }
   .module p{ margin:0; font-size:13.5px; color:var(--ink-2); line-height:1.6; }
 
-  /* 系統流程 */
-  .flow-diagram{ margin-top:44px; background:#fff; border:1px solid var(--rule); border-radius:8px; padding:40px 30px; }
-  .flow-diagram svg{ width:100%; max-width:800px; margin:0 auto; display:block; }
+  /* 客戶旅程步驟 */
+  .journey{ margin-top:44px; display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+  .jstep{ background:#fff; border:1px solid var(--rule); border-radius:8px; padding:28px 16px 24px; text-align:center; position:relative; }
+  .jnum{ width:46px; height:46px; border-radius:50%; background:var(--navy); color:#fff; font-family:var(--serif); font-size:19px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; border:2px solid var(--gold); }
+  .jstep h4{ margin:0 0 8px; font-size:16.5px; color:var(--ink); font-weight:600; }
+  .jstep p{ margin:0; font-size:13px; color:var(--ink-2); line-height:1.75; }
+  .jstep:not(:last-child)::after{ content:"→"; position:absolute; right:-17px; top:38px; color:var(--gold); font-size:18px; font-weight:700; z-index:2; }
+  @media(max-width:920px){
+    .journey{ grid-template-columns:1fr; gap:30px; max-width:400px; }
+    .jstep:not(:last-child)::after{ content:"↓"; right:auto; left:50%; transform:translateX(-50%); top:auto; bottom:-28px; }
+  }
 
   /* FINAL CTA */
   .final{ background:var(--navy); color:var(--paper); text-align:center; padding:70px 0; }
@@ -160,29 +192,20 @@
           </div>
         </div>
         <div class="phone-mockup">
-          <svg viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg">
-            <!-- 手機外框 -->
-            <rect x="20" y="20" width="240" height="520" rx="20" fill="#222" stroke="#111" stroke-width="2"/>
-            <!-- 螢幕 -->
-            <rect x="24" y="24" width="232" height="512" rx="18" fill="#fff"/>
-            <!-- 狀態欄 -->
-            <rect x="24" y="24" width="232" height="28" fill="#f5f5f5"/>
-            <!-- 聊天內容模擬 -->
-            <text x="140" y="40" font-size="10" fill="#999" text-anchor="middle">9:41</text>
-            <!-- 訊息泡 -->
-            <rect x="40" y="70" width="160" height="32" rx="8" fill="#e8e8e8"/>
-            <text x="48" y="92" font-size="12" fill="#333">嗨！有什麼可以幫忙？</text>
-            <!-- 使用者訊息 -->
-            <rect x="80" y="115" width="160" height="32" rx="8" fill="#00b900"/>
-            <text x="88" y="137" font-size="12" fill="#fff">我想要詢問商品</text>
-            <!-- 選單 -->
-            <rect x="40" y="165" width="73" height="40" rx="4" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
-            <text x="77" y="185" font-size="11" fill="#333" text-anchor="middle" font-weight="600">🛍️ 商品查詢</text>
-            <rect x="127" y="165" width="73" height="40" rx="4" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
-            <text x="164" y="185" font-size="11" fill="#333" text-anchor="middle" font-weight="600">📋 加入名單</text>
-            <!-- Notch -->
-            <rect x="120" y="26" width="40" height="16" rx="4" fill="#222"/>
-          </svg>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="chat-head"><span class="dot"></span>日央水原 智能小幫手</div>
+              <div class="chat-body play" id="chatbody">
+                <div class="msg bot m1">歡迎光臨！我是 24 小時線上小幫手 👋 請問需要什麼服務？</div>
+                <div class="msg user m2">我想詢問商品</div>
+                <div class="typing-msg tp"><i></i><i></i><i></i></div>
+                <div class="msg bot m3">好的！依您的偏好，為您找到 3 件熱銷商品 🛍️</div>
+                <div class="quick m4"><span>🛍️ 看商品</span><span>🎟️ 領優惠券</span><span>👤 真人客服</span></div>
+                <div class="msg user m5">領優惠券</div>
+                <div class="msg bot m6">已發送 9 折優惠券，並將您加入 VIP 名單 🎉</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -301,63 +324,32 @@
       <div class="sec-no">03 — 工作流</div>
       <h2>從客戶進門到銷售成交，全程自動</h2>
       <p class="sub">一個完整的客戶旅程自動化系統。每一步都精心設計，讓轉換最大化。</p>
-      <div class="flow-diagram">
-        <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
-          <!-- 背景 -->
-          <rect width="800" height="300" fill="none"/>
-
-          <!-- 節點 1 -->
-          <circle cx="80" cy="150" r="30" fill="#15385c" stroke="#c78f3c" stroke-width="2"/>
-          <text x="80" y="155" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">客戶進門</text>
-
-          <!-- 箭頭 -->
-          <path d="M 110 150 L 150 150" stroke="#c78f3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-
-          <!-- 節點 2 -->
-          <circle cx="200" cy="150" r="30" fill="#15385c" stroke="#c78f3c" stroke-width="2"/>
-          <text x="200" y="155" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">自動分類</text>
-
-          <!-- 箭頭 -->
-          <path d="M 230 150 L 270 150" stroke="#c78f3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-
-          <!-- 節點 3 -->
-          <circle cx="320" cy="150" r="30" fill="#15385c" stroke="#c78f3c" stroke-width="2"/>
-          <text x="320" y="155" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">智能推薦</text>
-
-          <!-- 箭頭 -->
-          <path d="M 350 150 L 390 150" stroke="#c78f3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-
-          <!-- 節點 4 -->
-          <circle cx="440" cy="150" r="30" fill="#15385c" stroke="#c78f3c" stroke-width="2"/>
-          <text x="440" y="155" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">快速成交</text>
-
-          <!-- 箭頭 -->
-          <path d="M 470 150 L 510 150" stroke="#c78f3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-
-          <!-- 節點 5 -->
-          <circle cx="560" cy="150" r="30" fill="#15385c" stroke="#c78f3c" stroke-width="2"/>
-          <text x="560" y="155" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">持續經營</text>
-
-          <!-- 箭頭標籤 -->
-          <text x="145" y="140" font-size="11" fill="#666" text-anchor="middle">按偏好</text>
-          <text x="295" y="140" font-size="11" fill="#666" text-anchor="middle">個性化</text>
-          <text x="415" y="140" font-size="11" fill="#666" text-anchor="middle">優惠碼</text>
-          <text x="535" y="140" font-size="11" fill="#666" text-anchor="middle">回購</text>
-
-          <!-- 副流程 -->
-          <text x="80" y="220" font-size="12" fill="#5c5f66" text-anchor="middle">問卷調查</text>
-          <text x="200" y="220" font-size="12" fill="#5c5f66" text-anchor="middle">興趣標籤</text>
-          <text x="320" y="220" font-size="12" fill="#5c5f66" text-anchor="middle">客戶等級</text>
-          <text x="440" y="220" font-size="12" fill="#5c5f66" text-anchor="middle">售後服務</text>
-          <text x="560" y="220" font-size="12" fill="#5c5f66" text-anchor="middle">長期價值</text>
-
-          <!-- 箭頭定義 -->
-          <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-              <polygon points="0 0, 10 3, 0 6" fill="#c78f3c"/>
-            </marker>
-          </defs>
-        </svg>
+      <div class="journey">
+        <div class="jstep">
+          <div class="jnum">1</div>
+          <h4>客戶進門</h4>
+          <p>加入好友即觸發歡迎訊息，用問卷快速了解需求</p>
+        </div>
+        <div class="jstep">
+          <div class="jnum">2</div>
+          <h4>自動分類</h4>
+          <p>依興趣與偏好自動貼標籤，分進對應名單</p>
+        </div>
+        <div class="jstep">
+          <div class="jnum">3</div>
+          <h4>智能推薦</h4>
+          <p>根據標籤與客戶等級，推播個人化商品內容</p>
+        </div>
+        <div class="jstep">
+          <div class="jnum">4</div>
+          <h4>快速成交</h4>
+          <p>優惠碼加一鍵下單，縮短購買路徑</p>
+        </div>
+        <div class="jstep">
+          <div class="jnum">5</div>
+          <h4>持續經營</h4>
+          <p>售後關懷與回購提醒，養出長期客戶價值</p>
+        </div>
       </div>
     </div>
   </section>
@@ -407,5 +399,15 @@
     </div>
   </footer>
 
+<script>
+  // 聊天動畫每 9.5 秒重播一次
+  setInterval(function(){
+    var b = document.getElementById('chatbody');
+    if(!b) return;
+    b.classList.remove('play');
+    void b.offsetWidth;
+    b.classList.add('play');
+  }, 9500);
+</script>
 </body>
 </html>
