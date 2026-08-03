@@ -161,6 +161,13 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 系統工具：LINE 機器人 -->
+    <url>
+        <loc>https://sunwater.me/services/line/</loc>
+        <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <!-- AI 圖片提示詞庫 -->
     <url>
         <loc>https://sunwater.me/prompts/</loc>
