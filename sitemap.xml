@@ -168,6 +168,31 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- 法務頁面 -->
+    <url>
+        <loc>https://sunwater.me/terms/</loc>
+        <lastmod>2026-08-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://sunwater.me/privacy/</loc>
+        <lastmod>2026-08-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://sunwater.me/refund/</loc>
+        <lastmod>2026-08-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://sunwater.me/consumer/</loc>
+        <lastmod>2026-08-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
     <!-- AI 圖片提示詞庫 -->
     <url>
         <loc>https://sunwater.me/prompts/</loc>
