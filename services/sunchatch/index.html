@@ -241,13 +241,14 @@
   .st3 h3{ margin:14px 0 8px; font-size:19px; color:var(--ink); }
   .st3 p{ margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.75; }
 
-  .pgrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  @media(max-width:760px){ .pgrid{ grid-template-columns:1fr; } }
-  .price{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:30px 28px; display:flex; flex-direction:column; }
+  .pgrid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media(max-width:980px){ .pgrid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:520px){ .pgrid{ grid-template-columns:1fr; } }
+  .price{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:28px 24px; display:flex; flex-direction:column; }
   .price.feat{ border-color:var(--gold); box-shadow:0 12px 34px rgba(199,143,60,.14); }
   .price .ptag{ align-self:flex-start; font-size:12px; color:var(--gold); border:1px solid var(--gold-soft); border-radius:100px; padding:3px 12px; margin-bottom:10px; }
   .price .pn{ font-size:15px; color:var(--ink-3); letter-spacing:.06em; }
-  .price .pp{ font-family:var(--serif); font-size:38px; color:var(--navy); line-height:1.1; margin:6px 0 16px; }
+  .price .pp{ font-family:var(--serif); font-size:33px; color:var(--navy); line-height:1.1; margin:6px 0 16px; }
   .price .pp small{ font-size:15px; color:var(--ink-3); }
   .price ul{ list-style:none; margin:0 0 22px; padding:0; display:grid; gap:11px; flex:1; }
   .price li{ display:flex; gap:9px; align-items:flex-start; font-size:14px; color:var(--ink-2); }
@@ -302,12 +303,12 @@
           <h1>讓 IG 留言，<em>自動變成客戶</em></h1>
           <p class="lead">SUNChatch 幫創作者把「留言關鍵字 → 自動私訊連結 → 追蹤驗證 → 導進你的名單」全自動化。比 ManyChat 更好上手、更便宜、全中文。</p>
           <div class="hero-actions">
-            <a class="btn btn-gold" href="/#contact">免費諮詢／試用
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <a class="btn btn-gold" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">免費開始使用
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <a class="btn btn-line" href="#how">看它怎麼運作 ↓</a>
           </div>
-          <div class="trust">支援 Instagram + Facebook・免費版就給 100 組名單（ManyChat 只給 25）</div>
+          <div class="trust">支援 Instagram + Facebook・免費版就給 80 組名單（ManyChat 只給 25）</div>
         </div>
         <div>
           <div class="phone demo-phone">
@@ -521,33 +522,46 @@
           <div class="pn">體驗版</div>
           <div class="pp">NT$0<small> /月</small></div>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 100 組名單（ManyChat 只 25）</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 80 組名單（ManyChat 只 25）</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>1 個帳號</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>3 條規則</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>留言關鍵字自動回覆</li>
           </ul>
-          <a class="btn out" href="/#contact">免費開始</a>
+          <a class="btn out" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">免費開始</a>
+        </div>
+        <div class="price">
+          <div class="pn">入門版</div>
+          <div class="pp">NT$290<small> /月</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 500 組名單</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>1 個帳號</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>10 條規則</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>追蹤驗證</li>
+          </ul>
+          <a class="btn out" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">開始使用</a>
         </div>
         <div class="price feat">
           <div class="ptag">最受歡迎</div>
           <div class="pn">成長版</div>
-          <div class="pp">NT$390<small> /月</small></div>
+          <div class="pp">NT$590<small> /月</small></div>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 1,000 組名單</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>追蹤驗證 + 多段流程</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每支貼文自動套用</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 3,000 組名單</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>3 個帳號</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>50 條規則</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>多段訊息流程・每支貼文自動套用</li>
           </ul>
-          <a class="btn btn-gold" href="/#contact">開始 14 天試用</a>
+          <a class="btn btn-gold" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">開始使用</a>
         </div>
         <div class="price">
           <div class="pn">專業版</div>
-          <div class="pp">NT$990<small> /月</small></div>
+          <div class="pp">NT$1,290<small> /月</small></div>
           <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>名單無上限</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>無限帳號・團隊協作</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Webhook／API 串接</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>每月 20,000 組名單</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>10 個帳號</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>規則數無上限</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>優先技術支援</li>
           </ul>
-          <a class="btn out" href="/#contact">聯絡我們</a>
+          <a class="btn out" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">開始使用</a>
         </div>
       </div>
     </div>
@@ -558,9 +572,10 @@
     <div class="wrap">
       <h2>準備好把留言變成生意了嗎？</h2>
       <p>留言關鍵字自動回覆、自動私訊、追蹤驗證、名單匯出——全中文、平價、3 分鐘上線。</p>
-      <a class="btn btn-gold" href="/#contact">免費諮詢／預約試用
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a class="btn btn-gold" href="https://sunchatch.sunwater.me/app" target="_blank" rel="noopener">免費開始使用
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+      <p style="margin-top:20px;font-size:13.5px"><a href="https://sunchatch.sunwater.me/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.3);text-decoration:none;padding-bottom:2px">前往 SUNChatch 產品官網 →</a>　<a href="/#contact" style="color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.3);text-decoration:none;padding-bottom:2px">需要客製化？聯絡我們</a></p>
     </div>
   </section>
 
