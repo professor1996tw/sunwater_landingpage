@@ -247,6 +247,10 @@
   .price{ background:#fff; border:1px solid var(--rule); border-radius:6px; padding:28px 24px; display:flex; flex-direction:column; }
   .price.feat{ border-color:var(--gold); box-shadow:0 12px 34px rgba(199,143,60,.14); }
   .price .ptag{ align-self:flex-start; font-size:12px; color:var(--gold); border:1px solid var(--gold-soft); border-radius:100px; padding:3px 12px; margin-bottom:10px; }
+  /* 沒有標籤的卡片預留等高空位，讓四張卡的方案名與價格對齊 */
+  @media(min-width:521px){
+    .price:not(.feat)::before{ content:"最受歡迎"; align-self:flex-start; font-size:12px; border:1px solid transparent; border-radius:100px; padding:3px 12px; margin-bottom:10px; visibility:hidden; }
+  }
   .price .pn{ font-size:15px; color:var(--ink-3); letter-spacing:.06em; }
   .price .pp{ font-family:var(--serif); font-size:33px; color:var(--navy); line-height:1.1; margin:6px 0 16px; }
   .price .pp small{ font-size:15px; color:var(--ink-3); }
